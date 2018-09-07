@@ -1,0 +1,102 @@
+# Copyright 2018 Nutanix Inc
+# 
+# Configuration to deploy the CSI Nutanix plugin compatible with Kubernetes >=v1.10
+#
+# example usage: kubectl create -f <this_file>
+
+---
+kind: DaemonSet
+apiVersion: apps/v1beta2
+metadata:
+  name: csi-ntnx-plugin
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: csi-ntnx-plugin
+  template:
+    metadata:
+      labels:
+        app: csi-ntnx-plugin
+    spec:
+      serviceAccount: csi-ntnx-plugin
+      hostNetwork: true
+      containers:
+        - name: driver-registrar
+          image: quay.io/k8scsi/driver-registrar:v0.2.0
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi/
+              # TODO: the registrar is not implemented yet
+              # - name: registrar-socket-dir
+              #   mountPath: /var/lib/csi/sockets/
+        - name: csi-ntnx-plugin 
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+          image: ntnx/ntnx-csi:beta
+          args :
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--nodeid=$(NODE_ID)"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi.sock
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet
+              # needed so that any mounts setup inside this container are
+              # propagated back to the host machine.
+              mountPropagation: "Bidirectional"
+            - mountPath: /dev
+              name: device-dir
+            - mountPath: /etc/iscsi
+              name: iscsi-dir
+            - mountPath: /sbin/iscsiadm
+              name: iscsiadm
+            - mountPath: /lib/modules
+              name: lib-dir
+      volumes:
+        # TODO: the registar is not implemented yet
+        #- name: registrar-socket-dir
+        #  hostPath:
+        #    path: /var/lib/kubelet/device-plugins/
+        #    type: DirectoryOrCreate
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/com.nutanix.csi
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+        - name: device-dir
+          hostPath:
+            path: /dev
+        - name: iscsi-dir
+          hostPath:
+            path: /etc/iscsi
+            type: Directory
+        - name: iscsiadm
+          hostPath:
+            path: /sbin/iscsiadm
+            type: File
+        - name: lib-dir
+          hostPath:
+            path: /lib/modules
+            type: Directory

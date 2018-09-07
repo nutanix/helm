@@ -1,0 +1,51 @@
+# Copyright 2018 Nutanix Inc
+# 
+# Configuration to deploy the CSI Nutanix plugin compatible with Kubernetes >=v1.10
+#
+# example usage: kubectl create -f <this_file>
+
+kind: StatefulSet
+apiVersion: apps/v1beta1
+metadata:
+  name: csi-attacher-ntnx-plugin
+  namespace: kube-system
+spec:
+  serviceName: "csi-attacher-ntnx-plugin"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: csi-attacher-ntnx-plugin
+    spec:
+      serviceAccount: csi-attacher
+      containers:
+        - name: csi-attacher
+          image: quay.io/k8scsi/csi-attacher:v0.2.0
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+          env:
+            - name: ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: nutanix-csi-plugin
+          image: ntnx/ntnx-csi:beta
+          args :
+            - "--nodeid=$(NODE_ID)"
+            - "--endpoint=$(CSI_ENDPOINT)"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+      volumes:
+        - name: socket-dir
+          emptyDir: {}

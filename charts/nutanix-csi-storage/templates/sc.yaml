@@ -1,0 +1,17 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+    name: nutanix-abs
+{{- if .Values.defaultStorageClass }}
+    annotations:
+        storageclass.kubernetes.io/is-default-class: "true"
+{{- end }}
+provisioner: com.nutanix.csi
+parameters:
+    csiProvisionerSecretName: ntnx-secret
+    csiProvisionerSecretNamespace: default
+    csiNodePublishSecretName: ntnx-secret
+    csiNodePublishSecretNamespace: default
+    dataServiceEndPoint: {{ .Values.dataServiceEndPoint }}
+    storageContainer: {{ .Values.storageContainer }}
+    fsType: {{ .Values.fsType }}
