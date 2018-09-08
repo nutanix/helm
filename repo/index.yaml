@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  nutanix-csi-storage:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-09-08T08:07:45.94837851+02:00
+    description: A Helm chart for installing Nutanix CSI Drivers
+    digest: b6f541a4251b2da3d25c00090a805505c94e1250c1551f53f58fc33f1f6b93fd
+    name: nutanix-csi-storage
+    urls:
+    - https://github.com/nutanix/helm/blob/master/repo/nutanix-csi-storage-0.1.0.tgz
+    version: 0.1.0
+generated: 2018-09-08T08:07:45.943769623+02:00
