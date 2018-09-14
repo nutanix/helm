@@ -1,7 +1,7 @@
 # Nutanix Helm Charts repository
 
-Adding repo:
+## Adding the chart repository:
 
-```
+```code
 helm repo add nutanix https://nutanix.github.io/helm/
 ```
