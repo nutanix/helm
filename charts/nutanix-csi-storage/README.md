@@ -1,4 +1,4 @@
-# Nutanix CSI plugin Helm chart
+# Nutanix CSI Volume Driver Helm chart
 
 ## Introduction
 
