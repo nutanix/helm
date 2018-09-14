@@ -34,7 +34,10 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          image: ntnx/ntnx-csi:beta
+          image: ntnx/ntnx-csi:beta2
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"

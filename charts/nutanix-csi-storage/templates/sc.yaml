@@ -1,8 +1,8 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-    name: nutanix-abs
-{{- if .Values.defaultStorageClass }}
+    name: nutanix-volume
+{{- if eq .Values.defaultStorageClass "volume" }}
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
 {{- end }}
@@ -15,3 +15,17 @@ parameters:
     dataServiceEndPoint: {{ .Values.dataServiceEndPoint }}
     storageContainer: {{ .Values.storageContainer }}
     fsType: {{ .Values.fsType }}
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+    name: nutanix-file
+{{- if eq .Values.defaultStorageClass "file" }}
+    annotations:
+        storageclass.kubernetes.io/is-default-class: "true"
+{{- end }}
+provisioner: com.nutanix.csi
+parameters:
+    nfsServer: {{ .Values.fileHost }}
+    nfsPath: {{ .Values.filePath }}
+

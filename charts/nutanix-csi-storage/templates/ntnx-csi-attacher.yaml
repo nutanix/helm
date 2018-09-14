@@ -32,7 +32,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          image: ntnx/ntnx-csi:beta
+          image: ntnx/ntnx-csi:beta2
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
