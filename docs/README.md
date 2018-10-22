@@ -12,5 +12,5 @@ helm repo add nutanix https://nutanix.github.io/helm/
 - Go to `Global -> Catalogs`
 - Click on `Add Catalog`
 - Fill in the fields
-  - Name: `Nutanix`
+  - Name: `nutanix`
   - Catalog URL: `https://nutanix.github.io/helm/`
