@@ -2,14 +2,15 @@ questions:
     - variable: defaultStorageClass
       type: enum
       options: ["volume","file","none"]
+      default: "volume"
       description: "Select the default Storage Class you want"
     - variable: prismEndPoint
       type: string
-      description: "Please specify tue cluster virtual ip address"
+      description: "Please specify the cluster virtual address"
       group: "Nutanix Volumes Settings"
     - variable: dataServiceEndPoint
       type: string
-      description: "Please specify the ISCSI data services ip address"
+      description: "Please specify the ISCSI data services address"
       group: "Nutanix Volumes Settings"
     - variable: username
       type: string
@@ -30,7 +31,7 @@ questions:
       group: "Nutanix Volumes Settings"
     - variable: fileHost
       type: string
-      description: "Specify Nutanix Files ip adress"
+      description: "Specify Nutanix Files adress"
       group: "Nutanix Files Settings"
     - variable: filePath
       type: string
