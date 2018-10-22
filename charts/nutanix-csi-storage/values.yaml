@@ -5,7 +5,7 @@
 
 volumeClass: true
 fileClass: false
-defaultStorageClass: volume
+defaultStorageClass: none
 
 prismEndPoint: 10.0.0.1
 dataServiceEndPoint: 10.0.0.2
