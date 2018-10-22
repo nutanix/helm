@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "beta2"
 description: A Helm chart for installing Nutanix CSI Volume Driver
 name: nutanix-csi-storage
-version: 0.2.0
+version: 0.2.5
