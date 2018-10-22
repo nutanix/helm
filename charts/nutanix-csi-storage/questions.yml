@@ -31,7 +31,7 @@ questions:
       group: "Nutanix Volumes Settings"
     - variable: fileHost
       type: string
-      description: "Specify Nutanix Files adress"
+      description: "Specify Nutanix Files address"
       group: "Nutanix Files Settings"
     - variable: filePath
       type: string
