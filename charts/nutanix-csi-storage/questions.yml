@@ -1,0 +1,26 @@
+questions:
+    - variable: prismEndPoint
+      type: string
+      description: "Please specify tue cluster virtual ip address"
+      group: "Nutanix Volume Settings"
+    - variable: dataServiceEndPoint
+      type: string
+      description: "Please specify the ISCSI data services ip address"
+      group: "Nutanix Volume Settings"
+    - variable: username
+      type: string
+      description: "Specify username with cluster admin permission"
+      group: "Nutanix Volume Settings"
+    - variable: password
+      type: password
+      description: "Specify password of the user"
+      group: "Nutanix Volume Settings"
+    - variable: storageContainer
+      type: string
+      description: "Specify Nutanix container name where the Persistent Volume will be stored"
+      group: "Nutanix Volume Settings"
+    - variable: fsType
+      type: enum
+      options: [ "xfs", "ext4"]
+      description: "Select the filesystem for the Persistent Volume"
+      group: "Nutanix Volume Settings"
