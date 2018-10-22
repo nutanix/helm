@@ -3,13 +3,17 @@
 # Declare variables to be passed into your templates.
 
 
+volumeClass: true
+fileClass: false
+defaultStorageClass: volume
+
 prismEndPoint: 10.0.0.1
 dataServiceEndPoint: 10.0.0.2
 username: admin
 password: nutanix/4u
 storageContainer: default
 fsType: xfs
-defaultStorageClass: volume
+
 
 fileHost: 10.0.0.3
 filePath: share

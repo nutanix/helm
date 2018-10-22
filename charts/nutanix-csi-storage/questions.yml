@@ -1,4 +1,14 @@
 questions:
+    - variable: volumeClass
+      type: boolean
+      default: true
+      description: "Activate Storage Class based on Nutanix Volumes"
+      group: "global Settings"
+    - variable: fileClass
+      type: boolean
+      default: false
+      description: "Activate Storage Class based on Nutanix Files"
+      group: "global Settings"
     - variable: defaultStorageClass
       type: enum
       options: ["volume","file","none"]
