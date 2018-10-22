@@ -15,10 +15,9 @@ questions:
       label: "Default Storage Class"
       type: enum
       default: "none"
-      options: ["volume","file"]
+      options: ["none","volume","file"]
       description: "Select the default Storage Class you want"
       group: "global Settings"
-      show_if: "volumeClass=true&&fileClass=true"
     
 
     - variable: prismEndPoint

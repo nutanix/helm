@@ -3,7 +3,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
     name: nutanix-volume
-{{- if or ( eq .Values.defaultStorageClass "volume" ) ( eq .Values.defaultStorageClass "none") }}
+{{- if eq .Values.defaultStorageClass "volume" }}
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
 {{- end }}
@@ -23,7 +23,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
     name: nutanix-file
-{{- if or ( eq .Values.defaultStorageClass "file" ) ( eq .Values.defaultStorageClass "none") }}
+{{- if eq .Values.defaultStorageClass "file" }}
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
 {{- end }}
