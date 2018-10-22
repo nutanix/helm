@@ -47,9 +47,11 @@ questions:
       description: "Specify Nutanix Files address"
       group: "Nutanix Files Settings"
       show_if: "storageClass=file"
+      show_if: "storageClass=both"
     - variable: filePath
       label: "Export share"
       type: string
       description: "Specify Nutanix Files share path"
       group: "Nutanix Files Settings"
       show_if: "storageClass=file"
+      show_if: "storageClass=both"
