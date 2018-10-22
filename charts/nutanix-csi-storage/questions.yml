@@ -14,6 +14,7 @@ questions:
     - variable: defaultStorageClass
       label: "Default Storage Class"
       type: enum
+      default: "none"
       options: ["volume","file"]
       description: "Select the default Storage Class you want"
       group: "global Settings"
