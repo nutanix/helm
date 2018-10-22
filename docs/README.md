@@ -6,7 +6,7 @@ Adding the chart repository:
 helm repo add nutanix https://nutanix.github.io/helm/
 ```
 
-# Adding Nutanix repository to Rancher 2.X
+## Adding Nutanix repository to Rancher 2.X
 
 Go to `Global -> Catalogs`
 Click on `Add Catalog`
