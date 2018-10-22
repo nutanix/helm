@@ -9,7 +9,7 @@ questions:
     - variable: defaultStorageClass
       label: "Default Storage Class"
       type: enum
-      options: ["volume","none"]
+      options: ["volume","file"]
       default: "volume"
       description: "Select the default Storage Class you want"
       group: "global Settings"
@@ -19,39 +19,43 @@ questions:
       type: string
       description: "Please specify the cluster virtual address"
       group: "Nutanix Volumes Settings"
+      show_if: "storageClass=volume||storageClass=both"
     - variable: dataServiceEndPoint
       type: string
       description: "Please specify the ISCSI data services address"
       group: "Nutanix Volumes Settings"
+      show_if: "storageClass=volume||storageClass=both"
     - variable: username
       type: string
       description: "Specify username with cluster admin permission"
       group: "Nutanix Volumes Settings"
+      show_if: "storageClass=volume||storageClass=both"
     - variable: password
       type: password
       description: "Specify password of the user"
       group: "Nutanix Volumes Settings"
+      show_if: "storageClass=volume||storageClass=both"
     - variable: storageContainer
       type: string
       description: "Specify Nutanix container name where the Persistent Volume will be stored"
       group: "Nutanix Volumes Settings"
+      show_if: "storageClass=volume||storageClass=both"
     - variable: fsType
       type: enum
       options: [ "xfs", "ext4"]
       description: "Select the filesystem for the Persistent Volume"
       group: "Nutanix Volumes Settings"
+      show_if: "storageClass=volume||storageClass=both"
 
     - variable: fileHost
       label: "File Server Address"
       type: string
       description: "Specify Nutanix Files address"
       group: "Nutanix Files Settings"
-      show_if: "storageClass=file"
-      show_if: "storageClass=both"
+      show_if: "storageClass=file||storageClass=both"
     - variable: filePath
       label: "Export share"
       type: string
       description: "Specify Nutanix Files share path"
       group: "Nutanix Files Settings"
-      show_if: "storageClass=file"
-      show_if: "storageClass=both"
+      show_if: "storageClass=file||storageClass=both"
