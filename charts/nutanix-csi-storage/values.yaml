@@ -3,7 +3,8 @@
 # Declare variables to be passed into your templates.
 
 
-storageClass: volume
+volumeClass: true
+fileClass: false
 defaultStorageClass: volume
 
 prismEndPoint: 10.0.0.1

@@ -1,3 +1,4 @@
+{{- if eq .Values.volumeClass true }}
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -9,13 +10,15 @@ metadata:
 provisioner: com.nutanix.csi
 parameters:
     csiProvisionerSecretName: ntnx-secret
-    csiProvisionerSecretNamespace: default
+    csiProvisionerSecretNamespace: {{ .Release.Namespace }}
     csiNodePublishSecretName: ntnx-secret
-    csiNodePublishSecretNamespace: default
+    csiNodePublishSecretNamespace: {{ .Release.Namespace }}
     dataServiceEndPoint: {{ .Values.dataServiceEndPoint }}
     storageContainer: {{ .Values.storageContainer }}
     fsType: {{ .Values.fsType }}
+{{- end }}
 ---
+{{- if eq .Values.fileClass true }}
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -28,4 +31,4 @@ provisioner: com.nutanix.csi
 parameters:
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
-
+{{- end }}
