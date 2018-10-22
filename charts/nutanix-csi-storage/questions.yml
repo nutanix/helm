@@ -1,28 +1,20 @@
 questions:
-    - variable: volumeClass
-      type: boolean
-      default: true
-      description: "Activate Storage Class based on Nutanix Volumes"
-      group: "global Settings"
-    - variable: fileClass
-      type: boolean
-      default: false
-      description: "Activate Storage Class based on Nutanix Files"
+    - variable: storageClass
+      label: "Storage Class"
+      type: enum
+      default: "volume"
+      description: "Select Storage Class you want activate"
+      options: ["volume","file","both"]
       group: "global Settings"
     - variable: defaultStorageClass
+      label: "Default Storage Class"
       type: enum
       options: ["volume","none"]
       default: "volume"
       description: "Select the default Storage Class you want"
       group: "global Settings"
-      show_if: "fileClass=false"
-    - variable: defaultStorageClass
-      type: enum
-      options: ["volume","file","none"]
-      default: "volume"
-      description: "Select the default Storage Class you want"
-      group: "global Settings"
-      show_if: "fileClass=true"
+      show_if: "storageClass=both"
+
     - variable: prismEndPoint
       type: string
       description: "Please specify the cluster virtual address"
@@ -48,11 +40,16 @@ questions:
       options: [ "xfs", "ext4"]
       description: "Select the filesystem for the Persistent Volume"
       group: "Nutanix Volumes Settings"
+
     - variable: fileHost
+      label: "File Server Address"
       type: string
       description: "Specify Nutanix Files address"
       group: "Nutanix Files Settings"
+      show_if: "storageClass=file"
     - variable: filePath
+      label: "Export share"
       type: string
-      description: "pecify Nutanix Files share name"
+      description: "Specify Nutanix Files share path"
       group: "Nutanix Files Settings"
+      show_if: "storageClass=file"
