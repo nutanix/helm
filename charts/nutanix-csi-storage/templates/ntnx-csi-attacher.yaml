@@ -8,7 +8,7 @@ kind: StatefulSet
 apiVersion: apps/v1beta1
 metadata:
   name: csi-attacher-ntnx-plugin
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
 spec:
   serviceName: "csi-attacher-ntnx-plugin"
   replicas: 1

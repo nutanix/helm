@@ -9,7 +9,7 @@ kind: StatefulSet
 apiVersion: apps/v1beta1
 metadata:
   name: csi-provisioner-ntnx-plugin
-  namespace: kube-system
+  namespace: {{ .Release.Namespace }}
 spec:
   serviceName: "csi-provisioner-ntnx-plugin"
   replicas: 1
