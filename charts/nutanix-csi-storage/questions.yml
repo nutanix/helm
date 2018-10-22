@@ -14,6 +14,8 @@ questions:
       options: ["volume","file","none"]
       default: "volume"
       description: "Select the default Storage Class you want"
+      group: "global Settings"
+      show_if: "volumeClass=true"
     - variable: prismEndPoint
       type: string
       description: "Please specify the cluster virtual address"
