@@ -52,7 +52,7 @@ questions:
       group: "Nutanix Volumes Settings"
       show_if: "volumeClass=true"
     - variable: fsType
-      labenl: "Filesystem"
+      label: "Filesystem"
       type: enum
       options: [ "xfs", "ext4"]
       description: "Select the filesystem for the Persistent Volume"
