@@ -1,26 +1,38 @@
 questions:
+    - variable: defaultStorageClass
+      type: enum
+      options: ["volume","file","none"]
+      description: "Select the default Storage Class you want"
     - variable: prismEndPoint
       type: string
       description: "Please specify tue cluster virtual ip address"
-      group: "Nutanix Volume Settings"
+      group: "Nutanix Volumes Settings"
     - variable: dataServiceEndPoint
       type: string
       description: "Please specify the ISCSI data services ip address"
-      group: "Nutanix Volume Settings"
+      group: "Nutanix Volumes Settings"
     - variable: username
       type: string
       description: "Specify username with cluster admin permission"
-      group: "Nutanix Volume Settings"
+      group: "Nutanix Volumes Settings"
     - variable: password
       type: password
       description: "Specify password of the user"
-      group: "Nutanix Volume Settings"
+      group: "Nutanix Volumes Settings"
     - variable: storageContainer
       type: string
       description: "Specify Nutanix container name where the Persistent Volume will be stored"
-      group: "Nutanix Volume Settings"
+      group: "Nutanix Volumes Settings"
     - variable: fsType
       type: enum
       options: [ "xfs", "ext4"]
       description: "Select the filesystem for the Persistent Volume"
-      group: "Nutanix Volume Settings"
+      group: "Nutanix Volumes Settings"
+    - variable: fileHost
+      type: string
+      description: "Specify Nutanix Files ip adress"
+      group: "Nutanix Files Settings"
+    - variable: filePath
+      type: string
+      description: "pecify Nutanix Files share name"
+      group: "Nutanix Files Settings"
