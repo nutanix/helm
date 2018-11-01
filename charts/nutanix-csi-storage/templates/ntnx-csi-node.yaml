@@ -23,13 +23,16 @@ spec:
       hostNetwork: true
       containers:
         - name: driver-registrar
-          image: quay.io/k8scsi/driver-registrar:v0.2.0
+          image: quay.io/k8scsi/driver-registrar:v0.3.0
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
+            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/com.nutanix.csi/csi.sock
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -37,9 +40,8 @@ spec:
           volumeMounts:
             - name: plugin-dir
               mountPath: /csi/
-              # TODO: the registrar is not implemented yet
-              # - name: registrar-socket-dir
-              #   mountPath: /var/lib/csi/sockets/
+            - name: registration-dir
+              mountPath: /registration
         - name: csi-ntnx-plugin 
           securityContext:
             privileged: true
@@ -72,11 +74,10 @@ spec:
             - mountPath: /lib/modules
               name: lib-dir
       volumes:
-        # TODO: the registar is not implemented yet
-        #- name: registrar-socket-dir
-        #  hostPath:
-        #    path: /var/lib/kubelet/device-plugins/
-        #    type: DirectoryOrCreate
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/
+            type: Directory
         - name: plugin-dir
           hostPath:
             path: /var/lib/kubelet/plugins/com.nutanix.csi
