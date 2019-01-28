@@ -5,13 +5,16 @@
 # example usage: kubectl create -f <this_file>
 
 kind: StatefulSet
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: csi-attacher-ntnx-plugin
   namespace: {{ .Release.Namespace }}
 spec:
   serviceName: "csi-attacher-ntnx-plugin"
   replicas: 1
+  selector:
+    matchLabels:
+      app: csi-attacher-ntnx-plugin
   template:
     metadata:
       labels:
@@ -20,7 +23,11 @@ spec:
       serviceAccount: csi-attacher
       containers:
         - name: csi-attacher
-          image: quay.io/k8scsi/csi-attacher:v0.2.0
+          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+          image: {{ .Values.attacherImageFinal }}
+          {{- else}}
+          image: {{ .Values.attacherImageBeta }}
+          {{- end }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -32,7 +39,11 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          image: ntnx/ntnx-csi:beta2
+          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+          image: {{ .Values.ntnxImageFinal }}
+          {{- else}}
+          image: {{ .Values.ntnxImageBeta }}
+          {{- end }}
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"

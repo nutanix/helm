@@ -6,7 +6,7 @@
 
 ---
 kind: DaemonSet
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 metadata:
   name: csi-ntnx-plugin
   namespace: {{ .Release.Namespace }}
@@ -23,7 +23,11 @@ spec:
       hostNetwork: true
       containers:
         - name: driver-registrar
-          image: quay.io/k8scsi/driver-registrar:v0.3.0
+          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+          image: {{ .Values.nodeImageFinal }}
+          {{- else}}
+          image: {{ .Values.nodeImageBeta }}
+          {{- end }} 
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -46,7 +50,11 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: ntnx/ntnx-csi:beta2
+          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+          image: {{ .Values.ntnxImageFinal }}
+          {{- else}}
+          image: {{ .Values.ntnxImageBeta }}
+          {{- end }} 
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
@@ -73,14 +81,24 @@ spec:
               name: iscsiadm
             - mountPath: /lib/modules
               name: lib-dir
+            - mountPath: /usr/lib64/libisns-nocrypto.so.0
+              name: libisns
       volumes:
         - name: registration-dir
           hostPath:
+            {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+            path: /var/lib/kubelet/plugins_registry/
+            {{- else}}
             path: /var/lib/kubelet/plugins/
+            {{- end }}
             type: Directory
         - name: plugin-dir
           hostPath:
+            {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+            path: /var/lib/kubelet/plugins/com.nutanix.csi/
+            {{- else}}
             path: /var/lib/kubelet/plugins/com.nutanix.csi
+            {{- end }}
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
@@ -101,3 +119,7 @@ spec:
           hostPath:
             path: /lib/modules
             type: Directory
+        - name: libisns
+          hostPath:
+            path: /lib/x86_64-linux-gnu/libisns-nocrypto.so.0
+            type: File
