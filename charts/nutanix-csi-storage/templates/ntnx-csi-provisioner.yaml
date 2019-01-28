@@ -6,13 +6,16 @@
 
 ---
 kind: StatefulSet
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: csi-provisioner-ntnx-plugin
   namespace: {{ .Release.Namespace }}
 spec:
   serviceName: "csi-provisioner-ntnx-plugin"
   replicas: 1
+  selector:
+    matchLabels:
+      app: csi-provisioner-ntnx-plugin
   template:
     metadata:
       labels:
@@ -21,7 +24,11 @@ spec:
       serviceAccount: csi-provisioner
       containers:
         - name: csi-provisioner
-          image: quay.io/k8scsi/csi-provisioner:v0.2.0
+          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+          image: {{ .Values.provisionerImageFinal }}
+          {{- else}}
+          image: {{ .Values.provisionerImageBeta }}
+          {{- end }}
           args:
             - "--provisioner=com.nutanix.csi"
             - "--csi-address=$(ADDRESS)"
@@ -34,7 +41,11 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          image: ntnx/ntnx-csi:beta2
+          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
+          image: {{ .Values.ntnxImageFinal }}
+          {{- else}}
+          image: {{ .Values.ntnxImageBeta }}
+          {{- end }} 
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
