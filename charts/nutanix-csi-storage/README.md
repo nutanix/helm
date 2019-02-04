@@ -40,8 +40,8 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 
 |            Parameter         |                Description             |             Default            |
 |------------------------------|----------------------------------------|--------------------------------|
-| `volumeClass`                | Activate Nuntanix Volumes Storage Class | `true`
-| `fileClass`                  | Activate Nuntanix Files Storage Class | `false`
+| `volumeClass`                | Activate Nutanix Volumes Storage Class | `true`
+| `fileClass`                  | Activate Nutanix Files Storage Class | `false`
 | `defaultStorageClass`| Choose your default Storage Class (none, volume, file) | `none`|
 | `prismEndPoint` | Cluster Virtual IP Address |`10.0.0.1`|
 | `dataServiceEndPoint`| Prism data service IP |`10.0.0.2`|
