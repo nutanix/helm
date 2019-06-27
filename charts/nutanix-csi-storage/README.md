@@ -15,6 +15,7 @@ When Files is used for persistent storage, applications on multiple pods can acc
 
 - Kubernetes 1.10 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
+- This chart have been validated on CentOS and Ubuntu, behaviour on other distribution can be unexpected
 
 ## Installing the Chart
 
