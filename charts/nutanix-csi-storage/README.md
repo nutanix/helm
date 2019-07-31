@@ -41,6 +41,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 
 |            Parameter         |                Description             |             Default            |
 |------------------------------|----------------------------------------|--------------------------------|
+| `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
 | `volumeClass`                | Activate Nutanix Volumes Storage Class | `true`
 | `fileClass`                  | Activate Nutanix Files Storage Class | `false`
 | `defaultStorageClass`| Choose your default Storage Class (none, volume, file) | `none`|
@@ -56,5 +57,5 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install --name nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume
+helm install --name nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume --set os=centos
 ```

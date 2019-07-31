@@ -22,6 +22,8 @@ ntnxImageBeta: ntnx/ntnx-csi:beta2
 
 #parameters
 
+os: none
+
 volumeClass: true
 fileClass: false
 defaultStorageClass: none
