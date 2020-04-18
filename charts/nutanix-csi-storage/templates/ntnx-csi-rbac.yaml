@@ -1,5 +1,5 @@
 # Copyright 2018 Nutanix Inc
-# 
+#
 # Configuration to deploy the CSI Nutanix plugin compatible with Kubernetes >=v1.10
 #
 # example usage: kubectl create -f <this_file>
@@ -91,7 +91,7 @@ rules:
   - apiGroups: [""]
     resources: ["events"]
     verbs: ["list", "watch", "create", "update", "patch"]
-    
+
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -162,5 +162,4 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: csi-ntnx-plugin
-  apiGroup: rbac.authorization.k8s.io          
-
+  apiGroup: rbac.authorization.k8s.io

@@ -23,7 +23,7 @@ spec:
       serviceAccount: csi-attacher
       containers:
         - name: csi-attacher
-          image: quay.io/k8scsi/csi-attacher:v0.4.2
+          image: quay.io/k8scsi/csi-attacher:v1.0.1
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -35,7 +35,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          image: ntnx/ntnx-csi:beta2
+          image: ntnx/ntnx-csi:v1.0.1
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"

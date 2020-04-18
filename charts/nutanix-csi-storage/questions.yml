@@ -21,7 +21,7 @@ questions:
   - variable: os
     label: "Host Operating System"
     type: enum
-    options: ["centos"]
+    options: ["centos", "ubuntu"]
     description: "Select your Container Host Operating System"
     group: "global Settings"
 
