@@ -34,6 +34,7 @@ metadata:
 {{- end }}
 provisioner: com.nutanix.csi
 parameters:
+    storageType: NutanixFiles
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
 {{- end }}
