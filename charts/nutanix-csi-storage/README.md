@@ -8,9 +8,10 @@ When Files is used for persistent storage, applications on multiple pods can acc
 
 ## Features list
 
-- Nutanix CSI Driver v1.0.1
+- Nutanix CSI Driver v1.1.1
 - Nutanix Volumes support
 - Nutanix Files support
+- Volume resize support ( Kubernetes >= 1.16.0 )
 
 ## Prerequisites
 
