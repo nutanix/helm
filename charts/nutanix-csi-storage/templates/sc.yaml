@@ -9,6 +9,7 @@ metadata:
 {{- end }}
 provisioner: com.nutanix.csi
 parameters:
+    storageType: NutanixVolumes
     csiProvisionerSecretName: ntnx-secret
     csiProvisionerSecretNamespace: {{ .Release.Namespace }}
     csiNodePublishSecretName: ntnx-secret
@@ -29,6 +30,7 @@ metadata:
 {{- end }}
 provisioner: com.nutanix.csi
 parameters:
+    storageType: NutanixFiles
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
 {{- end }}

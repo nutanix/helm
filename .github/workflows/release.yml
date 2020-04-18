@@ -1,9 +1,6 @@
 name: Release Charts
 
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
   release:
