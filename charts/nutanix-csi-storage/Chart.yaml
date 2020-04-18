@@ -1,7 +1,7 @@
 apiVersion: v1
 name: nutanix-csi-storage
 version: 0.9.4
-kubeVersion: ">= 1.13.0 < 1.17.0"
+kubeVersion: ">= 1.13.0"
 description: A Helm chart for installing Nutanix CSI Volume Driver
 home: https://github.com/nutanix/helm
 maintainers:
