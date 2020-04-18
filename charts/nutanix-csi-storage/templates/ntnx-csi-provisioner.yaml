@@ -24,7 +24,7 @@ spec:
       serviceAccount: csi-provisioner
       containers:
         - name: csi-provisioner
-          image: quay.io/k8scsi/csi-provisioner:v0.4.2
+          image: quay.io/k8scsi/csi-provisioner:v1.0.1
           args:
             - "--provisioner=com.nutanix.csi"
             - "--csi-address=$(ADDRESS)"
@@ -37,7 +37,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          image: ntnx/ntnx-csi:beta2
+          image: ntnx/ntnx-csi:v1.0.1
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
