@@ -2,8 +2,68 @@ apiVersion: v1
 entries:
   nutanix-csi-storage:
   - apiVersion: v1
+    appVersion: 1.0.1
+    created: "2019-07-31T14:11:53.693046+02:00"
+    description: A Helm chart for installing Nutanix CSI Volume Driver
+    digest: 1aafa45d431a2b9fb204f0b6fa1728fd77c72c4e340947969b38cc6bc21a0b71
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Volumes
+    - Files
+    - StorageClass
+    - CentOS
+    - Ubuntu
+    maintainers:
+    - name: tuxtof
+    name: nutanix-csi-storage
+    urls:
+    - https://nutanix.github.io/helm/nutanix-csi-storage-0.8.0.tgz
+    version: 0.8.0
+  - apiVersion: v1
+    appVersion: 1.0.1
+    created: "2019-07-31T14:11:53.692635+02:00"
+    description: A Helm chart for installing Nutanix CSI Volume Driver
+    digest: 27d0b5058d4dab919a222d6f14221e1a891cd01ad4141c6a07181f30e70e4b4a
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Volumes
+    - Files
+    - StorageClass
+    - CentOS
+    - Ubuntu
+    maintainers:
+    - name: tuxtof
+    name: nutanix-csi-storage
+    urls:
+    - https://nutanix.github.io/helm/nutanix-csi-storage-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-07-31T14:11:53.692239+02:00"
+    description: A Helm chart for installing Nutanix CSI Volume Driver
+    digest: 4edcf65be4800a5afa6eed53adddc97dc8fb1bc3ac085cbdccccc2c8c0ebad4b
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Volumes
+    - Files
+    - StorageClass
+    - CentOS
+    - Ubuntu
+    maintainers:
+    - name: tuxtof
+    name: nutanix-csi-storage
+    urls:
+    - https://nutanix.github.io/helm/nutanix-csi-storage-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v1
     appVersion: beta2
-    created: 2018-11-01T09:29:40.735499873+01:00
+    created: "2019-07-31T14:11:53.691802+02:00"
     description: A Helm chart for installing Nutanix CSI Volume Driver
     digest: 17c9ba989a5455a10f3d7475c4de60ce029c0f9a409e2cb089023328c24f0c9b
     icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
@@ -21,7 +81,7 @@ entries:
     version: 0.4.0
   - apiVersion: v1
     appVersion: beta2
-    created: 2018-11-01T09:29:40.734977991+01:00
+    created: "2019-07-31T14:11:53.690889+02:00"
     description: A Helm chart for installing Nutanix CSI Volume Driver
     digest: be1e85f3bc214c2c273b9d1fed31a119b9c5d883b4aacb116a50fed1ccc1abf8
     icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
@@ -39,7 +99,7 @@ entries:
     version: 0.3.0
   - apiVersion: v1
     appVersion: beta2
-    created: 2018-11-01T09:29:40.733986357+01:00
+    created: "2019-07-31T14:11:53.690424+02:00"
     description: A Helm chart for installing Nutanix CSI Volume Driver
     digest: 0c77b0219941c98e10284db95cb4fde9e46413ca406ae6db3ff2542acda09dff
     name: nutanix-csi-storage
@@ -48,11 +108,11 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: beta
-    created: 2018-11-01T09:29:40.73335966+01:00
+    created: "2019-07-31T14:11:53.690089+02:00"
     description: A Helm chart for installing Nutanix CSI Drivers
     digest: 5707d92f86afc2cdefe48fc8d0846eb6ea3891737a4bc21f7339c74469d974e1
     name: nutanix-csi-storage
     urls:
     - https://nutanix.github.io/helm/nutanix-csi-storage-0.1.0.tgz
     version: 0.1.0
-generated: 2018-11-01T09:29:40.732276458+01:00
+generated: "2019-07-31T14:11:53.68897+02:00"

@@ -18,7 +18,12 @@ questions:
       options: ["none","volume","file"]
       description: "Select the default Storage Class you want"
       group: "global Settings"
-    
+    - variable: os
+      label: "Host Operating System"
+      type: enum
+      options: [ "centos", "ubuntu"]
+      description: "Select your Container Host Operating System"
+      group: "global Settings"
 
     - variable: prismEndPoint
       label: "Prism Endpoint"

@@ -15,6 +15,7 @@ When Files is used for persistent storage, applications on multiple pods can acc
 
 - Kubernetes 1.10 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
+- This chart have been validated on CentOS and Ubuntu, behaviour on other distribution can be unexpected
 
 ## Installing the Chart
 
@@ -40,8 +41,9 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 
 |            Parameter         |                Description             |             Default            |
 |------------------------------|----------------------------------------|--------------------------------|
-| `volumeClass`                | Activate Nuntanix Volumes Storage Class | `true`
-| `fileClass`                  | Activate Nuntanix Files Storage Class | `false`
+| `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
+| `volumeClass`                | Activate Nutanix Volumes Storage Class | `true`
+| `fileClass`                  | Activate Nutanix Files Storage Class | `false`
 | `defaultStorageClass`| Choose your default Storage Class (none, volume, file) | `none`|
 | `prismEndPoint` | Cluster Virtual IP Address |`10.0.0.1`|
 | `dataServiceEndPoint`| Prism data service IP |`10.0.0.2`|
@@ -55,5 +57,5 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install --name nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume
+helm install --name nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume --set os=centos
 ```

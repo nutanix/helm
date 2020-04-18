@@ -17,10 +17,12 @@ provisionerImageBeta: quay.io/k8scsi/csi-provisioner:v0.4.2
 
 #csi-ntnx
 
-ntnxImageFinal: ntnx/ntnx-csi:v1.0.0
+ntnxImageFinal: ntnx/ntnx-csi:v1.0.1
 ntnxImageBeta: ntnx/ntnx-csi:beta2
 
 #parameters
+
+os: none
 
 volumeClass: true
 fileClass: false
