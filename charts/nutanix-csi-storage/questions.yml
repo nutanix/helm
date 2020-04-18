@@ -1,77 +1,77 @@
 questions:
-    - variable: volumeClass
-      label: "Volumes Storage Class"
-      type: boolean
-      default: true
-      description: "Activate Nutanix Volumes Storage Class"
-      group: "global Settings"
-    - variable: fileClass
-      label: "Files Storage Class"
-      type: boolean
-      default: false 
-      description: "Activate Nutanix Files Storage Class"
-      group: "global Settings"
-    - variable: defaultStorageClass
-      label: "Default Storage Class"
-      type: enum
-      default: "none"
-      options: ["none","volume","file"]
-      description: "Select the default Storage Class you want"
-      group: "global Settings"
-    - variable: os
-      label: "Host Operating System"
-      type: enum
-      options: [ "centos", "ubuntu"]
-      description: "Select your Container Host Operating System"
-      group: "global Settings"
+  - variable: volumeClass
+    label: "Volumes Storage Class"
+    type: boolean
+    default: true
+    description: "Activate Nutanix Volumes Storage Class"
+    group: "global Settings"
+  - variable: fileClass
+    label: "Files Storage Class"
+    type: boolean
+    default: false
+    description: "Activate Nutanix Files Storage Class"
+    group: "global Settings"
+  - variable: defaultStorageClass
+    label: "Default Storage Class"
+    type: enum
+    default: "none"
+    options: ["none", "volume", "file"]
+    description: "Select the default Storage Class you want"
+    group: "global Settings"
+  - variable: os
+    label: "Host Operating System"
+    type: enum
+    options: ["centos"]
+    description: "Select your Container Host Operating System"
+    group: "global Settings"
 
-    - variable: prismEndPoint
-      label: "Prism Endpoint"
-      type: string
-      description: "Please specify the cluster virtual address"
-      group: "Nutanix Volumes Settings"
-      show_if: "volumeClass=true"
-    - variable: dataServiceEndPoint
-      label: "Data Service Endpoint"
-      type: string
-      description: "Please specify the ISCSI data services address"
-      group: "Nutanix Volumes Settings"
-      show_if: "volumeClass=true"
-    - variable: username
-      label: "Username"
-      type: string
-      description: "Specify username with cluster admin permission"
-      group: "Nutanix Volumes Settings"
-      show_if: "volumeClass=true"
-    - variable: password
-      label: "Password"
-      type: password
-      description: "Specify password of the user"
-      group: "Nutanix Volumes Settings"
-      show_if: "volumeClass=true"
-    - variable: storageContainer
-      label: "Storage Container"
-      type: string
-      description: "Specify Nutanix container name where the Persistent Volume will be stored"
-      group: "Nutanix Volumes Settings"
-      show_if: "volumeClass=true"
-    - variable: fsType
-      label: "Filesystem"
-      type: enum
-      options: [ "xfs", "ext4"]
-      description: "Select the filesystem for the Persistent Volume"
-      group: "Nutanix Volumes Settings"
-      show_if: "volumeClass=true"
+  - variable: prismEndPoint
+    label: "Prism Endpoint"
+    type: string
+    description: "Please specify the cluster virtual address"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: dataServiceEndPoint
+    label: "Data Service Endpoint"
+    type: string
+    description: "Please specify the ISCSI data services address"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: username
+    label: "Username"
+    type: string
+    description: "Specify username with cluster admin permission"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: password
+    label: "Password"
+    type: password
+    description: "Specify password of the user"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: storageContainer
+    label: "Storage Container"
+    type: string
+    description: "Specify Nutanix container name where the Persistent Volume will be stored"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: fsType
+    label: "Filesystem"
+    type: enum
+    options: ["xfs", "ext4"]
+    description: "Select the filesystem for the Persistent Volume"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
 
-    - variable: fileHost
-      label: "File Server Address"
-      type: string
-      description: "Specify Nutanix Files address"
-      group: "Nutanix Files Settings"
-      show_if: "fileClass=true"
-    - variable: filePath
-      label: "Export share"
-      type: string
-      description: "Specify Nutanix Files share path"
-      group: "Nutanix Files Settings"
-      show_if: "fileClass=true"
+  - variable: fileHost
+    label: "File Server Address"
+    type: string
+    description: "Specify Nutanix Files address"
+    group: "Nutanix Files Settings"
+    show_if: "fileClass=true"
+  - variable: filePath
+    label: "Export share"
+    type: string
+    description: "Specify Nutanix Files share path"
+    group: "Nutanix Files Settings"
+    show_if: "fileClass=true"
