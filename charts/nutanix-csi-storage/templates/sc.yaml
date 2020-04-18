@@ -10,13 +10,17 @@ metadata:
 provisioner: com.nutanix.csi
 parameters:
     storageType: NutanixVolumes
-    csiProvisionerSecretName: ntnx-secret
-    csiProvisionerSecretNamespace: {{ .Release.Namespace }}
-    csiNodePublishSecretName: ntnx-secret
-    csiNodePublishSecretNamespace: {{ .Release.Namespace }}
+    csi.storage.k8s.io/provisioner-secret-name: ntnx-secret
+    csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
+    csi.storage.k8s.io/node-publish-secret-name: ntnx-secret
+    csi.storage.k8s.io/node-publish-secret-namespace: {{ .Release.Namespace }}
+    csi.storage.k8s.io/controller-expand-secret-name: ntnx-secret
+    csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
     dataServiceEndPoint: {{ .Values.dataServiceEndPoint }}
     storageContainer: {{ .Values.storageContainer }}
-    fsType: {{ .Values.fsType }}
+    csi.storage.k8s.io/fstype: {{ .Values.fsType }}
+allowVolumeExpansion: true
+reclaimPolicy: Delete
 {{- end }}
 ---
 {{- if eq .Values.fileClass true }}

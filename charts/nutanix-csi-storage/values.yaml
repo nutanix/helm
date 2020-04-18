@@ -2,24 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-#container version
-
-#csi-image
-
-attacherImageFinal: quay.io/k8scsi/csi-attacher:v1.0.1
-attacherImageBeta: quay.io/k8scsi/csi-attacher:v0.4.2
-
-nodeImageFinal: quay.io/k8scsi/csi-node-driver-registrar:v1.0.2
-nodeImageBeta: quay.io/k8scsi/driver-registrar:v0.4.2
-
-provisionerImageFinal: quay.io/k8scsi/csi-provisioner:v1.0.1
-provisionerImageBeta: quay.io/k8scsi/csi-provisioner:v0.4.2
-
-#csi-ntnx
-
-ntnxImageFinal: ntnx/ntnx-csi:v1.0.1
-ntnxImageBeta: ntnx/ntnx-csi:beta2
-
 #parameters
 
 os: none
