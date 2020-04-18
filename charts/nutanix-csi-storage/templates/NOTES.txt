@@ -1,1 +1,0 @@
-A Nutanix storage class was created
