@@ -23,11 +23,7 @@ spec:
       serviceAccount: csi-attacher
       containers:
         - name: csi-attacher
-          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
-          image: {{ .Values.attacherImageFinal }}
-          {{- else}}
-          image: {{ .Values.attacherImageBeta }}
-          {{- end }}
+          image: quay.io/k8scsi/csi-attacher:v0.4.2
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -39,11 +35,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: nutanix-csi-plugin
-          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
-          image: {{ .Values.ntnxImageFinal }}
-          {{- else}}
-          image: {{ .Values.ntnxImageBeta }}
-          {{- end }}
+          image: ntnx/ntnx-csi:beta2
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"
