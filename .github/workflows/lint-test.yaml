@@ -24,7 +24,7 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0-rc.1
         with:
-          node_image: v1.12.10@sha256:68a6581f64b54994b824708286fafc37f1227b7b54cbb8865182ce1e036ed1cc
+          node_image: kindest/node:v1.12.10@sha256:68a6581f64b54994b824708286fafc37f1227b7b54cbb8865182ce1e036ed1cc
         if: steps.lint.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
