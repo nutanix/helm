@@ -1,6 +1,4 @@
-# Copyright 2018 Nutanix Inc
-# 
-# Configuration to deploy the CSI Nutanix plugin compatible with Kubernetes >=v1.10
+# Copyright 2019 Nutanix Inc
 #
 # example usage: kubectl create -f <this_file>
 
@@ -8,26 +6,22 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: csi-ntnx-plugin
-  namespace: {{ .Release.Namespace }}
+  name: csi-node-ntnx-plugin
+  namespace: { { .Release.Namespace } }
 spec:
   selector:
     matchLabels:
-      app: csi-ntnx-plugin
+      app: csi-node-ntnx-plugin
   template:
     metadata:
       labels:
-        app: csi-ntnx-plugin
+        app: csi-node-ntnx-plugin
     spec:
-      serviceAccount: csi-ntnx-plugin
+      serviceAccount: csi-node-ntnx-plugin
       hostNetwork: true
       containers:
         - name: driver-registrar
-          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
-          image: {{ .Values.nodeImageFinal }}
-          {{- else}}
-          image: {{ .Values.nodeImageBeta }}
-          {{- end }} 
+          image: quay.io/k8scsi/csi-node-driver-registrar:v1.2.0
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -46,16 +40,12 @@ spec:
               mountPath: /csi/
             - name: registration-dir
               mountPath: /registration
-        - name: csi-ntnx-plugin 
+        - name: csi-node-ntnx-plugin
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
-          image: {{ .Values.ntnxImageFinal }}
-          {{- else}}
-          image: {{ .Values.ntnxImageBeta }}
-          {{- end }} 
-          args :
+          image: ntnx/ntnx-csi:v1.1.1
+          args:
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
           env:
@@ -85,22 +75,34 @@ spec:
             - mountPath: /usr/lib64/libisns-nocrypto.so.0
               name: libisns
             {{- end}}
+          ports:
+            - containerPort: 9808
+              name: healthz
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 2
+            failureThreshold: 3
+        - name: liveness-probe
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /csi
+              name: plugin-dir
+          image: quay.io/k8scsi/livenessprobe:v1.1.0
+          args:
+            - --csi-address=/csi/csi.sock
       volumes:
         - name: registration-dir
           hostPath:
-            {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
             path: /var/lib/kubelet/plugins_registry/
-            {{- else}}
-            path: /var/lib/kubelet/plugins/
-            {{- end }}
             type: Directory
         - name: plugin-dir
           hostPath:
-            {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
             path: /var/lib/kubelet/plugins/com.nutanix.csi/
-            {{- else}}
-            path: /var/lib/kubelet/plugins/com.nutanix.csi
-            {{- end }}
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
