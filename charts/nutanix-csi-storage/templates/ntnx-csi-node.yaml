@@ -23,11 +23,7 @@ spec:
       hostNetwork: true
       containers:
         - name: driver-registrar
-          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
-          image: {{ .Values.nodeImageFinal }}
-          {{- else}}
-          image: {{ .Values.nodeImageBeta }}
-          {{- end }} 
+          image: quay.io/k8scsi/csi-node-driver-registrar:v1.0.1
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -50,11 +46,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
-          image: {{ .Values.ntnxImageFinal }}
-          {{- else}}
-          image: {{ .Values.ntnxImageBeta }}
-          {{- end }} 
+          image: ntnx/ntnx-csi:v1.0.1
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
@@ -88,19 +80,11 @@ spec:
       volumes:
         - name: registration-dir
           hostPath:
-            {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
             path: /var/lib/kubelet/plugins_registry/
-            {{- else}}
-            path: /var/lib/kubelet/plugins/
-            {{- end }}
             type: Directory
         - name: plugin-dir
           hostPath:
-            {{- if semverCompare ">=1.13.0" .Capabilities.KubeVersion.GitVersion }}
             path: /var/lib/kubelet/plugins/com.nutanix.csi/
-            {{- else}}
-            path: /var/lib/kubelet/plugins/com.nutanix.csi
-            {{- end }}
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
