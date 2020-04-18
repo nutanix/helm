@@ -8,7 +8,7 @@ When Files is used for persistent storage, applications on multiple pods can acc
 
 ## Features list
 
-- Nutanix CSI Driver v1.0.1
+- Nutanix CSI Driver v1.1.1
 - Nutanix Volumes support
 - Nutanix Files support
 
@@ -40,20 +40,20 @@ $ helm delete nutanix-csi
 
 The following table lists the configurable parameters of the Nutanix-CSI chart and their default values.
 
-|            Parameter         |                        Description                      |      Default     |
-|------------------------------|---------------------------------------------------------|------------------|
-| `os`                         | Choose your Host Operating System (centos, ubuntu)      | `none`           |
-| `volumeClass`                | Activate Nutanix Volumes Storage Class                  | `true`           |
-| `fileClass`                  | Activate Nutanix Files Storage Class                    | `false`          |
-| `defaultStorageClass`        | Choose your default Storage Class (none, volume, file)  | `none`           |
-| `prismEndPoint`              | Cluster Virtual IP Address                              | `10.0.0.1`       |
-| `dataServiceEndPoint`        | Prism data service IP                                   | `10.0.0.2`       |
-| `username`                   | name used for the admin role                            | `admin`          |
-| `password`                   | password for the admin role                             | `nutanix/4u`     |
-| `storageContainer`           | Nutanix storage container name                          | `default`        |
-| `fsType`                     | type of file system you are using (ext4, xfs)           | `xfs`            |
-| `fileHost`                   | NFS server IP address                                   | `10.0.0.3`       |
-| `filePath`                   | path of the NFS share                                   | `share`          |
+|            Parameter         |                Description             |             Default            |
+|------------------------------|----------------------------------------|--------------------------------|
+| `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
+| `volumeClass`                | Activate Nutanix Volumes Storage Class | `true`
+| `fileClass`                  | Activate Nutanix Files Storage Class | `false`
+| `defaultStorageClass`| Choose your default Storage Class (none, volume, file) | `none`|
+| `prismEndPoint` | Cluster Virtual IP Address |`10.0.0.1`|
+| `dataServiceEndPoint`| Prism data service IP |`10.0.0.2`|
+| `username`| name used for the admin role |`admin`|
+| `password`| password for the admin role |`nutanix/4u`|
+| `storageContainer`| Nutanix storage container name     | `default`|
+| `fsType`| type of file system you are using (ext4, xfs)  |`xfs`|
+| `fileHost`| NFS server IP address | `10.0.0.3`|
+| `filePath`| path of the NFS share |`share`|
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
