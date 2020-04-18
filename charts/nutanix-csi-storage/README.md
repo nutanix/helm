@@ -11,12 +11,13 @@ When Files is used for persistent storage, applications on multiple pods can acc
 - Nutanix CSI Driver v1.1.1
 - Nutanix Volumes support
 - Nutanix Files support
+- Volume resize support ( Kubernetes >= 1.16.0)
 
 ## Prerequisites
 
 - Kubernetes 1.13 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
-- This chart have been validated on CentOS and Ubuntu, behaviour on other distribution can be unexpected
+- This chart have been validated on CentOS and Ubuntu 18.04, behaviour on other distribution can be unexpected
 
 ## Installing the Chart
 
