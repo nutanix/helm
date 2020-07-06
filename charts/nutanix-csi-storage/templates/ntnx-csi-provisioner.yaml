@@ -85,6 +85,14 @@ spec:
           image: quay.io/k8scsi/livenessprobe:v1.1.0
           args:
             - --csi-address=/csi/csi.sock
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       volumes:
         - emptyDir: {}
           name: socket-dir
