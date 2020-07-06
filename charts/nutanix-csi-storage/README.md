@@ -55,6 +55,8 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `fsType`| type of file system you are using (ext4, xfs)  |`xfs`|
 | `fileHost`| NFS server IP address | `10.0.0.3`|
 | `filePath`| path of the NFS share |`share`|
+| `nodeSelector` | add nodeSelector to pods spec | |
+| `tolerations` | add tolerations to pods spec |  |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
