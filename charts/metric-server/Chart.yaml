@@ -1,0 +1,9 @@
+apiVersion: v2
+name: metric-server-0.3.7
+home: https://github.com/nutanix/helm
+description: A Helm chart for Nutanix Karbon
+version: 0.1.0
+appVersion: 0.3.7
+kubeVersion: ">= 1.13.0"
+maintainers:
+- name: nogodan1234
