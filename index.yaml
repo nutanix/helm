@@ -16,6 +16,28 @@ entries:
     version: 0.1.0
   nutanix-csi-storage:
   - apiVersion: v1
+    appVersion: 2.0.0
+    created: "2020-12-02T12:55:26.925335084Z"
+    description: A Helm chart for installing Nutanix CSI Volume Driver
+    digest: e646d7efed7c4660172deed7f754c76fe245243559eff38b067b11943325c1ee
+    home: https://github.com/nutanix/helm
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Volumes
+    - Files
+    - StorageClass
+    - CentOS
+    - Ubuntu
+    kubeVersion: '>= 1.13.0'
+    maintainers:
+    - name: tuxtof
+    name: nutanix-csi-storage
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-2.0.0/nutanix-csi-storage-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v1
     appVersion: 1.1.1
     created: "2020-07-06T22:00:04.8758715Z"
     description: A Helm chart for installing Nutanix CSI Volume Driver
