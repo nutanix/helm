@@ -48,55 +48,55 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
-      - name: csi-snapshotter
-        image: quay.io/k8scsi/csi-snapshotter:v2.1.0
-        args:
-        - --csi-address=$(ADDRESS)
-        - --leader-election=false
-        - --logtostderr=true
-        env:
-        - name: ADDRESS
-          value: /csi/csi.sock
-        volumeMounts:
-        - name: socket-dir
-          mountPath: /csi
-        - name: ntnx-csi-plugin
-          image: ntnx/ntnx-csi:v2.0.0
-          securityContext:
-            allowPrivilegeEscalation: true
-            privileged: true
+        - name: csi-snapshotter
+          image: quay.io/k8scsi/csi-snapshotter:v2.1.0
           args:
-            - --endpoint=$(CSI_ENDPOINT)
-            - --nodeid=$(NODE_ID)
+          - --csi-address=$(ADDRESS)
+          - --leader-election=false
+          - --logtostderr=true
           env:
-            - name: CSI_ENDPOINT
-              value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
-            - name: NODE_ID
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
+          - name: ADDRESS
+            value: /csi/csi.sock
           volumeMounts:
-            - mountPath: /var/lib/csi/sockets/pluginproxy/
-              name: socket-dir
-          ports:
-            - containerPort: 9808
-              name: healthz
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: healthz
-            initialDelaySeconds: 10
-            timeoutSeconds: 3
-            periodSeconds: 2
-            failureThreshold: 3
-        - name: liveness-probe
-          volumeMounts:
-            - mountPath: /csi
-              name: socket-dir
-          image: quay.io/k8scsi/livenessprobe:v1.1.0
-          args:
-            - --csi-address=/csi/csi.sock
+          - name: socket-dir
+            mountPath: /csi
+          - name: ntnx-csi-plugin
+            image: ntnx/ntnx-csi:v2.0.0
+            securityContext:
+              allowPrivilegeEscalation: true
+              privileged: true
+            args:
+              - --endpoint=$(CSI_ENDPOINT)
+              - --nodeid=$(NODE_ID)
+            env:
+              - name: CSI_ENDPOINT
+                value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+              - name: NODE_ID
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+            volumeMounts:
+              - mountPath: /var/lib/csi/sockets/pluginproxy/
+                name: socket-dir
+            ports:
+              - containerPort: 9808
+                name: healthz
+                protocol: TCP
+            livenessProbe:
+              httpGet:
+                path: /healthz
+                port: healthz
+              initialDelaySeconds: 10
+              timeoutSeconds: 3
+              periodSeconds: 2
+              failureThreshold: 3
+          - name: liveness-probe
+            volumeMounts:
+              - mountPath: /csi
+                name: socket-dir
+            image: quay.io/k8scsi/livenessprobe:v1.1.0
+            args:
+              - --csi-address=/csi/csi.sock
     {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
