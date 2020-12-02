@@ -21,6 +21,17 @@ parameters:
     csi.storage.k8s.io/fstype: {{ .Values.fsType }}
 allowVolumeExpansion: true
 reclaimPolicy: Delete
+---
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: nutanix-snapshot-class
+driver: com.nutanix.csi
+parameters:
+  storageType: NutanixVolumes
+  csi.storage.k8s.io/snapshotter-secret-name: ntnx-secret
+  csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
+deletionPolicy: Delete
 {{- end }}
 ---
 {{- if eq .Values.fileClass true }}
