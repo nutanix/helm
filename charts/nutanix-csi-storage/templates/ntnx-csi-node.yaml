@@ -44,7 +44,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: ntnx/ntnx-csi:v2.0.0
+          image: ntnx/ntnx-csi:v2.1.0
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
