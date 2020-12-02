@@ -61,7 +61,7 @@ spec:
           - name: socket-dir
             mountPath: /csi
         - name: ntnx-csi-plugin
-          image: ntnx/ntnx-csi:v2.0.0
+          image: ntnx/ntnx-csi:v2.1.0
           securityContext:
             allowPrivilegeEscalation: true
             privileged: true
