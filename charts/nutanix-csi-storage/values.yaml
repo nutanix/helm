@@ -4,6 +4,12 @@
 
 # parameters
 
+# Legacy mode
+#
+# if legacy set to true we keep the old reverse domain notation for CSI driver name (com.nutanix.csi).
+# need to be set to true only if upgrade and initialy installed with helm package before 2.2.x
+legacy: false
+
 os: none
 
 volumeClass: true
