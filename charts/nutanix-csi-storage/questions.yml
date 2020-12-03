@@ -36,12 +36,6 @@ questions:
     options: ["centos", "ubuntu"]
     description: "Select your Container Host Operating System"
     group: "global Settings"
-  - variable: legacy
-    label: "Driver Name Legacy mode"
-    type: boolean
-    default: false
-    description: "Set to True to continue to use old driver name in case of initial install with chart < 2.2.0"
-
 
   - variable: prismEndPoint
     label: "Prism Endpoint"
