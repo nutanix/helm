@@ -30,6 +30,7 @@ questions:
     options: ["none", "volume", "file", "dynfile"]
     description: "Select the default Storage Class you want"
     group: "global Settings"
+    show_if: "volumeClass=true||dynamicFileClass=true||fileClass=true"
   - variable: os
     label: "Host Operating System"
     type: enum
