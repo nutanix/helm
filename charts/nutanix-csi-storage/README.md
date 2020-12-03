@@ -32,7 +32,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 
 - Kubernetes 1.13 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
-- This chart have been validated on CentOS 7 and Ubuntu 18.04, behaviour on other distribution can be unexpected
+- This chart have been validated on CentOS 7 and Ubuntu 18.04/20.04, behaviour on other distribution can be unexpected
 
 ## Installing the Chart
 
