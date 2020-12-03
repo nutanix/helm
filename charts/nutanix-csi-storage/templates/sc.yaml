@@ -50,7 +50,7 @@ parameters:
     nfsPath: {{ .Values.filePath }}
 {{- end }}
 ---
-{{- if eq .Values.dynamicfileClass true }}
+{{- if eq .Values.dynamicFileClass true }}
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
