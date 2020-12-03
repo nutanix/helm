@@ -7,7 +7,7 @@ metadata:
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
 {{- end }}
-provisioner: com.nutanix.csi
+provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixVolumes
     csi.storage.k8s.io/provisioner-secret-name: ntnx-secret
@@ -26,7 +26,7 @@ apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshotClass
 metadata:
   name: nutanix-snapshot-class
-driver: com.nutanix.csi
+driver: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
   storageType: NutanixVolumes
   csi.storage.k8s.io/snapshotter-secret-name: ntnx-secret
@@ -43,9 +43,27 @@ metadata:
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
 {{- end }}
-provisioner: com.nutanix.csi
+provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixFiles
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
+{{- end }}
+---
+{{- if eq .Values.dynamicFileClass true }}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+    name: nutanix-dynamicfile
+{{- if eq .Values.defaultStorageClass "dynfile" }}
+    annotations:
+        storageclass.kubernetes.io/is-default-class: "true"
+{{- end }}
+provisioner: {{ include "nutanix-csi-storage.drivername" . }}
+parameters:
+    storageType: NutanixFiles
+    dynamicProv: ENABLED
+    nfsServerName: {{ .Values.fileServerName }}
+    csi.storage.k8s.io/provisioner-secret-name: ntnx-secret
+    csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
 {{- end }}

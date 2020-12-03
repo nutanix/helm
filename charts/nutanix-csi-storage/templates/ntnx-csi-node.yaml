@@ -30,7 +30,7 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
             - name: DRIVER_REG_SOCK_PATH
-              value: /var/lib/kubelet/plugins/com.nutanix.csi/csi.sock
+              value: /var/lib/kubelet/plugins/{{ include "nutanix-csi-storage.drivername" . }}/csi.sock
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -44,7 +44,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: ntnx/ntnx-csi:v2.1.0
+          image: ntnx/ntnx-csi:v2.2.0
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
@@ -110,7 +110,7 @@ spec:
             type: Directory
         - name: plugin-dir
           hostPath:
-            path: /var/lib/kubelet/plugins/com.nutanix.csi/
+            path: /var/lib/kubelet/plugins/{{ include "nutanix-csi-storage.drivername" . }}/
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:

@@ -8,17 +8,25 @@ When Files is used for persistent storage, applications on multiple pods can acc
 
 ## Important notice
 
-If you plan to update an existing Nutanix CSI deployement from 1.x to 2.x with this Chart, you need first deploy manually the CRD present here https://github.com/nutanix/csi-plugin/tree/master/deploy/Centos/crd
+If you plan to update an existing Nutanix CSI deployement from 1.x to 2.x with this Chart, you need first deploy manually the CRD present here https://github.com/nutanix/csi-plugin/tree/master/deploy/Centos/crd.
+
+Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you are upgrading the CSI driver then you should continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
+
+## Nutanix CSI driver documentation
+https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_2:CSI-Volume-Driver-v2_2
 
 ## Features list
 
-- Nutanix CSI Driver v2.1.0
+- Nutanix CSI Driver v2.2.0
 - Nutanix Volumes support
 - Nutanix Files support
 - Volume resize support ( beta in Kubernetes >= 1.16.0 )
 - Volume clone ( beta Kubernetes >= 1.16.0 )
 - Volume snapshot and Restore ( beta Kubernetes >= 1.17.0 )
 - IP Address Whitelisting
+- LVM Volume supporting multi vdisks volume group
+- NFS dynamic share provisioning
+- iSCSI Auto CHAP Authentication
 
 ## Prerequisites
 
@@ -50,6 +58,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 
 |            Parameter         |                Description             |             Default            |
 |------------------------------|----------------------------------------|--------------------------------|
+| `legacy`                     | use old reverse notation for CSI driver name | `false` |
 | `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
 | `volumeClass`                | Activate Nutanix Volumes Storage Class | `true`
 | `fileClass`                  | Activate Nutanix Files Storage Class | `false`
