@@ -57,6 +57,13 @@ questions:
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true"
 
+  - variable: lvmVolume
+    label: "LVM Volume"
+    type: boolean
+    default: false
+    description: "Activate LVM to support multi vdisks volume group for PV"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
   - variable: dataServiceEndPoint
     label: "Data Service Endpoint"
     type: string
@@ -76,6 +83,12 @@ questions:
     description: "Select the filesystem for the Persistent Volume"
     group: "Nutanix Volumes Settings"
     show_if: "volumeClass=true"
+  - variable: lvmDisks
+    label: "LVM Disks"
+    type: string
+    description: "Number of vdisk for each PV"
+    group: "Nutanix Volumes Settings"
+    show_if: "lvmVolume=true"
 
   - variable: fileHost
     label: "File Server Address"
