@@ -6,12 +6,19 @@ The Container Storage Interface (CSI) Volume Driver for Kubernetes leverages Nut
 
 When Files is used for persistent storage, applications on multiple pods can access the same storage, and also have the benefit of multi-pod read and write access.
 
+## Important notice
+
+If you plan to update an existing Nutanix CSI deployement from 1.x to 2.x with this Chart, you need first deploy manually the CRD present here https://github.com/nutanix/csi-plugin/tree/master/deploy/Centos/crd
+
 ## Features list
 
-- Nutanix CSI Driver v1.1.1
+- Nutanix CSI Driver v2.1.0
 - Nutanix Volumes support
 - Nutanix Files support
-- Volume resize support ( Kubernetes >= 1.16.0 )
+- Volume resize support ( beta in Kubernetes >= 1.16.0 )
+- Volume clone ( beta Kubernetes >= 1.16.0 )
+- Volume snapshot and Restore ( beta Kubernetes >= 1.17.0 )
+- IP Address Whitelisting
 
 ## Prerequisites
 
