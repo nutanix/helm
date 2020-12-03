@@ -48,6 +48,7 @@ spec:
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
+            - "--drivername={{ include "nutanix-csi-storage.drivername" . }}"
           env:
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
