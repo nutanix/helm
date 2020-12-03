@@ -88,7 +88,7 @@ questions:
     type: string
     description: "Number of vdisk for each PV"
     group: "Nutanix Volumes Settings"
-    show_if: "lvmVolume=true"
+    show_if: "lvmVolume=true&&volumeClass=true"
 
   - variable: fileHost
     label: "File Server Address"
