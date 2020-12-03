@@ -85,7 +85,10 @@ questions:
     show_if: "volumeClass=true"
   - variable: lvmDisks
     label: "LVM Disks"
-    type: string
+    type: int
+    default: "4"
+    min: 1
+    max: 8
     description: "Number of vdisk for each PV"
     group: "Nutanix Volumes Settings"
     show_if: "lvmVolume=true&&volumeClass=true"
