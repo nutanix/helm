@@ -20,8 +20,8 @@ parameters:
     storageContainer: {{ .Values.storageContainer }}
     csi.storage.k8s.io/fstype: {{ .Values.fsType }}
 {{- if eq .Values.lvmVolume true }}
-    isLVMVolume: true
-    numLVMDisks: {{ .Values.lvmDisks }}
+    isLVMVolume: "true"
+    numLVMDisks: {{ quote .Values.lvmDisks }}
 {{- end }}
 allowVolumeExpansion: true
 reclaimPolicy: Delete
