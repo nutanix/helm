@@ -21,7 +21,7 @@ parameters:
     csi.storage.k8s.io/fstype: {{ .Values.fsType }}
 {{- if eq .Values.lvmVolume true }}
     isLVMVolume: true
-    numLVMDisks: { .Values.lvmDisks }}
+    numLVMDisks: {{ .Values.lvmDisks }}
 {{- end }}
 allowVolumeExpansion: true
 reclaimPolicy: Delete
