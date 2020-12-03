@@ -30,3 +30,14 @@ Create chart name and version as used by the chart label.
 {{- define "nutanix-csi-storage.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Create CSI driver name.
+*/}}
+{{- define "nutanix-csi-storage.drivername" -}}
+{{- if .Values.legacy -}}
+com.nutanix.csi
+{{- else -}}
+csi.nutanix.com
+{{- end -}}
+{{- end -}}
