@@ -60,8 +60,9 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 |------------------------------|----------------------------------------|--------------------------------|
 | `legacy`                     | use old reverse notation for CSI driver name | `false` |
 | `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
-| `volumeClass`                | Activate Nutanix Volumes Storage Class | `true`
-| `fileClass`                  | Activate Nutanix Files Storage Class | `false`
+| `volumeClass`                | Activate Nutanix Volumes Storage Class | `true` |
+| `fileClass`                  | Activate Nutanix Files Storage Class | `false` |
+| `dynamicFileClass` | Activate Nutanix Dynamic Files Storage Class | `false` |
 | `defaultStorageClass`| Choose your default Storage Class (none, volume, file) | `none`|
 | `prismEndPoint` | Cluster Virtual IP Address |`10.0.0.1`|
 | `dataServiceEndPoint`| Prism data service IP |`10.0.0.2`|
@@ -71,11 +72,20 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `fsType`| type of file system you are using (ext4, xfs)  |`xfs`|
 | `fileHost`| NFS server IP address | `10.0.0.3`|
 | `filePath`| path of the NFS share |`share`|
+| `fileServerName` | name of the Nutanix FIle Server | `file`|
 | `nodeSelector` | add nodeSelector to pods spec | |
 | `tolerations` | add tolerations to pods spec |  |
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
+
+Example:
 
 ```console
-helm install --name nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume --set os=centos
+helm install nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume --set os=centos
+```
+
+or
+
+```console
+helm install nutanix-csi nutanix/nutanix-csi-storage -f value.yaml
 ```
