@@ -41,18 +41,21 @@ questions:
   - variable: prismEndPoint
     label: "Prism Endpoint"
     type: string
+    required: true
     description: "Please specify the cluster virtual address"
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true"
   - variable: username
     label: "Username"
     type: string
+    required: true
     description: "Specify username with cluster admin permission"
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true"
   - variable: password
     label: "Password"
     type: password
+    required: true
     description: "Specify password of the user"
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true"
@@ -67,12 +70,14 @@ questions:
   - variable: dataServiceEndPoint
     label: "Data Service Endpoint"
     type: string
+    required: true
     description: "Please specify the ISCSI data services address"
     group: "Nutanix Volumes Settings"
     show_if: "volumeClass=true"
   - variable: storageContainer
     label: "Storage Container"
     type: string
+    required: true
     description: "Specify Nutanix container name where the Persistent Volume will be stored"
     group: "Nutanix Volumes Settings"
     show_if: "volumeClass=true"
@@ -86,6 +91,7 @@ questions:
   - variable: lvmDisks
     label: "LVM Disks"
     type: int
+    required: true
     default: "4"
     min: 1
     max: 8
@@ -96,18 +102,21 @@ questions:
   - variable: fileHost
     label: "File Server Address"
     type: string
+    required: true
     description: "Specify Nutanix Files address"
     group: "Nutanix Files Settings"
     show_if: "fileClass=true"
   - variable: filePath
     label: "Export share"
     type: string
+    required: true
     description: "Specify Nutanix Files share path"
     group: "Nutanix Files Settings"
     show_if: "fileClass=true"
   - variable: fileServerName
     label: "NFS File Server Name"
     type: string
+    required: true
     description: "Specify Nutanix Files server name"
     group: "Nutanix Files Settings"
     show_if: "dynamicFileClass=true"
