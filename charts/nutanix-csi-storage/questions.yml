@@ -40,7 +40,7 @@ questions:
 
   - variable: prismEndPoint
     label: "Prism Endpoint"
-    type: string
+    type: hostname
     description: "Please specify the cluster virtual address"
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true"
@@ -66,7 +66,7 @@ questions:
     show_if: "volumeClass=true"
   - variable: dataServiceEndPoint
     label: "Data Service Endpoint"
-    type: string
+    type: hostname
     description: "Please specify the ISCSI data services address"
     group: "Nutanix Volumes Settings"
     show_if: "volumeClass=true"
