@@ -34,7 +34,8 @@ questions:
   - variable: os
     label: "Host Operating System"
     type: enum
-    options: ["centos", "ubuntu"]
+    options: ["centos", "ubuntu", "unsupported"]
+    required: true
     description: "Select your Container Host Operating System"
     group: "global Settings"
 
