@@ -3,6 +3,19 @@ entries:
   karbon-metric-server:
   - apiVersion: v2
     appVersion: 0.3.7
+    created: "2020-12-22T13:26:33.144495568Z"
+    description: A Metric Server Helm chart for Nutanix Karbon
+    digest: 77e06ff9a3bd1bd0f0905cce1d179fef77359760ba32f666e00cd3d610ae122c
+    home: https://github.com/nutanix/helm
+    kubeVersion: '>= 1.13.0'
+    maintainers:
+    - name: nogodan1234
+    name: karbon-metric-server
+    urls:
+    - https://github.com/nutanix/helm/releases/download/karbon-metric-server-0.1.2/karbon-metric-server-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 0.3.7
     created: "2020-12-12T08:46:11.048663469Z"
     description: A Metric Server Helm chart for Nutanix Karbon
     digest: bdb8c91f9a3a6a4bbcc4264bfb4da017713e71a64c88fa5103bf26df577b4f30
