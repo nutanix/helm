@@ -76,7 +76,7 @@ spec:
             - mountPath: /usr/lib64/libisns-nocrypto.so.0
               name: libisns
             {{- end}}
-            {{- if eq .Values.os "rhcos"}}
+            {{- if eq .Values.os "openshift4"}}
             - mountPath: /lib64/libisns.so.0
               name: libisns
             - mountPath: /usr/lib64/libcrypto.so.1.1
@@ -152,7 +152,7 @@ spec:
             path: /lib/x86_64-linux-gnu/libisns-nocrypto.so.0
             type: File
         {{- end}}
-        {{- if eq .Values.os "rhcos"}}
+        {{- if eq .Values.os "openshift4"}}
         - name: libisns
           hostPath:
             path: /lib64/libisns.so.0
