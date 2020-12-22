@@ -1,6 +1,6 @@
 {{- if eq .Values.os "openshift4"}}
 kind: SecurityContextConstraints
-apiVersion: security.openshift4.io/v1
+apiVersion: security.openshift.io/v1
 metadata:
   name: ntnx-csi-scc
 allowHostDirVolumePlugin: true
