@@ -13,11 +13,11 @@ If you plan to update an existing Nutanix CSI deployement from 1.x to 2.x with t
 Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you are upgrading the CSI driver then you should continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
 
 ## Nutanix CSI driver documentation
-https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_2:CSI-Volume-Driver-v2_2
+https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:CSI-Volume-Driver-v2_3
 
 ## Features list
 
-- Nutanix CSI Driver v2.2.0
+- Nutanix CSI Driver v2.3.1
 - Nutanix Volumes support
 - Nutanix Files support
 - Volume resize support ( beta in Kubernetes >= 1.16.0 )
@@ -27,12 +27,13 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 - LVM Volume supporting multi vdisks volume group
 - NFS dynamic share provisioning
 - iSCSI Auto CHAP Authentication
+- OS independence
 
 ## Prerequisites
 
 - Kubernetes 1.13 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
-- This chart have been validated on CentOS 7 and Ubuntu 18.04/20.04, behaviour on other distribution can be unexpected
+- This chart have been validated on CentOS 7 and Ubuntu 18.04/20.04, but the new architecture enables easy portability to other distributions.
 
 ## Installing the Chart
 
@@ -41,7 +42,7 @@ To install the chart with the name `nutanix-csi`:
 ```console
 helm repo add nutanix https://nutanix.github.io/helm/
 
-helm install --name nutanix-csi nutanix/nutanix-csi-storage
+helm install nutanix-csi nutanix/nutanix-csi-storage -n <namespace of your choice>
 ```
 
 ## Uninstalling the Chart
@@ -49,7 +50,7 @@ helm install --name nutanix-csi nutanix/nutanix-csi-storage
 To uninstall/delete the `nutanix-csi` deployment:
 
 ```console
-$ helm delete nutanix-csi
+helm delete nutanix-csi -n <namespace of your choice>
 ```
 
 ## Configuration
@@ -59,22 +60,23 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 |            Parameter         |                Description             |             Default            |
 |------------------------------|----------------------------------------|--------------------------------|
 | `legacy`                     | use old reverse notation for CSI driver name | `false` |
-| `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
 | `volumeClass`                | Activate Nutanix Volumes Storage Class | `true` |
 | `fileClass`                  | Activate Nutanix Files Storage Class | `false` |
-| `dynamicFileClass` | Activate Nutanix Dynamic Files Storage Class | `false` |
-| `defaultStorageClass`| Choose your default Storage Class (none, volume, file) | `none`|
-| `prismEndPoint` | Cluster Virtual IP Address |`10.0.0.1`|
-| `dataServiceEndPoint`| Prism data service IP |`10.0.0.2`|
-| `username`| name used for the admin role |`admin`|
-| `password`| password for the admin role |`nutanix/4u`|
-| `storageContainer`| Nutanix storage container name     | `default`|
-| `fsType`| type of file system you are using (ext4, xfs)  |`xfs`|
-| `fileHost`| NFS server IP address | `10.0.0.3`|
-| `filePath`| path of the NFS share |`share`|
-| `fileServerName` | name of the Nutanix FIle Server | `file`|
-| `nodeSelector` | add nodeSelector to pods spec | |
-| `tolerations` | add tolerations to pods spec |  |
+| `dynamicFileClass`           | Activate Nutanix Dynamic Files Storage Class | `false` |
+| `defaultStorageClass`        | Choose your default Storage Class (none, volume, file, dynfile) | `none`|
+| `prismEndPoint`              | Cluster Virtual IP Address |`10.0.0.1`|
+| `dataServiceEndPoint`        | Prism data service IP |`10.0.0.2`|
+| `username`                   | name used for the admin role (if created) |`admin`|
+| `password`                   | password for the admin role (if created) |`nutanix/4u`|
+| `secretName`                 | name of the secret to use for admin role| `ntnx-secret`|
+| `createSecret`               | create secret for admin role (if false use existing)| `true`|
+| `storageContainer`           | Nutanix storage container name     | `default`|
+| `fsType`                     | type of file system you are using (ext4, xfs)  |`xfs`|
+| `fileHost`                   | NFS server IP address | `10.0.0.3`|
+| `filePath`                   | path of the NFS share |`share`|
+| `fileServerName`             | name of the Nutanix FIle Server | `file`|
+| `nodeSelector`               | add nodeSelector to pods spec | |
+| `tolerations`                | add tolerations to pods spec |  |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
 
