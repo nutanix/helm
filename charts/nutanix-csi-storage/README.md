@@ -66,8 +66,8 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `defaultStorageClass`        | Choose your default Storage Class (none, volume, file, dynfile) | `none`|
 | `prismEndPoint`              | Cluster Virtual IP Address |`10.0.0.1`|
 | `dataServiceEndPoint`        | Prism data service IP |`10.0.0.2`|
-| `username`                   | name used for the admin role |`admin`|
-| `password`                   | password for the admin role |`nutanix/4u`|
+| `username`                   | name used for the admin role (if created) |`admin`|
+| `password`                   | password for the admin role (if created) |`nutanix/4u`|
 | `secretName`                 | name of the secret to use for admin role| `ntnx-secret`|
 | `createSecret`               | create secret for admin role (if false use existing)| `true`|
 | `storageContainer`           | Nutanix storage container name     | `default`|
