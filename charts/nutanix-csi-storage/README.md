@@ -69,7 +69,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `username`                   | name used for the admin role |`admin`|
 | `password`                   | password for the admin role |`nutanix/4u`|
 | `secretName`                 | name of the secret for admin role| `ntnx-secret`|
-| `createSecret`               | create secret for admin role| `true`|
+| `createSecret`               | create secret for admin role (if false use existing)| `true`|
 | `storageContainer`           | Nutanix storage container name     | `default`|
 | `fsType`                     | type of file system you are using (ext4, xfs)  |`xfs`|
 | `fileHost`                   | NFS server IP address | `10.0.0.3`|
