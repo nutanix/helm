@@ -13,7 +13,7 @@ legacy: false
 # OS settings
 #
 # Starting v2.3.1 CSI driver is OS independent
-os: none
+#os: none
 
 
 # Storage Class settings
