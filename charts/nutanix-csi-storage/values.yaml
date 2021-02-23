@@ -44,8 +44,8 @@ secretName: ntnx-secret
 
 # Nutanix Prism Elements Existing Secret
 #
-# if set to true a new secret will not be created
-existingSecret: false
+# if set to false a new secret will not be created
+createSecret: true
 
 
 # Volumes Settings
