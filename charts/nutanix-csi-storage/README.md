@@ -60,7 +60,6 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 |            Parameter         |                Description             |             Default            |
 |------------------------------|----------------------------------------|--------------------------------|
 | `legacy`                     | use old reverse notation for CSI driver name | `false` |
-| `os`                         | Choose your Host Operating System (centos, ubuntu) | `none` |
 | `volumeClass`                | Activate Nutanix Volumes Storage Class | `true` |
 | `fileClass`                  | Activate Nutanix Files Storage Class | `false` |
 | `dynamicFileClass`           | Activate Nutanix Dynamic Files Storage Class | `false` |
