@@ -50,7 +50,7 @@ helm install nutanix-csi nutanix/nutanix-csi-storage -n <namespace of your choic
 To uninstall/delete the `nutanix-csi` deployment:
 
 ```console
-$ helm delete nutanix-csi -n <namespace of your choice>
+helm delete nutanix-csi -n <namespace of your choice>
 ```
 
 ## Configuration
