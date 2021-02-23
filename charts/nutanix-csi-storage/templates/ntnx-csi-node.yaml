@@ -44,7 +44,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: ntnx/ntnx-csi:v2.2.0
+          image: quay.io/karbon/ntnx-csi:v2.3.1
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
@@ -56,6 +56,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
           volumeMounts:
             - name: plugin-dir
               mountPath: /csi
@@ -68,28 +72,8 @@ spec:
               name: device-dir
             - mountPath: /etc/iscsi
               name: iscsi-dir
-            - mountPath: /sbin/iscsiadm
-              name: iscsiadm
-            - mountPath: /lib/modules
-              name: lib-dir
-            {{- if eq .Values.os "ubuntu"}}
-            - mountPath: /usr/lib64/libisns-nocrypto.so.0
-              name: libisns
-            {{- end}}
-            {{- if eq .Values.os "openshift4"}}
-            - mountPath: /lib64/libisns.so.0
-              name: libisns
-            - mountPath: /usr/lib64/libcrypto.so.1.1
-              name: libcrypto
-            - mountPath: /usr/lib64/libopeniscsiusr.so.0.2.0
-              name: libopeniscsiusr
-            - mountPath: /lib64/libc.so.6
-              name: libc
-            - mountPath: /usr/lib64/ld-linux-x86-64.so.2
-              name: ld-linux
-            - mountPath: /usr/lib64/libpthread.so.0
-              name: libpthread
-            {{- end}}
+            - mountPath: /host
+              name: root-dir
           ports:
             - containerPort: 9808
               name: healthz
@@ -138,44 +122,7 @@ spec:
           hostPath:
             path: /etc/iscsi
             type: Directory
-        - name: iscsiadm
+        - name: root-dir
           hostPath:
-            path: /sbin/iscsiadm
-            type: File
-        - name: lib-dir
-          hostPath:
-            path: /lib/modules
+            path: /
             type: Directory
-        {{- if eq .Values.os "ubuntu"}}
-        - name: libisns
-          hostPath:
-            path: /lib/x86_64-linux-gnu/libisns-nocrypto.so.0
-            type: File
-        {{- end}}
-        {{- if eq .Values.os "openshift4"}}
-        - name: libisns
-          hostPath:
-            path: /lib64/libisns.so.0
-            type: File
-        - name: libcrypto
-          hostPath:
-            path: /usr/lib64/libcrypto.so.1.1
-            type: File
-        - name: libopeniscsiusr
-          hostPath:
-            path: /usr/lib64/libopeniscsiusr.so.0.2.0
-            type: File
-        - name: libc
-          hostPath:
-            path: /lib64/libc.so.6
-            type: File
-        - name: ld-linux
-          hostPath:
-            path: /usr/lib64/ld-linux-x86-64.so.2
-            type: File
-        - name: libpthread
-          hostPath:
-            path: /usr/lib64/libpthread.so.0
-            type: File
-        {{- end}}
-        

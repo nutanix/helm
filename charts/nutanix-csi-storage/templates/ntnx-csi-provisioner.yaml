@@ -61,7 +61,7 @@ spec:
           - name: socket-dir
             mountPath: /csi
         - name: ntnx-csi-plugin
-          image: ntnx/ntnx-csi:v2.2.0
+          image: quay.io/karbon/ntnx-csi:v2.3.1
           securityContext:
             allowPrivilegeEscalation: true
             privileged: true
