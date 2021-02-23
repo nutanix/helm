@@ -42,7 +42,7 @@ To install the chart with the name `nutanix-csi`:
 ```console
 helm repo add nutanix https://nutanix.github.io/helm/
 
-helm install --name nutanix-csi nutanix/nutanix-csi-storage
+helm install nutanix-csi nutanix/nutanix-csi-storage -n <namespace of your choice>
 ```
 
 ## Uninstalling the Chart
@@ -50,7 +50,7 @@ helm install --name nutanix-csi nutanix/nutanix-csi-storage
 To uninstall/delete the `nutanix-csi` deployment:
 
 ```console
-$ helm delete nutanix-csi
+$ helm delete nutanix-csi -n <namespace of your choice>
 ```
 
 ## Configuration
