@@ -72,6 +72,8 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `createSecret`               | create secret for admin role (if false use existing)| `true`|
 | `storageContainer`           | Nutanix storage container name     | `default`|
 | `fsType`                     | type of file system you are using (ext4, xfs)  |`xfs`|
+| `lvmVolume`                  | Activate multi vdisks by Volume    |`false`|
+| `lvmDisks`                   | Number of vdisks by volume if lvm enabled | `4`|
 | `fileHost`                   | NFS server IP address | `10.0.0.3`|
 | `filePath`                   | path of the NFS share |`share`|
 | `fileServerName`             | name of the Nutanix FIle Server | `file`|
