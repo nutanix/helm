@@ -65,3 +65,28 @@ filePath: share
 # Dynamic Files Settings
 #
 fileServerName: file
+
+# Images
+#
+
+imagePullPolicy: IfNotPresent
+
+provisioner:
+  image: quay.io/karbon/ntnx-csi:v2.3.1
+
+node:
+  image: quay.io/karbon/ntnx-csi:v2.3.1
+
+sidecars:
+  registrar:
+    image: quay.io/k8scsi/csi-node-driver-registrar:v1.3.0
+  provisioner:
+    image: quay.io/k8scsi/csi-provisioner:v1.6.0
+  snapshotter:
+    image: quay.io/k8scsi/csi-snapshotter:v2.1.0
+  resizer:
+    image: quay.io/k8scsi/csi-resizer:v0.5.0
+  livenessprobe:
+    image: quay.io/k8scsi/livenessprobe:v2.1.0
+  snapshotController:
+    image: quay.io/k8scsi/snapshot-controller:v2.1.0
