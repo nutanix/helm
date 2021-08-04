@@ -21,7 +21,8 @@ spec:
       hostNetwork: true
       containers:
         - name: driver-registrar
-          image: quay.io/k8scsi/csi-node-driver-registrar:v1.2.0
+          image: {{ .Values.sidecars.registrar.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
@@ -44,7 +45,8 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: quay.io/karbon/ntnx-csi:v2.3.1
+          image: {{ .Values.node.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
@@ -91,7 +93,8 @@ spec:
           volumeMounts:
             - mountPath: /csi
               name: plugin-dir
-          image: quay.io/k8scsi/livenessprobe:v1.1.0
+          image: {{ .Values.sidecars.livenessprobe.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=/csi/csi.sock
     {{- with .Values.nodeSelector }}
