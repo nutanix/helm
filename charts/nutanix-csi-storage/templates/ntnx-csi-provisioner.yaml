@@ -32,7 +32,6 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -46,7 +45,6 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -103,11 +101,11 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=/csi/csi.sock
-    {{- with .Values.nodeSelector }}
+    {{- with (.Values.nodeSelectorCsiProvisionerNtnxPlugin | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.tolerations }}
+    {{- with (.Values.tolerationsCsiProvisionerNtnxPlugin | default .Values.tolerations) }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
