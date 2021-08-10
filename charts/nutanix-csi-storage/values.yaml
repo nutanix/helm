@@ -31,7 +31,7 @@ fileClass: false
 fileClassName: "nutanix-file"
 
 dynamicFileClass: false
-dynamicFileClassName : "nutanix-dynamicfile"
+dynamicFileClassName: "nutanix-dynamicfile"
 
 
 # Default Storage Class settings
@@ -104,4 +104,3 @@ sidecars:
     image: quay.io/k8scsi/snapshot-controller:v2.1.0
     nodeSelector: {}
     tolerations: []
-
