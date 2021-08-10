@@ -73,9 +73,13 @@ imagePullPolicy: IfNotPresent
 
 provisioner:
   image: quay.io/karbon/ntnx-csi:v2.3.1
+  nodeSelector: {}
+  tolerations: []
 
 node:
   image: quay.io/karbon/ntnx-csi:v2.3.1
+  nodeSelector: {}
+  tolerations: []
 
 sidecars:
   registrar:
@@ -90,3 +94,5 @@ sidecars:
     image: quay.io/k8scsi/livenessprobe:v2.1.0
   snapshotController:
     image: quay.io/k8scsi/snapshot-controller:v2.1.0
+    nodeSelector: {}
+    tolerations: []
