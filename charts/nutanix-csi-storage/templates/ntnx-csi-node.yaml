@@ -96,11 +96,11 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=/csi/csi.sock
-    {{- with (.Values.nodeSelectorCsiNodeNtnxPlugin | default .Values.nodeSelector) }}
+    {{- with (.Values.node.nodeSelector | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with (.Values.tolerationsCsiNodeNtnxPlugin | default .Values.tolerations) }}
+    {{- with (.Values.node.tolerations | default .Values.tolerations) }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}

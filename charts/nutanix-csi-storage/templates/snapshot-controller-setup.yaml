@@ -22,11 +22,11 @@ spec:
           args:
             - "--v=5"
             - "--leader-election=false"
-    {{- with (.Values.nodeSelectorSnapshotController | default .Values.nodeSelector ) }}
+    {{- with (.Values.sidecars.snapshotController.nodeSelector | default .Values.nodeSelector ) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with (.Values.tolerationsSnapshotController | default .Values.tolerations)}}
+    {{- with (.Values.sidecars.snapshotController.tolerations | default .Values.tolerations)}}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
