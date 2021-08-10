@@ -23,10 +23,15 @@ imagePullPolicy: IfNotPresent
 
 # Storage Class settings
 #
-# choose for wich mode (Volume, File, Dynamic File) storageclass need to be created
+# choose for which mode (Volume, File, Dynamic File) storageclass need to be created
 volumeClass: true
+volumeClassName: "nutanix-volume"
+
 fileClass: false
+fileClassName: "nutanix-file"
+
 dynamicFileClass: false
+dynamicFileClassName : "nutanix-dynamicfile"
 
 
 # Default Storage Class settings
