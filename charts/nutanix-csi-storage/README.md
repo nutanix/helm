@@ -57,35 +57,45 @@ helm delete nutanix-csi -n <namespace of your choice>
 
 The following table lists the configurable parameters of the Nutanix-CSI chart and their default values.
 
-|            Parameter         |                Description             |             Default            |
-|------------------------------|----------------------------------------|--------------------------------|
-| `legacy`                     | use old reverse notation for CSI driver name | `false` |
-| `volumeClass`                | Activate Nutanix Volumes Storage Class | `true` |
-| `fileClass`                  | Activate Nutanix Files Storage Class | `false` |
-| `dynamicFileClass`           | Activate Nutanix Dynamic Files Storage Class | `false` |
-| `defaultStorageClass`        | Choose your default Storage Class (none, volume, file, dynfile) | `none`|
-| `prismEndPoint`              | Cluster Virtual IP Address |`10.0.0.1`|
-| `dataServiceEndPoint`        | Prism data service IP |`10.0.0.2`|
-| `username`                   | name used for the admin role (if created) |`admin`|
-| `password`                   | password for the admin role (if created) |`nutanix/4u`|
-| `secretName`                 | name of the secret to use for admin role| `ntnx-secret`|
-| `createSecret`               | create secret for admin role (if false use existing)| `true`|
-| `storageContainer`           | Nutanix storage container name     | `default`|
-| `fsType`                     | type of file system you are using (ext4, xfs)  |`xfs`|
-| `lvmVolume`                  | Activate LVM to use multiple vdisks by Volume    |`false`|
-| `lvmDisks`                   | Number of vdisks by volume if lvm enabled | `4`|
-| `fileHost`                   | NFS server IP address | `10.0.0.3`|
-| `filePath`                   | path of the NFS share |`share`|
-| `fileServerName`             | name of the Nutanix FIle Server | `file`|
-| `nodeSelector`               | add nodeSelector to pods spec | |
-| `tolerations`                | add tolerations to pods spec |  |
+|              Parameter           |                Description             |             Default            |
+|----------------------------------|----------------------------------------|--------------------------------|
+| `legacy`                         | Use old reverse notation for CSI driver name | `false` |
+| `volumeClass`                    | Activate Nutanix Volumes Storage Class | `true` |
+| `volumeClassName`                | Name of the Nutanix Volumes Storage Class | `nutanix-volume` |
+| `fileClass`                      | Activate Nutanix Files Storage Class | `false` |
+| `fileClassName`                  | Name of the Nutanix Files Storage Class | `nutanix-file` |
+| `dynamicFileClass`               | Activate Nutanix Dynamic Files Storage Class | `false` |
+| `dynamicFileClassName`           | Name of the Nutanix Dynamic Files Storage Class | `nutanix-dynamicfile` |
+| `defaultStorageClass`            | Choose your default Storage Class (none, volume, file, dynfile) | `none`|
+| `prismEndPoint`                  | Cluster Virtual IP Address |`10.0.0.1`|
+| `dataServiceEndPoint`            | Prism data service IP |`10.0.0.2`|
+| `username`                       | Name used for the admin role (if created) |`admin`|
+| `password`                       | Password for the admin role (if created) |`nutanix/4u`|
+| `secretName`                     | Name of the secret to use for admin role| `ntnx-secret`|
+| `createSecret`                   | Create secret for admin role (if false use existing)| `true`|
+| `storageContainer`               | Nutanix storage container name     | `default`|
+| `fsType`                         | Type of file system you are using (ext4, xfs)  |`xfs`|
+| `lvmVolume`                      | Activate LVM to use multiple vdisks by Volume    |`false`|
+| `lvmDisks`                       | Number of vdisks by volume if lvm enabled | `4`|
+| `fileHost`                       | NFS server IP address | `10.0.0.3`|
+| `filePath`                       | Path of the NFS share |`share`|
+| `fileServerName`                 | Name of the Nutanix FIle Server | `file`|
+| `nodeSelector`                   | Add nodeSelector to all pods | `{}` |
+| `tolerations`                    | Add tolerations to all pods | `[]` |
+| `imagePullPolicy`                | Specify imagePullPolicy for all pods| `IfNotPresent`|
+| `provisioner.nodeSelector`       | Add nodeSelector to provisioner pod | `{}` |
+| `provisioner.tolerations`        | Add tolerations to provisioner pod | `[]`  |
+| `node.nodeSelector`              | Add nodeSelector to node pods | `{}` |
+| `node.tolerations`               | Add tolerations to node pods | `[]` |
+| `snapshotController.nodeSelector`| Add nodeSelector to snapshotController pod | `{}` |
+| `snapshotController.tolerations` | Add tolerations to snapshotController pod | `[]` |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
 
 Example:
 
 ```console
-helm install nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume --set os=centos
+helm install nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume
 ```
 
 or

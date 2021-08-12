@@ -2,7 +2,7 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-    name: nutanix-volume
+    name: {{ .Values.volumeClassName }}
 {{- if eq .Values.defaultStorageClass "volume" }}
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
@@ -42,7 +42,7 @@ deletionPolicy: Delete
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-    name: nutanix-file
+    name: {{ .Values.fileClassName }}
 {{- if eq .Values.defaultStorageClass "file" }}
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"
@@ -58,7 +58,7 @@ parameters:
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-    name: nutanix-dynamicfile
+    name: {{ .Values.dynamicFileClassName }}
 {{- if eq .Values.defaultStorageClass "dynfile" }}
     annotations:
         storageclass.kubernetes.io/is-default-class: "true"

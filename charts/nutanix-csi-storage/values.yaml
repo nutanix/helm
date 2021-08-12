@@ -12,16 +12,26 @@ legacy: false
 
 # OS settings
 #
-# Starting v2.3.1 CSI driver is OS independent, this value is deprecated
+# Starting v2.3.1 CSI driver is OS independent, this value is reserved
 os: none
 
+# Global Settings for all pods
+
+nodeSelector: {}
+tolerations: []
+imagePullPolicy: IfNotPresent
 
 # Storage Class settings
 #
-# choose for wich mode (Volume, File, Dynamic File) storageclass need to be created
+# choose for which mode (Volume, File, Dynamic File) storageclass need to be created
 volumeClass: true
+volumeClassName: "nutanix-volume"
+
 fileClass: false
+fileClassName: "nutanix-file"
+
 dynamicFileClass: false
+dynamicFileClassName: "nutanix-dynamicfile"
 
 
 # Default Storage Class settings
@@ -66,16 +76,18 @@ filePath: share
 #
 fileServerName: file
 
-# Images
+# Pod pecific Settings
 #
-
-imagePullPolicy: IfNotPresent
 
 provisioner:
   image: quay.io/karbon/ntnx-csi:v2.3.1
+  nodeSelector: {}
+  tolerations: []
 
 node:
   image: quay.io/karbon/ntnx-csi:v2.3.1
+  nodeSelector: {}
+  tolerations: []
 
 sidecars:
   registrar:
@@ -90,3 +102,5 @@ sidecars:
     image: quay.io/k8scsi/livenessprobe:v2.1.0
   snapshotController:
     image: quay.io/k8scsi/snapshot-controller:v2.1.0
+    nodeSelector: {}
+    tolerations: []
