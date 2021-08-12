@@ -80,6 +80,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `fileHost`                       | NFS server IP address | `10.0.0.3`|
 | `filePath`                       | Path of the NFS share |`share`|
 | `fileServerName`                 | Name of the Nutanix FIle Server | `file`|
+| `kubeletDir`                     | allows overriding the host location of kubelet's internal state | `/var/lib/kubelet`|
 | `nodeSelector`                   | Add nodeSelector to all pods | `{}` |
 | `tolerations`                    | Add tolerations to all pods | `[]` |
 | `imagePullPolicy`                | Specify imagePullPolicy for all pods| `IfNotPresent`|

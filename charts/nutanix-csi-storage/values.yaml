@@ -14,7 +14,9 @@ legacy: false
 #
 # Starting v2.3.1 CSI driver is OS independent, this value is reserved
 os: none
-kubeletVarLibPath: "/var/lib/kubelet"
+
+# kubeletDir allows overriding the host location of kubelet's internal state.
+kubeletDir: "/var/lib/kubelet"
 
 # Global Settings for all pods
 

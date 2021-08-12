@@ -31,7 +31,7 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
             - name: DRIVER_REG_SOCK_PATH
-              value: {{ .Values.kubeletVarLibPath }}/plugins/{{ include "nutanix-csi-storage.drivername" . }}/csi.sock
+              value: {{ .Values.kubeletDir }}/plugins/{{ include "nutanix-csi-storage.drivername" . }}/csi.sock
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -66,7 +66,7 @@ spec:
             - name: plugin-dir
               mountPath: /csi
             - name: pods-mount-dir
-              mountPath: {{ .Values.kubeletVarLibPath }}
+              mountPath: {{ .Values.kubeletDir }}
               # needed so that any mounts setup inside this container are
               # propagated back to the host machine.
               mountPropagation: "Bidirectional"
@@ -107,15 +107,15 @@ spec:
       volumes:
         - name: registration-dir
           hostPath:
-            path: {{ .Values.kubeletVarLibPath }}/plugins_registry/
+            path: {{ .Values.kubeletDir }}/plugins_registry/
             type: Directory
         - name: plugin-dir
           hostPath:
-            path: {{ .Values.kubeletVarLibPath }}/plugins/{{ include "nutanix-csi-storage.drivername" . }}/
+            path: {{ .Values.kubeletDir }}/plugins/{{ include "nutanix-csi-storage.drivername" . }}/
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
-            path: {{ .Values.kubeletVarLibPath }}
+            path: {{ .Values.kubeletDir }}
             type: Directory
         - name: device-dir
           hostPath:
