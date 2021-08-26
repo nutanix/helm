@@ -85,7 +85,7 @@ fileServerName: file
 
 metrics:
   enabled: true
-  labels: 
+  labels:
     # This should match the serviceMonitorSelector logic configured
     # on the prometheus.
     k8s-app: csi-driver
