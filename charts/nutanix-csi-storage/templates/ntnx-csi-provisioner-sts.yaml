@@ -1,8 +1,7 @@
-# Copyright 2019 Nutanix Inc
+# Copyright 2021 Nutanix Inc
 #
 # example usage: kubectl create -f <this_file>
 
----
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
@@ -28,6 +27,12 @@ spec:
             - --provisioner={{ include "nutanix-csi-storage.drivername" . }}
             - --csi-address=$(ADDRESS)
             - --timeout=60s
+            - --worker-threads=16
+            # This adds PV/PVC metadata to create volume requests
+            - --extra-create-metadata=true
+            - --default-fstype=ext4
+            # This is used to collect CSI operation metrics
+            - --http-endpoint=:9809
             - --v=5
           env:
             - name: ADDRESS
@@ -41,7 +46,11 @@ spec:
           args:
             - --v=5
             - --csi-address=$(ADDRESS)
+            - --timeout=60s
             - --leader-election=false
+            # NTNX CSI dirver supports online volume expansion.
+            - --handle-volume-inuse-error=false
+            - --http-endpoint=:9810
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
@@ -68,9 +77,9 @@ spec:
             allowPrivilegeEscalation: true
             privileged: true
           args:
-            - "--endpoint=$(CSI_ENDPOINT)"
-            - "--nodeid=$(NODE_ID)"
-            - "--drivername={{ include "nutanix-csi-storage.drivername" . }}"
+            - --endpoint=$(CSI_ENDPOINT)
+            - --nodeid=$(NODE_ID)
+            - --drivername={{ include "nutanix-csi-storage.drivername" . }}
           env:
             - name: CSI_ENDPOINT
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
@@ -81,14 +90,17 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/csi/sockets/pluginproxy/
               name: socket-dir
+            # This is needed for static NFS volume feature.
+            - mountPath: /host
+              name: root-dir
           ports:
             - containerPort: 9808
-              name: healthz
+              name: http-endpoint
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /healthz
-              port: healthz
+              port: http-endpoint
             initialDelaySeconds: 10
             timeoutSeconds: 3
             periodSeconds: 2
@@ -101,6 +113,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=/csi/csi.sock
+            - --http-endpoint=:9808
     {{- with (.Values.provisioner.nodeSelector | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -112,3 +125,7 @@ spec:
       volumes:
         - emptyDir: {}
           name: socket-dir
+        - hostPath:
+            path: /
+            type: Directory
+          name: root-dir

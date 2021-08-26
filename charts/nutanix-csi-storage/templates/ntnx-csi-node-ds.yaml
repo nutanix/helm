@@ -1,8 +1,7 @@
-# Copyright 2019 Nutanix Inc
+# Copyright 2021 Nutanix Inc
 #
 # example usage: kubectl create -f <this_file>
 
----
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
@@ -24,9 +23,9 @@ spec:
           image: {{ .Values.sidecars.registrar.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
-            - "--v=5"
-            - "--csi-address=$(ADDRESS)"
-            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+            - --v=5
+            - --csi-address=$(ADDRESS)
+            - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -67,6 +66,8 @@ spec:
               mountPath: /csi
             - name: pods-mount-dir
               mountPath: {{ .Values.kubeletDir }}
+              # needed so that any mounts setup inside this container are
+              # propagated back to the host machine.
               mountPropagation: "Bidirectional"
             - mountPath: /dev
               name: device-dir
@@ -74,15 +75,16 @@ spec:
               name: iscsi-dir
             - mountPath: /host
               name: root-dir
+              # This is needed because mount is run from host using chroot.
               mountPropagation: "Bidirectional"
           ports:
             - containerPort: 9808
-              name: healthz
+              name: http-endpoint
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /healthz
-              port: healthz
+              port: http-endpoint
             initialDelaySeconds: 10
             timeoutSeconds: 3
             periodSeconds: 2
@@ -95,6 +97,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=/csi/csi.sock
+            - --http-endpoint=:9808
     {{- with (.Values.node.nodeSelector | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -127,4 +130,3 @@ spec:
           hostPath:
             path: /
             type: Directory
-

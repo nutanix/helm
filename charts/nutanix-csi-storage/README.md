@@ -13,11 +13,11 @@ If you plan to update an existing Nutanix CSI deployement from 1.x to 2.x with t
 Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you are upgrading the CSI driver then you should continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
 
 ## Nutanix CSI driver documentation
-https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:CSI-Volume-Driver-v2_3
+https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_4_1:CSI-Volume-Driver-v2_4_1
 
 ## Features list
 
-- Nutanix CSI Driver v2.3.1
+- Nutanix CSI Driver v2.4.1
 - Nutanix Volumes support
 - Nutanix Files support
 - Volume resize support ( beta in Kubernetes >= 1.16.0 )
@@ -28,6 +28,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 - NFS dynamic share provisioning
 - iSCSI Auto CHAP Authentication
 - OS independence
+- Volume metrics and CSI operations metrics support
 
 ## Prerequisites
 
@@ -90,6 +91,8 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `node.tolerations`               | Add tolerations to node pods | `[]` |
 | `snapshotController.nodeSelector`| Add nodeSelector to snapshotController pod | `{}` |
 | `snapshotController.tolerations` | Add tolerations to snapshotController pod | `[]` |
+| `metrics.enabled`                | Expose Volume metrics and CSI operations metrics | `true` |
+| `metrics.labels`                 | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`|
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
 
@@ -104,3 +107,15 @@ or
 ```console
 helm install nutanix-csi nutanix/nutanix-csi-storage -f value.yaml
 ```
+
+## Support
+
+The Nutanix CSI Volume Driver is fully supported by Nutanix. Please use the standard support procedure to file a ticket [here](https://www.nutanix.com/support-services/product-support).
+
+## Community
+
+Please file any issues, questions or feature requests you may have [here](https://github.com/nutanix/csi-plugin/issues) for the Nutanix CSI Driver or [here](https://github.com/nutanix/helm/issues) for the Helm chart.
+
+## Contributing
+
+We value all feedback and contributions. If you find any issues or want to contribute, please feel free to open an issue or file a PR.
