@@ -31,6 +31,12 @@ questions:
     description: "Select the default Storage Class you want"
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true||fileClass=true"
+  - variable: servicemonitor.enabled
+    label: "Prometheus ServiceMonitor"
+    type: boolean
+    default: false
+    description: "Activate Prometheus ServiceMonitor to scrape CSI metrics"
+    group: "global Settings"
 
   - variable: prismEndPoint
     label: "Prism Endpoint"
