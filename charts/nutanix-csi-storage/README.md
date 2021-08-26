@@ -91,8 +91,8 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `node.tolerations`               | Add tolerations to node pods | `[]` |
 | `snapshotController.nodeSelector`| Add nodeSelector to snapshotController pod | `{}` |
 | `snapshotController.tolerations` | Add tolerations to snapshotController pod | `[]` |
-| `metrics.enabled`                | Expose Volume metrics and CSI operations metrics | `true` |
-| `metrics.labels`                 | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`|
+| `servicemonitor.enabled`         | Create ServiceMonitor to scrape CSI  metrics | `false` |
+| `servicemonitor.labels`          | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`|
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
 

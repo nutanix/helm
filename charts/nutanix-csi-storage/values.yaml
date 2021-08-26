@@ -83,8 +83,8 @@ fileServerName: file
 # Volume metrics and CSI operations metrics configuration
 #
 
-metrics:
-  enabled: true
+servicemonitor:
+  enabled: false
   labels:
     # This should match the serviceMonitorSelector logic configured
     # on the prometheus.
