@@ -24,7 +24,6 @@ spec:
           image: {{ .Values.sidecars.provisioner.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
-            - --provisioner={{ include "nutanix-csi-storage.drivername" . }}
             - --csi-address=$(ADDRESS)
             - --timeout=60s
             - --worker-threads=16
