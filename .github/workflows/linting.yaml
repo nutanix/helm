@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  lint-test:
+  linting:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,9 +26,10 @@ jobs:
       - name: Run chart-testing (lint)
         run: ct lint
 
-      - name: Artifect Hub Lint
+      - name: ArtifactHUB Lint
         run: |
-          curl -LO https://github.com/artifacthub/hub/releases/download/v1.1.1/ah_1.1.1_linux_amd64.tar.gz
-          tar xvzf ah_1.1.1_linux_amd64.tar.gz
+          AH_CLI_VERSION=1.1.1
+          curl -LO https://github.com/artifacthub/hub/releases/download/v$AH_CLI_VERSION/ah_$AH_CLI_VERSION_linux_amd64.tar.gz
+          tar xvzf ah_$AH_CLI_VERSION_linux_amd64.tar.gz
           ./ah lint
 
