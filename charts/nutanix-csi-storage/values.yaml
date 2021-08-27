@@ -79,30 +79,42 @@ filePath: share
 #
 fileServerName: file
 
+
+# Volume metrics and CSI operations metrics configuration
+#
+
+servicemonitor:
+  enabled: false
+  labels:
+    # This should match the serviceMonitorSelector logic configured
+    # on the prometheus.
+    k8s-app: csi-driver
+
+
 # Pod pecific Settings
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:v2.3.1
+  image: quay.io/karbon/ntnx-csi:v2.4.1
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.3.1
+  image: quay.io/karbon/ntnx-csi:v2.4.1
   nodeSelector: {}
   tolerations: []
 
 sidecars:
   registrar:
-    image: quay.io/k8scsi/csi-node-driver-registrar:v1.3.0
+    image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
   provisioner:
-    image: quay.io/k8scsi/csi-provisioner:v1.6.0
+    image: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.0
   snapshotter:
     image: quay.io/k8scsi/csi-snapshotter:v2.1.0
   resizer:
-    image: quay.io/k8scsi/csi-resizer:v0.5.0
+    image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
   livenessprobe:
-    image: quay.io/k8scsi/livenessprobe:v2.1.0
+    image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0
   snapshotController:
     image: quay.io/k8scsi/snapshot-controller:v2.1.0
     nodeSelector: {}

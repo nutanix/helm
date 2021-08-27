@@ -54,6 +54,13 @@ questions:
     group: "global Settings"
     show_if: "volumeClass=true||dynamicFileClass=true"
 
+  - variable: servicemonitor.enabled
+    label: "Prometheus ServiceMonitor"
+    type: boolean
+    default: false
+    description: "Activate Prometheus ServiceMonitor to scrape CSI metrics"
+    group: "global Settings"
+
   - variable: lvmVolume
     label: "LVM Volume"
     type: boolean
