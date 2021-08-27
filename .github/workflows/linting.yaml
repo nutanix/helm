@@ -25,3 +25,10 @@ jobs:
 
       - name: Run chart-testing (lint)
         run: ct lint
+
+      - name: Artifect Hub Lint
+        run: |
+          curl -LO https://github.com/artifacthub/hub/releases/download/v1.1.1/ah_1.1.1_linux_amd64.tar.gz
+          tar xvzf ah_1.1.1_linux_amd64.tar.gz
+          ./ah lint
+
