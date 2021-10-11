@@ -58,7 +58,7 @@ metadata:
   labels:
     app: cert-manager
   annotations:
-    "helm.sh/hook": post-install
+    "helm.sh/hook": post-install,pre-upgrade
 spec:
   template:
     metadata:
