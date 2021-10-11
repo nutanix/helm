@@ -121,4 +121,4 @@ sidecars:
     tolerations: []
 
 certmanager:
-  image: newrelic/k8s-webhook-cert-manager:1.4.0
+  image: quay.io/heikokoehler/k8s-webhook-cert-manager:1.4.0
