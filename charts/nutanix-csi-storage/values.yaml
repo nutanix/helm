@@ -119,3 +119,6 @@ sidecars:
     image: k8s.gcr.io/sig-storage/snapshot-controller:v4.2.1
     nodeSelector: {}
     tolerations: []
+
+certmanager:
+  image: newrelic/k8s-webhook-cert-manager:1.4.0
