@@ -104,6 +104,9 @@ node:
   nodeSelector: {}
   tolerations: []
 
+snapshotValidationWebHook:
+  image: k8s.gcr.io/sig-storage/snapshot-validation-webhook:v4.2.1
+
 sidecars:
   registrar:
     image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
