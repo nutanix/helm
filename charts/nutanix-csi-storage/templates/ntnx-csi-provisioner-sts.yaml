@@ -63,6 +63,8 @@ spec:
           - --csi-address=$(ADDRESS)
           - --leader-election=false
           - --logtostderr=true
+          - --timeout=300s
+          - --retry-interval-start=30s
           env:
           - name: ADDRESS
             value: /csi/csi.sock

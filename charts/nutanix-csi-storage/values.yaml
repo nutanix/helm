@@ -48,10 +48,10 @@ defaultStorageClass: none
 # Allow dynamic creation of Volumes and Fileshare
 # needed if volumeClass or dynamicFileClass is set to true
 
-prismEndPoint: 10.0.0.1
+prismEndPoint: 10.40.146.241
 
 username: admin
-password: nutanix/4u
+password: Nutanix.123
 
 secretName: ntnx-secret
 
@@ -63,8 +63,8 @@ createSecret: true
 
 # Volumes Settings
 #
-dataServiceEndPoint: 10.0.0.2
-storageContainer: default
+dataServiceEndPoint: 10.40.146.247
+storageContainer: k8s
 fsType: xfs
 
 lvmVolume: false
@@ -110,12 +110,12 @@ sidecars:
   provisioner:
     image: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.0
   snapshotter:
-    image: quay.io/k8scsi/csi-snapshotter:v2.1.0
+    image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
   resizer:
     image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
   livenessprobe:
     image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0
   snapshotController:
-    image: quay.io/k8scsi/snapshot-controller:v2.1.0
+    image: k8s.gcr.io/sig-storage/snapshot-controller:v4.2.1
     nodeSelector: {}
     tolerations: []
