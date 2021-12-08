@@ -1,6 +1,7 @@
 apiVersion: v2
 type: application
 version: 3.0.3
+kubeVersion: ">= 1.17.0-0"
 appVersion: "3.0.3"
 name: nutanix-csi-snapshot
 description: Snapshot components required for CSI snapshotting and not specific to any CSI driver
@@ -18,6 +19,7 @@ keywords:
   - CentOS
   - Ubuntu
 annotations:
+  artifacthub.io/displayName: "Nutanix CSI Snapshot"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
     - Update Snapshot Controller to 3.0.3
@@ -27,3 +29,5 @@ annotations:
   artifacthub.io/maintainers: |
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
+  artifacthub.io/recommendations: |
+    - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-storage

@@ -22,6 +22,8 @@ kubectl patch crd volumesnapshots.snapshot.storage.k8s.io -p '{"metadata": {"ann
 helm install -n ${HELM_CRD_NAMESPACE} ${HELM_CRD_NAME} nutanix-csi-snapshot
 ```
 
+Warning: If you delete this Helm chart, it will remove Snapshot CRDs and all existing snapshot.
+
 ## Install
 
 The following commands install this chart in your cluster. See [below](#configuration) for available configuration

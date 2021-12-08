@@ -19,6 +19,7 @@ keywords:
   - CentOS
   - Ubuntu
 annotations:
+  artifacthub.io/displayName: "Nutanix CSI Storage"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
     - Update Nutanix CSI Driver to 2.5.0
@@ -28,3 +29,5 @@ annotations:
   artifacthub.io/maintainers: |
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
+  artifacthub.io/recommendations: |
+    - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot
