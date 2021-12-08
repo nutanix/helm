@@ -65,7 +65,7 @@ Create the name of the service account to use
 Select the tag release based on the k8s version
 */}}
 {{- define "nutanix-csi-snapshot.release" -}}
-{{- if ge .Capabilities.KubeVersion.Minor "20" }}
+{{- if semverCompare ">=1.20-0"  .Capabilities.KubeVersion.Version }}
 {{- .Values.tag.rel42 }}
 {{- else }}
 {{- .Values.tag.rel3 }}
