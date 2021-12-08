@@ -8,24 +8,28 @@ When Files is used for persistent storage, applications on multiple pods can acc
 
 ## Important notice
 
-If you plan to update an existing Nutanix CSI deployement from 1.x to 2.x with this Chart, you need first deploy manually the CRD present here https://github.com/nutanix/csi-plugin/tree/master/deploy/Centos/crd.
+Starting with version 2.5 of this chart we separate the Snapshot components to a second indepent Chart.  
+If you plan to update an existing Nutanix CSI Chart version < v2.5.x with this Chart, you need to check below recommendation.
 
-Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you are upgrading the CSI driver then you should continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
+- Once you upgrade to version 2.5+, the snapshot-controler will be removed, but previously installed Snapshot CRD stay in place. You will then need to install the [nutanix-csi-snapshot]() Helm Chart following the `Important notice` procedure.
+- If you create Storageclass automatically with a previous Nutanix CSI Chart version < v2.5.x, take care to remove Storageclass before `Helm upgrade`.
+
+Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you initially installed CSI driver in version < v2.2.0 then you should need to continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
 
 ## Nutanix CSI driver documentation
-https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_4_1:CSI-Volume-Driver-v2_4_1
+https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_5_0:CSI-Volume-Driver-v2_5_0
 
 ## Features list
 
-- Nutanix CSI Driver v2.4.1
+- Nutanix CSI Driver v2.5.0
 - Nutanix Volumes support
 - Nutanix Files support
-- Volume resize support ( beta in Kubernetes >= 1.16.0 )
-- Volume clone ( beta Kubernetes >= 1.16.0 )
-- Volume snapshot and Restore ( beta Kubernetes >= 1.17.0 )
+- Volume clone
+- Volume snapshot and Restore
 - IP Address Whitelisting
 - LVM Volume supporting multi vdisks volume group
-- NFS dynamic share provisioning
+- NFS Dynamic share provisioning
+- PV resize support for Volumes and Dynamic Files mode
 - iSCSI Auto CHAP Authentication
 - OS independence
 - Volume metrics and CSI operations metrics support
@@ -35,7 +39,6 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 - Kubernetes 1.17 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
 - This chart have been validated on RHEL/CentOS 7/8 and Ubuntu 18.04/20.04/21.04, but the new architecture enables easy portability to other distributions.
-- On Ubuntu system systemd-resolved need to be disabled (refer to the Ubuntu documentation)
 
 ## Installing the Chart
 
@@ -77,6 +80,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `createSecret`                   | Create secret for admin role (if false use existing)| `true`|
 | `storageContainer`               | Nutanix storage container name     | `default`|
 | `fsType`                         | Type of file system you are using (ext4, xfs)  |`xfs`|
+| `networkSegmentation`            | Activate Volumes Network Segmentation support |`false`|
 | `lvmVolume`                      | Activate LVM to use multiple vdisks by Volume    |`false`|
 | `lvmDisks`                       | Number of vdisks by volume if lvm enabled | `4`|
 | `fileHost`                       | NFS server IP address | `10.0.0.3`|
@@ -90,8 +94,6 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `provisioner.tolerations`        | Add tolerations to provisioner pod | `[]`  |
 | `node.nodeSelector`              | Add nodeSelector to node pods | `{}` |
 | `node.tolerations`               | Add tolerations to node pods | `[]` |
-| `snapshotController.nodeSelector`| Add nodeSelector to snapshotController pod | `{}` |
-| `snapshotController.tolerations` | Add tolerations to snapshotController pod | `[]` |
 | `servicemonitor.enabled`         | Create ServiceMonitor to scrape CSI  metrics | `false` |
 | `servicemonitor.labels`          | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`|
 

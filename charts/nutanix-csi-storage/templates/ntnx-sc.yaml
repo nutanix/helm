@@ -16,9 +16,9 @@ parameters:
     csi.storage.k8s.io/node-publish-secret-namespace: {{ .Release.Namespace }}
     csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.secretName }}
     csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
-    dataServiceEndPoint: {{ .Values.dataServiceEndPoint }}
     storageContainer: {{ .Values.storageContainer }}
     csi.storage.k8s.io/fstype: {{ .Values.fsType }}
+    isSegmentedIscsiNetwork: {{ quote .Values.networkSegmentation }}
 {{- if eq .Values.lvmVolume true }}
     isLVMVolume: "true"
     numLVMDisks: {{ quote .Values.lvmDisks }}
@@ -32,9 +32,9 @@ metadata:
   name: nutanix-snapshot-class
 driver: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
-  storageType: NutanixVolumes
-  csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
-  csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
+    storageType: NutanixVolumes
+    csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
+    csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
 deletionPolicy: Delete
 {{- end }}
 ---
@@ -70,4 +70,9 @@ parameters:
     nfsServerName: {{ .Values.fileServerName }}
     csi.storage.k8s.io/provisioner-secret-name: {{ .Values.secretName }}
     csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
+    csi.storage.k8s.io/node-publish-secret-name: {{ .Values.secretName }}
+    csi.storage.k8s.io/node-publish-secret-namespace: {{ .Release.Namespace }}
+    csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.secretName }}
+    csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
+allowVolumeExpansion: true
 {{- end }}

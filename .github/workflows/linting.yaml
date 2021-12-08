@@ -28,7 +28,7 @@ jobs:
 
       - name: ArtifactHUB Lint
         env:
-          AH_CLI_VERSION: 1.1.1
+          AH_CLI_VERSION: 1.4.0
         run: |
           curl -LO https://github.com/artifacthub/hub/releases/download/v${AH_CLI_VERSION}/ah_${AH_CLI_VERSION}_linux_amd64.tar.gz
           tar xvzf ah_${AH_CLI_VERSION}_linux_amd64.tar.gz

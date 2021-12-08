@@ -17,16 +17,23 @@ spec:
       serviceAccount: snapshot-controller
       containers:
         - name: snapshot-controller
-          image: {{ .Values.sidecars.snapshotController.image }}
+          image: {{ .Values.controller.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - "--v=5"
             - "--leader-election=false"
-    {{- with (.Values.sidecars.snapshotController.nodeSelector | default .Values.nodeSelector ) }}
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+    {{- with (.Values.controller.nodeSelector | default .Values.nodeSelector ) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with (.Values.sidecars.snapshotController.tolerations | default .Values.tolerations)}}
+    {{- with (.Values.controller.tolerations | default .Values.tolerations)}}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
