@@ -17,7 +17,7 @@ spec:
       serviceAccount: snapshot-controller
       containers:
         - name: snapshot-controller
-          image: {{ .Values.controller.image }}
+          image: {{ .Values.controller.image }}:{{ include "nutanix-csi-snapshot.release" . }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - "--v=5"

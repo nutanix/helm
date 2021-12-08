@@ -60,3 +60,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Select the tag release based on the k8s version
+*/}}
+{{- define "nutanix-csi-snapshot.release" -}}
+{{- if ge .Capabilities.KubeVersion.Minor "20" }}
+{{- .Values.tag.rel42 }}
+{{- else }}
+{{- .Values.tag.rel3 }}
+{{- end }}
+{{- end }}

@@ -1,8 +1,8 @@
 apiVersion: v2
 type: application
-version: 3.0.3
+version: 1.0.0
 kubeVersion: ">= 1.17.0-0"
-appVersion: "3.0.3"
+appVersion: "1.0.0"
 name: nutanix-csi-snapshot
 description: Snapshot components required for CSI snapshotting and not specific to any CSI driver
 home: https://github.com/nutanix/helm

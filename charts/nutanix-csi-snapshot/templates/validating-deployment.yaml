@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: snapshot-validation
-        image: {{ .Values.validationWebHook.image }}
+        image: {{ .Values.validationWebHook.image }}:{{ include "nutanix-csi-snapshot.release" . }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         args:
           - --tls-cert-file=/etc/snapshot-validation-webhook/certs/tls.crt
