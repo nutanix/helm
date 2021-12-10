@@ -15,14 +15,10 @@ keywords:
   - Storage
   - Snapshot
   - SnapshotClass
-  - RedHat
-  - CentOS
-  - Ubuntu
+  - CSI
 annotations:
   artifacthub.io/displayName: "Nutanix CSI Snapshot"
   artifacthub.io/containsSecurityUpdates: "true"
-  artifacthub.io/changes: |
-    - Update Snapshot Controller to 3.0.3
   artifacthub.io/links: |
     - name: Kubernetes CSI Developer Documentation
       url: https://kubernetes-csi.github.io/docs/

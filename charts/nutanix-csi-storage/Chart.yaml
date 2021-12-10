@@ -18,6 +18,7 @@ keywords:
   - RedHat
   - CentOS
   - Ubuntu
+  - CSI
 annotations:
   artifacthub.io/displayName: "Nutanix CSI Storage"
   artifacthub.io/containsSecurityUpdates: "true"
