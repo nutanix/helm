@@ -27,7 +27,7 @@ imagePullPolicy: IfNotPresent
 # Storage Class settings
 #
 # choose for which mode (Volume, File, Dynamic File) storageclass need to be created
-volumeClass: true
+volumeClass: false
 volumeClassName: "nutanix-volume"
 
 fileClass: false
@@ -70,6 +70,8 @@ fsType: xfs
 lvmVolume: false
 lvmDisks: 4
 
+networkSegmentation: false
+
 # Files Settings
 #
 fileHost: 10.0.0.3
@@ -95,12 +97,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:v2.4.1
+  image: quay.io/karbon/ntnx-csi:v25_test
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.4.1
+  image: quay.io/karbon/ntnx-csi:v25_test
   nodeSelector: {}
   tolerations: []
 
@@ -110,12 +112,9 @@ sidecars:
   provisioner:
     image: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.0
   snapshotter:
-    image: quay.io/k8scsi/csi-snapshotter:v2.1.0
+    image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
+    imageBeta: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
   resizer:
     image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
   livenessprobe:
     image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0
-  snapshotController:
-    image: quay.io/k8scsi/snapshot-controller:v2.1.0
-    nodeSelector: {}
-    tolerations: []

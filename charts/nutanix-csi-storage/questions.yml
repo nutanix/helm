@@ -61,20 +61,6 @@ questions:
     description: "Activate Prometheus ServiceMonitor to scrape CSI metrics"
     group: "global Settings"
 
-  - variable: lvmVolume
-    label: "LVM Volume"
-    type: boolean
-    default: false
-    description: "Activate LVM to support multi vdisks volume group for PV"
-    group: "Nutanix Volumes Settings"
-    show_if: "volumeClass=true"
-  - variable: dataServiceEndPoint
-    label: "Data Service Endpoint"
-    type: string
-    required: true
-    description: "Please specify the ISCSI data services address"
-    group: "Nutanix Volumes Settings"
-    show_if: "volumeClass=true"
   - variable: storageContainer
     label: "Storage Container"
     type: string
@@ -87,6 +73,20 @@ questions:
     type: enum
     options: ["xfs", "ext4"]
     description: "Select the filesystem for the Persistent Volume"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: networkSegmentation
+    label: "Volumes Network Segmentation"
+    type: boolean
+    default: false
+    description: "Activate Volumes Network Segmentation support"
+    group: "Nutanix Volumes Settings"
+    show_if: "volumeClass=true"
+  - variable: lvmVolume
+    label: "LVM Volume"
+    type: boolean
+    default: false
+    description: "Activate LVM to support multi vdisks volume group for PV"
     group: "Nutanix Volumes Settings"
     show_if: "volumeClass=true"
   - variable: lvmDisks
