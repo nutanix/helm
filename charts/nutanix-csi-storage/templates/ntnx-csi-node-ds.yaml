@@ -35,6 +35,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
           volumeMounts:
             - name: plugin-dir
               mountPath: /csi/
@@ -61,6 +68,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
           volumeMounts:
             - name: plugin-dir
               mountPath: /csi
