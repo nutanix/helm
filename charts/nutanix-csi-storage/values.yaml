@@ -96,12 +96,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:v25_test
+  image: quay.io/karbon/ntnx-csi:v2.5.0
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v25_test
+  image: quay.io/karbon/ntnx-csi:v2.5.0
   nodeSelector: {}
   tolerations: []
 

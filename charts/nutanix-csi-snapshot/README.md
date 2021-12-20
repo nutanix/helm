@@ -9,15 +9,37 @@ If your Kubernetes Distribution Does Not Bundle the Snapshot Components you can 
 
 ## Important notice
 
-If you plan to update from a Nutanix CSI Yaml install or you already deployed the `nutanix-csi-storage` Helm Chart in version < 2.5 in the past, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
+### Upgrading from helm chart based deployment
+If you deployed the `nutanix-csi-storage` Helm Chart in version < 2.5 in the past, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
 
 ```bash
-HELM_CRD_NAME="ntnx-snapshot"
+HELM_CRD_NAME="nutanix-snapshot"
 HELM_CRD_NAMESPACE="ntnx-system"
 
 kubectl patch crd volumesnapshotclasses.snapshot.storage.k8s.io -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
 kubectl patch crd volumesnapshotcontents.snapshot.storage.k8s.io -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
 kubectl patch crd volumesnapshots.snapshot.storage.k8s.io -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+
+helm install -n ${HELM_CRD_NAMESPACE} ${HELM_CRD_NAME} nutanix-csi-snapshot
+```
+
+### Upgrading from yaml based deployment
+If you are upgrading CSI driver from yaml based deployment, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
+
+```bash
+HELM_CRD_NAME="nutanix-snapshot"
+HELM_CRD_NAMESPACE="ntnx-system"
+
+kubectl patch crd volumesnapshotclasses.snapshot.storage.k8s.io -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch crd volumesnapshotcontents.snapshot.storage.k8s.io -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch crd volumesnapshots.snapshot.storage.k8s.io -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+
+kubectl patch sa snapshot-controller -n ${HELM_CRD_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch ClusterRole snapshot-controller-runner -n ${HELM_CRD_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch ClusterRoleBinding snapshot-controller-role -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch Role snapshot-controller-leaderelection -n ${HELM_CRD_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch RoleBinding snapshot-controller-leaderelection -n ${HELM_CRD_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl patch StatefulSet snapshot-controller -n ${HELM_CRD_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CRD_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CRD_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
 
 helm install -n ${HELM_CRD_NAMESPACE} ${HELM_CRD_NAME} nutanix-csi-snapshot
 ```
