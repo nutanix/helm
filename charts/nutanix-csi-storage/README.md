@@ -16,7 +16,7 @@ If you plan to update an existing Nutanix CSI Chart version < v2.5.x with this C
 
 Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you initially installed CSI driver in version < v2.2.0 then you should need to continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
 
-## Upgrading from yaml based deployment
+### Upgrading from yaml based deployment
 Starting with CSI driver v2.5.0, yaml based deployment is discontinued. So to upgrade from yaml based deployment, you need to patch your existing CSI deployment with helm annotations. Please follow the following procedure.
 
 ```bash
@@ -24,7 +24,7 @@ HELM_CHART_NAME="nutanix-csi"
 HELM_CHART_NAMESPACE="ntnx-system"
 DRIVER_NAME="csi.nutanix.com"
 
-kubectl patch sts csi-provisioner-ntnx-plugin -n ${HELM_CHART_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CHART_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CHART_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
+kubectl delete sts csi-provisioner-ntnx-plugin -n ${HELM_CHART_NAMESPACE}
 kubectl patch ds csi-node-ntnx-plugin -n ${HELM_CHART_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CHART_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CHART_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
 
 kubectl patch csidriver ${DRIVER_NAME} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CHART_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CHART_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}'
@@ -45,7 +45,7 @@ kubectl patch service csi-metrics-service -n ${HELM_CHART_NAMESPACE} -p '{"metad
 kubectl patch servicemonitor csi-driver -n ${HELM_CHART_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CHART_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CHART_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}' --type=merge
 ```
 
-Now follow Installng the Chart section to finish upgrading the CSI driver.
+Now follow `Installing the Chart` section to finish upgrading the CSI driver.
 
 ## Nutanix CSI driver documentation
 https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_5_0:CSI-Volume-Driver-v2_5_0
@@ -68,8 +68,8 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 ## Prerequisites
 
 - Kubernetes 1.17 or later
-- Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes only)
-- This chart have been validated on RHEL/CentOS 7/8 and Ubuntu 18.04/20.04/21.04, but the new architecture enables easy portability to other distributions.
+- Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes mode) and/or NFS tools (Nutanix Files mode)
+- This chart have been validated on RHEL/CentOS 7/8 and Ubuntu 18.04/20.04/21.04/21.10, but the new architecture enables easy portability to other distributions.
 
 ## Installing the Chart
 
