@@ -76,7 +76,9 @@ metadata:
 spec:
   selector:
     app: csi-provisioner-ntnx-plugin
-  clusterIP: None
+  ports:
+    - name: dummy
+      port: 12345
 ---
 apiVersion: v1
 kind: ServiceAccount
