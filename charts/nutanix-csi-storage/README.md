@@ -65,7 +65,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 |              Parameter           |                Description             |             Default            |
 |----------------------------------|----------------------------------------|--------------------------------|
 | `legacy`                         | Use old reverse notation for CSI driver name | `false` |
-| `volumeClass`                    | Activate Nutanix Volumes Storage Class | `true` |
+| `volumeClass`                    | Activate Nutanix Volumes Storage Class | `false` |
 | `volumeClassName`                | Name of the Nutanix Volumes Storage Class | `nutanix-volume` |
 | `fileClass`                      | Activate Nutanix Files Storage Class | `false` |
 | `fileClassName`                  | Name of the Nutanix Files Storage Class | `nutanix-file` |
@@ -73,7 +73,6 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `dynamicFileClassName`           | Name of the Nutanix Dynamic Files Storage Class | `nutanix-dynamicfile` |
 | `defaultStorageClass`            | Choose your default Storage Class (none, volume, file, dynfile) | `none`|
 | `prismEndPoint`                  | Cluster Virtual IP Address |`10.0.0.1`|
-| `dataServiceEndPoint`            | Prism data service IP |`10.0.0.2`|
 | `username`                       | Name used for the admin role (if created) |`admin`|
 | `password`                       | Password for the admin role (if created) |`nutanix/4u`|
 | `secretName`                     | Name of the secret to use for admin role| `ntnx-secret`|
@@ -102,7 +101,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Example:
 
 ```console
-helm install nutanix-csi nutanix/nutanix-csi-storage --set prismEndPoint=X.X.X.X --set dataServiceEndPoint=Y.Y.Y.Y --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume
+helm install nutanix-csi nutanix/nutanix-csi-storage --set volumeClass=true --set prismEndPoint=X.X.X.X --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume
 ```
 
 or

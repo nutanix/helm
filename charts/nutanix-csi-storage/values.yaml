@@ -63,7 +63,6 @@ createSecret: true
 
 # Volumes Settings
 #
-dataServiceEndPoint: 10.0.0.2
 storageContainer: default
 fsType: xfs
 
