@@ -25,7 +25,7 @@ kubectl patch crd volumesnapshots.snapshot.storage.k8s.io -p '{"metadata": {"ann
 helm install -n ${HELM_CRD_NAMESPACE} ${HELM_CRD_NAME} nutanix-csi-snapshot
 ```
 
-### Upgrading from Nuatnix CSI yaml based deployment
+### Upgrading from Nutanix CSI yaml based deployment
 If you are upgrading CSI driver installed from yaml based deployment, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
 
 ```bash
