@@ -9,8 +9,10 @@ If your Kubernetes Distribution Does Not Bundle the Snapshot Components you can 
 
 ## Important notice
 
-### Upgrading from helm chart based deployment
-If you deployed the `nutanix-csi-storage` Helm Chart in version < 2.5 in the past, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
+Starting with version 2.5 of the `nutanix-csi-storage` chart we separate the Snapshot components to a second independent Chart (this one).
+If you plan to update an existing Nutanix CSI Chart version < v2.5.x with this Chart, you need to check below recommendation.
+### Upgrading from `nutanix-csi-storage` helm chart deployment
+If you deployed the `nutanix-csi-storage` Helm Chart in version < 2.5 in the past, first you need update the `nutanix-csi-storage` and next apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
 
 ```bash
 HELM_CRD_NAME="nutanix-snapshot"
@@ -23,8 +25,8 @@ kubectl patch crd volumesnapshots.snapshot.storage.k8s.io -p '{"metadata": {"ann
 helm install -n ${HELM_CRD_NAMESPACE} ${HELM_CRD_NAME} nutanix-csi-snapshot
 ```
 
-### Upgrading from yaml based deployment
-If you are upgrading CSI driver from yaml based deployment, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
+### Upgrading from Nuatnix CSI yaml based deployment
+If you are upgrading CSI driver installed from yaml based deployment, you need to apply the following procedure to deploy the `nutanix-csi-snapshot` Helm Chart.
 
 ```bash
 HELM_CRD_NAME="nutanix-snapshot"
