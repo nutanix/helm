@@ -81,6 +81,15 @@ helm repo add nutanix https://nutanix.github.io/helm/
 helm install nutanix-csi nutanix/nutanix-csi-storage -n <namespace of your choice>
 ```
 
+## Upgrade
+
+Upgrades can be done using the normal Helm upgrade mechanism
+
+```
+helm repo update
+helm upgrade nutanix-csi nutanix/nutanix-csi-storage
+```
+
 ## Uninstalling the Chart
 
 To uninstall/delete the `nutanix-csi` deployment:
