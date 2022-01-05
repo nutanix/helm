@@ -1,4 +1,4 @@
-# Nutanix CSI Volume Driver Helm chart
+# Nutanix CSI Storage Driver Helm chart
 
 ## Introduction
 
@@ -14,7 +14,7 @@ If you plan to update an existing Nutanix CSI Chart version < v2.5.x with this C
 - Once you upgrade to version 2.5+, the snapshot-controler will be removed, but previously installed Snapshot CRD stay in place. You will then need to install the [nutanix-csi-snapshot](https://github.com/nutanix/helm/tree/master/charts/nutanix-csi-snapshot) Helm Chart following the `Important notice` procedure.
 - If you create Storageclass automatically with a previous Nutanix CSI Chart version < v2.5.x, take care to remove Storageclass before `Helm upgrade`.
 
-If you previously installed Nutanix CSI driver with yaml file please follow the [Upgrading from yaml based deployment](#upgrading-from-yaml-based-deployment) section below.
+If you previously installed Nutanix CSI Storage Driver with yaml file please follow the [Upgrading from yaml based deployment](#upgrading-from-yaml-based-deployment) section below.
 
 Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you initially installed CSI driver in version < v2.2.0 then you should need to continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
 
@@ -90,7 +90,7 @@ kubectl patch service csi-metrics-service -n ${HELM_CHART_NAMESPACE} -p '{"metad
 kubectl patch servicemonitor csi-driver -n ${HELM_CHART_NAMESPACE} -p '{"metadata": {"annotations":{"meta.helm.sh/release-name":"'"${HELM_CHART_NAME}"'","meta.helm.sh/release-namespace":"'"${HELM_CHART_NAMESPACE}"'"}, "labels":{"app.kubernetes.io/managed-by":"Helm"}}}' --type=merge
 ```
 
-Now follow `Installing the Chart` section to finish upgrading the CSI driver.
+Now follow [Installing the Chart](#installing-the-chart) section to finish upgrading the CSI driver.
 
 ## Uninstalling the Chart
 
