@@ -104,3 +104,15 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `validationWebHook.tolerations` | Add tolerations to validationWebHook pods | `[]` |
 
 [`kubernetes.io/tls`]: https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets
+
+## Support
+
+The Nutanix CSI Volume Driver is fully supported by Nutanix. Please use the standard support procedure to file a ticket [here](https://www.nutanix.com/support-services/product-support).
+
+## Community
+
+Please file any issues, questions or feature requests you may have [here](https://github.com/kubernetes-csi/external-snapshotter/issues) for the CSI Snapshotter or [here](https://github.com/nutanix/helm/issues) for the Nutanix CSI Snapshot Helm chart.
+
+## Contributing
+
+We value all feedback and contributions. If you find any issues or want to contribute, please feel free to open an issue or file a PR.
