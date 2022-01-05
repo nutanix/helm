@@ -11,7 +11,7 @@ When Files is used for persistent storage, applications on multiple pods can acc
 Starting with version 2.5 of this chart we separate the Snapshot components to a second independent Chart.
 If you plan to update an existing Nutanix CSI Chart version < v2.5.x with this Chart, you need to check below recommendation.
 
-- Once you upgrade to version 2.5+, the snapshot-controler will be removed, but previously installed Snapshot CRD stay in place. You will then need to install the [nutanix-csi-snapshot](https://github.com/nutanix/helm/tree/master/charts/nutanix-csi-snapshot) Helm Chart following the `Important notice` procedure.
+- Once you upgrade to version 2.5+, the snapshot-controler will be removed, but previously installed Snapshot CRD stay in place. You will then need to install the [nutanix-csi-snapshot](https://github.com/nutanix/helm/tree/master/charts/nutanix-csi-snapshot) Helm Chart following the [Important notice](https://github.com/nutanix/helm/tree/master/charts/nutanix-csi-snapshot#upgrading-from-nutanix-csi-storage-helm-chart-deployment) procedure.
 - If you create Storageclass automatically with a previous Nutanix CSI Chart version < v2.5.x, take care to remove Storageclass before `Helm upgrade`.
 
 If you previously installed Nutanix CSI Storage Driver with yaml file please follow the [Upgrading from yaml based deployment](#upgrading-from-yaml-based-deployment) section below.
