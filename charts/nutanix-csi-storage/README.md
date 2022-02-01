@@ -16,6 +16,8 @@ If you plan to update an existing Nutanix CSI Chart version < v2.5.x with this C
 
 If you previously installed Nutanix CSI Storage Driver with yaml file please follow the [Upgrading from yaml based deployment](#upgrading-from-yaml-based-deployment) section below.
 
+If this is your first deployment and your Kubernetes Distribution does not bundle the snapshot components, you need to install first the [Nutanix CSI Snapshot Controller Helm chart](https://github.com/nutanix/helm/tree/master/charts/nutanix-csi-snapshot)
+
 Please note that starting with v2.2.0, Nutanix CSI driver has changed format of driver name from com.nutanix.csi to csi.nutanix.com. All deployment yamls uses this new driver name format. However, if you initially installed CSI driver in version < v2.2.0 then you should need to continue to use old driver name com.nutanix.csi by setting `legacy` parameter to `true`. If not existing PVC/PV will not work with the new driver name.
 
 ## Nutanix CSI driver documentation
