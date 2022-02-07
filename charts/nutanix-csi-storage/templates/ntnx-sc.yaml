@@ -26,7 +26,11 @@ parameters:
 allowVolumeExpansion: true
 reclaimPolicy: Delete
 ---
+{{- if .Capabilities.APIVersions.Has "snapshot.storage.k8s.io/v1" }}
+apiVersion: snapshot.storage.k8s.io/v1
+{{- else }}
 apiVersion: snapshot.storage.k8s.io/v1beta1
+{{- end }}
 kind: VolumeSnapshotClass
 metadata:
   name: nutanix-snapshot-class
