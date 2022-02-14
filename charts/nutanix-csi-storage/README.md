@@ -111,10 +111,12 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `legacy`                         | Use old reverse notation for CSI driver name | `false` |
 | `volumeClass`                    | Activate Nutanix Volumes Storage Class | `false` |
 | `volumeClassName`                | Name of the Nutanix Volumes Storage Class | `nutanix-volume` |
+| `volumeClassDescription`         | Description prefix for each created VG | `volumeClassName` |
 | `fileClass`                      | Activate Nutanix Files Storage Class | `false` |
 | `fileClassName`                  | Name of the Nutanix Files Storage Class | `nutanix-file` |
 | `dynamicFileClass`               | Activate Nutanix Dynamic Files Storage Class | `false` |
 | `dynamicFileClassName`           | Name of the Nutanix Dynamic Files Storage Class | `nutanix-dynamicfile` |
+| `dynamicFileClassDescription`    | Description prefix for each created Fileshare | `dynamicFileClassName` |
 | `defaultStorageClass`            | Choose your default Storage Class (none, volume, file, dynfile) | `none`|
 | `prismEndPoint`                  | Cluster Virtual IP Address |`10.0.0.1`|
 | `username`                       | Name used for the admin role (if created) |`admin`|
