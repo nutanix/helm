@@ -111,12 +111,14 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `legacy`                         | Use old reverse notation for CSI driver name                                                | `false`               |
 | `volumeClass`                    | Activate Nutanix Volumes Storage Class                                                      | `false`               |
 | `volumeClassName`                | Name of the Nutanix Volumes Storage Class                                                   | `nutanix-volume`      |
+| `volumeClassDescription`         | Description prefix for each created VG                                                      | `volumeClassName`     |
 | `volumeClassRetention`           | Retention policy for the Volumes Storage Class (Delete, Retain)                             | `Delete`              |
 | `fileClass`                      | Activate Nutanix Files Storage Class                                                        | `false`               |
 | `fileClassName`                  | Name of the Nutanix Files Storage Class                                                     | `nutanix-file`        |
 | `fileClassRetention`             | Retention policy for the Files Storage Class (Delete, Retain)                               | `Delete`              |
 | `dynamicFileClass`               | Activate Nutanix Dynamic Files Storage Class                                                | `false`               |
 | `dynamicFileClassName`           | Name of the Nutanix Dynamic Files Storage Class                                             | `nutanix-dynamicfile` |
+| `dynamicFileClassDescription`    | Description prefix for each created Fileshare                                               | `dynamicFileClassName`|
 | `dynamicFileClassRetention`      | Retention policy for the Dynamic Files Storage Class (Delete, Retain)                       | `Delete`              |
 | `defaultStorageClass`            | Choose your default Storage Class (none, volume, file, dynfile)                             | `none`                |
 | `prismEndPoint`                  | Cluster Virtual IP Address                                                                  | `10.0.0.1`            |
@@ -142,6 +144,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `node.tolerations`               | Add tolerations to node pods                                                                | `[]`                  |
 | `servicemonitor.enabled`         | Create ServiceMonitor to scrape CSI  metrics                                                | `false`               |
 | `servicemonitor.labels`          | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver` |
+
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
 
