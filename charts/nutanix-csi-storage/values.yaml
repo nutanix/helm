@@ -30,7 +30,7 @@ imagePullPolicy: IfNotPresent
 volumeClass: false
 volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
-#volumeClassDescription: ""
+# volumeClassDescription: ""
 
 fileClass: false
 fileClassName: "nutanix-file"
@@ -39,7 +39,7 @@ fileClassRetention: "Delete"
 dynamicFileClass: false
 dynamicFileClassName: "nutanix-dynamicfile"
 dynamicFileClassRetention: "Delete"
-#dynamicFileClassDescription: ""
+# dynamicFileClassDescription: ""
 
 # Default Storage Class settings
 #
