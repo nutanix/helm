@@ -24,7 +24,7 @@ parameters:
     numLVMDisks: {{ quote .Values.lvmDisks }}
 {{- end }}
 allowVolumeExpansion: true
-reclaimPolicy: Delete
+reclaimPolicy: {{ .Values.volumeClassRetention }}
 ---
 {{- if .Capabilities.APIVersions.Has "snapshot.storage.k8s.io/v1" }}
 apiVersion: snapshot.storage.k8s.io/v1
@@ -56,6 +56,7 @@ parameters:
     storageType: NutanixFiles
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
+reclaimPolicy: {{ .Values.fileClassRetention }}
 {{- end }}
 ---
 {{- if eq .Values.dynamicFileClass true }}
@@ -79,4 +80,5 @@ parameters:
     csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.secretName }}
     csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
 allowVolumeExpansion: true
+reclaimPolicy: {{ .Values.dynamicFileClassRetention }}
 {{- end }}
