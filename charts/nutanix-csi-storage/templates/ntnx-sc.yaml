@@ -37,9 +37,9 @@ metadata:
   name: nutanix-snapshot-class
 driver: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
-    storageType: NutanixVolumes
-    csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
+  storageType: NutanixVolumes
+  csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
+  csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
 deletionPolicy: Delete
 {{- end }}
 ---

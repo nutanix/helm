@@ -8,7 +8,7 @@ maintainers:
 - name: nutanix-cloud-native-bot
   email: cloudnative@nutanix.com
 icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
-appVersion: "2.5.2"
+appVersion: "2.5.1"
 keywords:
   - Nutanix
   - Storage

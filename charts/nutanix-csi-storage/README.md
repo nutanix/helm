@@ -106,44 +106,44 @@ helm delete nutanix-csi -n <namespace of your choice>
 
 The following table lists the configurable parameters of the Nutanix-CSI chart and their default values.
 
-| Parameter                        | Description                                                                                 | Default               |
-|----------------------------------|---------------------------------------------------------------------------------------------|-----------------------|
-| `legacy`                         | Use old reverse notation for CSI driver name                                                | `false`               |
-| `volumeClass`                    | Activate Nutanix Volumes Storage Class                                                      | `false`               |
-| `volumeClassName`                | Name of the Nutanix Volumes Storage Class                                                   | `nutanix-volume`      |
-| `volumeClassDescription`         | Description prefix for each created VG                                                      | `volumeClassName`     |
-| `volumeClassRetention`           | Retention policy for the Volumes Storage Class (Delete, Retain)                             | `Delete`              |
-| `fileClass`                      | Activate Nutanix Files Storage Class                                                        | `false`               |
-| `fileClassName`                  | Name of the Nutanix Files Storage Class                                                     | `nutanix-file`        |
-| `fileClassRetention`             | Retention policy for the Files Storage Class (Delete, Retain)                               | `Delete`              |
-| `dynamicFileClass`               | Activate Nutanix Dynamic Files Storage Class                                                | `false`               |
-| `dynamicFileClassName`           | Name of the Nutanix Dynamic Files Storage Class                                             | `nutanix-dynamicfile` |
-| `dynamicFileClassDescription`    | Description prefix for each created Fileshare                                               | `dynamicFileClassName`|
-| `dynamicFileClassRetention`      | Retention policy for the Dynamic Files Storage Class (Delete, Retain)                       | `Delete`              |
-| `defaultStorageClass`            | Choose your default Storage Class (none, volume, file, dynfile)                             | `none`                |
-| `prismEndPoint`                  | Cluster Virtual IP Address                                                                  | `10.0.0.1`            |
-| `username`                       | Name used for the admin role (if created)                                                   | `admin`               |
-| `password`                       | Password for the admin role (if created)                                                    | `nutanix/4u`          |
-| `secretName`                     | Name of the secret to use for admin role                                                    | `ntnx-secret`         |
-| `createSecret`                   | Create secret for admin role (if false use existing)                                        | `true`                |
-| `storageContainer`               | Nutanix storage container name                                                              | `default`             |
-| `fsType`                         | Type of file system you are using (ext4, xfs)                                               | `xfs`                 |
-| `networkSegmentation`            | Activate Volumes Network Segmentation support                                               | `false`               |
-| `lvmVolume`                      | Activate LVM to use multiple vdisks by Volume                                               | `false`               |
-| `lvmDisks`                       | Number of vdisks by volume if lvm enabled                                                   | `4`                   |
-| `fileHost`                       | NFS server IP address                                                                       | `10.0.0.3`            |
-| `filePath`                       | Path of the NFS share                                                                       | `share`               |
-| `fileServerName`                 | Name of the Nutanix FIle Server                                                             | `file`                |
-| `kubeletDir`                     | allows overriding the host location of kubelet's internal state                             | `/var/lib/kubelet`    |
-| `nodeSelector`                   | Add nodeSelector to all pods                                                                | `{}`                  |
-| `tolerations`                    | Add tolerations to all pods                                                                 | `[]`                  |
-| `imagePullPolicy`                | Specify imagePullPolicy for all pods                                                        | `IfNotPresent`        |
-| `provisioner.nodeSelector`       | Add nodeSelector to provisioner pod                                                         | `{}`                  |
-| `provisioner.tolerations`        | Add tolerations to provisioner pod                                                          | `[]`                  |
-| `node.nodeSelector`              | Add nodeSelector to node pods                                                               | `{}`                  |
-| `node.tolerations`               | Add tolerations to node pods                                                                | `[]`                  |
-| `servicemonitor.enabled`         | Create ServiceMonitor to scrape CSI  metrics                                                | `false`               |
-| `servicemonitor.labels`          | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver` |
+| Parameter                     | Description                                                                                 | Default                |
+|-------------------------------|---------------------------------------------------------------------------------------------|------------------------|
+| `legacy`                      | Use old reverse notation for CSI driver name                                                | `false`                |
+| `volumeClass`                 | Activate Nutanix Volumes Storage Class                                                      | `false`                |
+| `volumeClassName`             | Name of the Nutanix Volumes Storage Class                                                   | `nutanix-volume`       |
+| `volumeClassDescription`      | Description prefix for each created VG                                                      | `volumeClassName`      |
+| `volumeClassRetention`        | Retention policy for the Volumes Storage Class (Delete, Retain)                             | `Delete`               |
+| `fileClass`                   | Activate Nutanix Files Storage Class                                                        | `false`                |
+| `fileClassName`               | Name of the Nutanix Files Storage Class                                                     | `nutanix-file`         |
+| `fileClassRetention`          | Retention policy for the Files Storage Class (Delete, Retain)                               | `Delete`               |
+| `dynamicFileClass`            | Activate Nutanix Dynamic Files Storage Class                                                | `false`                |
+| `dynamicFileClassName`        | Name of the Nutanix Dynamic Files Storage Class                                             | `nutanix-dynamicfile`  |
+| `dynamicFileClassDescription` | Description prefix for each created Fileshare                                               | `dynamicFileClassName` |
+| `dynamicFileClassRetention`   | Retention policy for the Dynamic Files Storage Class (Delete, Retain)                       | `Delete`               |
+| `defaultStorageClass`         | Choose your default Storage Class (none, volume, file, dynfile)                             | `none`                 |
+| `prismEndPoint`               | Cluster Virtual IP Address                                                                  | `10.0.0.1`             |
+| `username`                    | Name used for the admin role (if created)                                                   | `admin`                |
+| `password`                    | Password for the admin role (if created)                                                    | `nutanix/4u`           |
+| `secretName`                  | Name of the secret to use for admin role                                                    | `ntnx-secret`          |
+| `createSecret`                | Create secret for admin role (if false use existing)                                        | `true`                 |
+| `storageContainer`            | Nutanix storage container name                                                              | `default`              |
+| `fsType`                      | Type of file system you are using (ext4, xfs)                                               | `xfs`                  |
+| `networkSegmentation`         | Activate Volumes Network Segmentation support                                               | `false`                |
+| `lvmVolume`                   | Activate LVM to use multiple vdisks by Volume                                               | `false`                |
+| `lvmDisks`                    | Number of vdisks by volume if lvm enabled                                                   | `4`                    |
+| `fileHost`                    | NFS server IP address                                                                       | `10.0.0.3`             |
+| `filePath`                    | Path of the NFS share                                                                       | `share`                |
+| `fileServerName`              | Name of the Nutanix FIle Server                                                             | `file`                 |
+| `kubeletDir`                  | allows overriding the host location of kubelet's internal state                             | `/var/lib/kubelet`     |
+| `nodeSelector`                | Add nodeSelector to all pods                                                                | `{}`                   |
+| `tolerations`                 | Add tolerations to all pods                                                                 | `[]`                   |
+| `imagePullPolicy`             | Specify imagePullPolicy for all pods                                                        | `IfNotPresent`         |
+| `provisioner.nodeSelector`    | Add nodeSelector to provisioner pod                                                         | `{}`                   |
+| `provisioner.tolerations`     | Add tolerations to provisioner pod                                                          | `[]`                   |
+| `node.nodeSelector`           | Add nodeSelector to node pods                                                               | `{}`                   |
+| `node.tolerations`            | Add tolerations to node pods                                                                | `[]`                   |
+| `servicemonitor.enabled`      | Create ServiceMonitor to scrape CSI  metrics                                                | `false`                |
+| `servicemonitor.labels`       | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
