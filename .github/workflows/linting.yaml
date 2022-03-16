@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.1.0
+        uses: helm/chart-testing-action@v2.2.1
 
       - name: Run chart-testing (lint-changed)
         id: list-changed
@@ -28,7 +28,7 @@ jobs:
 
       - name: ArtifactHUB Lint
         env:
-          AH_CLI_VERSION: 1.4.0
+          AH_CLI_VERSION: 1.6.0
         run: |
           curl -LO https://github.com/artifacthub/hub/releases/download/v${AH_CLI_VERSION}/ah_${AH_CLI_VERSION}_linux_amd64.tar.gz
           tar xvzf ah_${AH_CLI_VERSION}_linux_amd64.tar.gz

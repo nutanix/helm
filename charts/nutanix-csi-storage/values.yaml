@@ -10,10 +10,13 @@
 # need to be set to true only if upgrade and initialy installed with helm package before 2.2.x
 legacy: false
 
-# OS settings
+# Openshift settings
 #
-# Starting v2.3.1 CSI driver is OS independent, this value is reserved
-os: none
+
+openshift:
+  scc: false
+  masterIscsiConfig: false
+  workerIscsiConfig: false
 
 # kubeletDir allows overriding the host location of kubelet's internal state.
 kubeletDir: "/var/lib/kubelet"
@@ -29,13 +32,17 @@ imagePullPolicy: IfNotPresent
 # choose for which mode (Volume, File, Dynamic File) storageclass need to be created
 volumeClass: false
 volumeClassName: "nutanix-volume"
+volumeClassRetention: "Delete"
+# volumeClassDescription: ""
 
 fileClass: false
 fileClassName: "nutanix-file"
+fileClassRetention: "Delete"
 
 dynamicFileClass: false
 dynamicFileClassName: "nutanix-dynamicfile"
-
+dynamicFileClassRetention: "Delete"
+# dynamicFileClassDescription: ""
 
 # Default Storage Class settings
 #

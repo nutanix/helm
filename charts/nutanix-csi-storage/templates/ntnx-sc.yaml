@@ -19,12 +19,13 @@ parameters:
     storageContainer: {{ .Values.storageContainer }}
     csi.storage.k8s.io/fstype: {{ .Values.fsType }}
     isSegmentedIscsiNetwork: {{ quote .Values.networkSegmentation }}
+    description: {{ quote (.Values.volumeClassDescription | default .Values.volumeClassName) }}
 {{- if eq .Values.lvmVolume true }}
     isLVMVolume: "true"
     numLVMDisks: {{ quote .Values.lvmDisks }}
 {{- end }}
 allowVolumeExpansion: true
-reclaimPolicy: Delete
+reclaimPolicy: {{ .Values.volumeClassRetention }}
 ---
 {{- if .Capabilities.APIVersions.Has "snapshot.storage.k8s.io/v1" }}
 apiVersion: snapshot.storage.k8s.io/v1
@@ -36,9 +37,9 @@ metadata:
   name: nutanix-snapshot-class
 driver: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
-    storageType: NutanixVolumes
-    csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
+  storageType: NutanixVolumes
+  csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
+  csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
 deletionPolicy: Delete
 {{- end }}
 ---
@@ -56,6 +57,7 @@ parameters:
     storageType: NutanixFiles
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
+reclaimPolicy: {{ .Values.fileClassRetention }}
 {{- end }}
 ---
 {{- if eq .Values.dynamicFileClass true }}
@@ -78,5 +80,7 @@ parameters:
     csi.storage.k8s.io/node-publish-secret-namespace: {{ .Release.Namespace }}
     csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.secretName }}
     csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
+    description: {{ quote (.Values.dynamicFileClassDescription | default .Values.dynamicFileClassName) }}
 allowVolumeExpansion: true
+reclaimPolicy: {{ .Values.dynamicFileClassRetention }}
 {{- end }}
