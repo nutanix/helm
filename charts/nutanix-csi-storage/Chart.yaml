@@ -1,30 +1,34 @@
 apiVersion: v1
 name: nutanix-csi-storage
-version: 2.4.1
+version: 2.5.2
 kubeVersion: ">= 1.17.0-0"
-description: A Helm chart for installing Nutanix CSI Volume Driver
+description: Nutanix Container Storage Interface (CSI) Driver
 home: https://github.com/nutanix/helm
 maintainers:
-- name: tuxtof
+- name: nutanix-cloud-native-bot
+  email: cloudnative@nutanix.com
 icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
-appVersion: "2.4.1"
+appVersion: "2.5.1"
 keywords:
   - Nutanix
   - Storage
   - Volumes
   - Files
   - StorageClass
+  - RedHat
   - CentOS
   - Ubuntu
+  - CSI
 annotations:
+  artifacthub.io/displayName: "Nutanix CSI Storage"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Update Nutanix CSI Driver to 2.4.1
+    - Update Nutanix CSI Driver to 2.5.1
   artifacthub.io/links: |
     - name: Nutanix CSI Driver documentation
-      url: https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_4_1:CSI-Volume-Driver-v2_4_1
+      url: https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_5:CSI-Volume-Driver-v2_5
   artifacthub.io/maintainers: |
-    - name: Christophe Jauffret
-      email: christophe@nutanix.com
-    - name: Subodh Mathur
-      email: subodh@nutanix.com
+    - name: Nutanix Cloud Native Team
+      email: cloudnative@nutanix.com
+  artifacthub.io/recommendations: |
+    - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot

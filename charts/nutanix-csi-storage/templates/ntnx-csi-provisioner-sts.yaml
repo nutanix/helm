@@ -19,6 +19,7 @@ spec:
         app: csi-provisioner-ntnx-plugin
     spec:
       serviceAccount: csi-provisioner
+      hostNetwork: true
       containers:
         - name: csi-provisioner
           image: {{ .Values.sidecars.provisioner.image }}
@@ -36,6 +37,13 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -57,12 +65,17 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: csi-snapshotter
+          {{- if .Capabilities.APIVersions.Has "snapshot.storage.k8s.io/v1" }}
           image: {{ .Values.sidecars.snapshotter.image }}
+          {{- else }}
+          image: {{ .Values.sidecars.snapshotter.imageBeta }}
+          {{- end }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
           - --csi-address=$(ADDRESS)
           - --leader-election=false
           - --logtostderr=true
+          - --timeout=300s
           env:
           - name: ADDRESS
             value: /csi/csi.sock
@@ -86,6 +99,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
           volumeMounts:
             - mountPath: /var/lib/csi/sockets/pluginproxy/
               name: socket-dir
@@ -93,7 +113,7 @@ spec:
             - mountPath: /host
               name: root-dir
           ports:
-            - containerPort: 9808
+            - containerPort: 9807
               name: http-endpoint
               protocol: TCP
           livenessProbe:
@@ -112,7 +132,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=/csi/csi.sock
-            - --http-endpoint=:9808
+            - --http-endpoint=:9807
     {{- with (.Values.provisioner.nodeSelector | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
