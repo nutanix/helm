@@ -53,6 +53,10 @@ spec:
           env:
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
+            - name: CSI_SECRET_NAME
+              value: {{ .Values.secretName }}
+            - name: CSI_SECRET_NAMESPACE
+              value: {{ .Release.Namespace }}
             - name: NODE_ID
               valueFrom:
                 fieldRef:
