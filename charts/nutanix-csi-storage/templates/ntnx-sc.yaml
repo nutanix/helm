@@ -10,12 +10,6 @@ metadata:
 provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixVolumes
-    csi.storage.k8s.io/provisioner-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
-    csi.storage.k8s.io/node-publish-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/node-publish-secret-namespace: {{ .Release.Namespace }}
-    csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
     storageContainer: {{ .Values.storageContainer }}
     csi.storage.k8s.io/fstype: {{ .Values.fsType }}
     isSegmentedIscsiNetwork: {{ quote .Values.networkSegmentation }}
@@ -25,6 +19,7 @@ parameters:
     numLVMDisks: {{ quote .Values.lvmDisks }}
 {{- end }}
 allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: {{ .Values.volumeClassRetention }}
 ---
 {{- if .Capabilities.APIVersions.Has "snapshot.storage.k8s.io/v1" }}
@@ -38,8 +33,6 @@ metadata:
 driver: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
   storageType: NutanixVolumes
-  csi.storage.k8s.io/snapshotter-secret-name: {{ .Values.secretName }}
-  csi.storage.k8s.io/snapshotter-secret-namespace: {{ .Release.Namespace }}
 deletionPolicy: Delete
 {{- end }}
 ---
@@ -74,12 +67,6 @@ parameters:
     storageType: NutanixFiles
     dynamicProv: ENABLED
     nfsServerName: {{ .Values.fileServerName }}
-    csi.storage.k8s.io/provisioner-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
-    csi.storage.k8s.io/node-publish-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/node-publish-secret-namespace: {{ .Release.Namespace }}
-    csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.secretName }}
-    csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
     description: {{ quote (.Values.dynamicFileClassDescription | default .Values.dynamicFileClassName) }}
 allowVolumeExpansion: true
 reclaimPolicy: {{ .Values.dynamicFileClassRetention }}

@@ -19,9 +19,12 @@ openshift:
   workerIscsiConfig: false
 
 # kubeletDir allows overriding the host location of kubelet's internal state.
-kubeletDir: "/var/lib/kubelet"
+kubeletDir: "/var/nutanix/var/lib/kubelet"
 
 # Global Settings for all pods
+
+# csiSecretDir is the directory where PC (Prism Central) secret is mounted.
+csiSecretDir: "/var/run/ntnx-secret-dir"
 
 nodeSelector: {}
 tolerations: []
@@ -30,7 +33,7 @@ imagePullPolicy: IfNotPresent
 # Storage Class settings
 #
 # choose for which mode (Volume, File, Dynamic File) storageclass need to be created
-volumeClass: false
+volumeClass: true
 volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
 # volumeClassDescription: ""
@@ -55,12 +58,12 @@ defaultStorageClass: none
 # Allow dynamic creation of Volumes and Fileshare
 # needed if volumeClass or dynamicFileClass is set to true
 
-prismEndPoint: 10.0.0.1
+prismEndPoint: 10.45.34.226
 
 username: admin
-password: nutanix/4u
+password: Nutanix.123
 
-secretName: ntnx-secret
+secretName: ntnx-pc-secret
 
 # Nutanix Prism Elements Existing Secret
 #
@@ -70,7 +73,7 @@ createSecret: true
 
 # Volumes Settings
 #
-storageContainer: default
+storageContainer: default-container-84242740336979
 fsType: xfs
 
 lvmVolume: false
@@ -103,12 +106,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:v2.5.1
+  image: quay.io/karbon/ntnx-csi:test
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.5.1
+  image: quay.io/karbon/ntnx-csi:test
   nodeSelector: {}
   tolerations: []
 
@@ -116,11 +119,13 @@ sidecars:
   registrar:
     image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
   provisioner:
-    image: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.2
+    image: k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0
+  attacher:
+    image: k8s.gcr.io/sig-storage/csi-attacher:v3.4.0
   snapshotter:
     image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
     imageBeta: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
   resizer:
-    image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
+    image: k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
   livenessprobe:
     image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0

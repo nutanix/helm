@@ -33,6 +33,29 @@ spec:
             - --default-fstype=ext4
             # This is used to collect CSI operation metrics
             - --http-endpoint=:9809
+            - --feature-gates=Topology=true
+            - --v=5
+          env:
+            - name: ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: csi-attacher
+          image: {{ .Values.sidecars.attacher.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          args:
+            - --csi-address=$(ADDRESS)
+            - --timeout=60s
+            - --worker-threads=16
+            - --http-endpoint=:9810
             - --v=5
           env:
             - name: ADDRESS
@@ -57,7 +80,7 @@ spec:
             - --leader-election=false
             # NTNX CSI dirver supports online volume expansion.
             - --handle-volume-inuse-error=false
-            - --http-endpoint=:9810
+            - --http-endpoint=:9811
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
@@ -76,6 +99,7 @@ spec:
           - --leader-election=false
           - --logtostderr=true
           - --timeout=300s
+          - --http-endpoint=:9812
           env:
           - name: ADDRESS
             value: /csi/csi.sock
@@ -92,6 +116,7 @@ spec:
             - --endpoint=$(CSI_ENDPOINT)
             - --nodeid=$(NODE_ID)
             - --drivername={{ include "nutanix-csi-storage.drivername" . }}
+            - --use-pc=true
           env:
             - name: CSI_ENDPOINT
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
@@ -99,6 +124,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: CSI_SECRET_DIR
+              value: {{ .Values.csiSecretDir }}
           resources:
             limits:
               cpu: 100m
@@ -112,6 +139,9 @@ spec:
             # This is needed for static NFS volume feature.
             - mountPath: /host
               name: root-dir
+            - mountPath: {{ .Values.csiSecretDir }}
+              name: pc-secret
+              readOnly: true
           ports:
             - containerPort: 9807
               name: http-endpoint
@@ -148,3 +178,6 @@ spec:
             path: /
             type: Directory
           name: root-dir
+        - name: pc-secret
+          secret:
+            secretName: {{ .Values.secretName }}

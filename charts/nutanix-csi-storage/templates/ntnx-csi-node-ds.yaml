@@ -57,6 +57,7 @@ spec:
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
             - "--drivername={{ include "nutanix-csi-storage.drivername" . }}"
+            - "--use-pc=true"
           env:
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
@@ -68,6 +69,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+            - name: CSI_SECRET_DIR
+              value: {{ .Values.csiSecretDir }}
           resources:
             limits:
               cpu: 100m
@@ -76,6 +79,9 @@ spec:
               cpu: 100m
               memory: 200Mi
           volumeMounts:
+            - mountPath: {{ .Values.csiSecretDir }}
+              name: pc-secret
+              readOnly: true
             - name: plugin-dir
               mountPath: /csi
             - name: pods-mount-dir
@@ -144,3 +150,6 @@ spec:
           hostPath:
             path: /
             type: Directory
+        - name: pc-secret
+          secret:
+            secretName: {{ .Values.secretName }}
