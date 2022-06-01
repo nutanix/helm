@@ -161,12 +161,15 @@ Install the driver in the `ntnx-system` namespace and create a volume storagecla
 ```console
 helm install nutanix-storage nutanix/nutanix-csi-storage -n ntnx-system --create-namespace --set volumeClass=true --set prismEndPoint=X.X.X.X --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs
 ```
+In the above command  `prismEndpoint` refers to the Prism Element cluster virtual ip address where k8s vms are running. 
+
 
 Install the driver in the `ntnx-system` namespace, create a volume and a dynamic file storageclass and set the volume storage class as default:
 
 ```console
 helm install nutanix-storage nutanix/nutanix-csi-storage -n ntnx-system --create-namespace --set volumeClass=true --set prismEndPoint=X.X.X.X --set username=admin --set password=xxxxxxxxx --set storageContainer=container_name --set fsType=xfs --set defaultStorageClass=volume --set dynamicFileClass=true --set fileServerName=name_of_the_file_server
 ```
+In the above command  `prismEndpoint` refers to the Prism Element cluster virtual ip address where k8s vms are running.
 
 All the options can also be specified in a value.yaml file:
 
