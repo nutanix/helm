@@ -14,6 +14,40 @@ entries:
         - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-storage
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-06-20T16:19:37.234851721Z"
+    description: Snapshot components required for CSI snapshotting and not specific
+      to any CSI driver
+    digest: 5ebc7f94419847f3c07027da4f4226f8b8b81ff541b819fd7d61d51522b4344b
+    home: https://github.com/nutanix/helm
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Snapshot
+    - SnapshotClass
+    - CSI
+    kubeVersion: '>= 1.17.0-0'
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-csi-snapshot
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-csi-snapshot-1.0.2/nutanix-csi-snapshot-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix CSI Snapshot
+      artifacthub.io/links: |
+        - name: Kubernetes CSI Developer Documentation
+          url: https://kubernetes-csi.github.io/docs/
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/recommendations: |
+        - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-storage
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-01-05T10:41:45.506187419Z"
     description: Snapshot components required for CSI snapshotting and not specific
       to any CSI driver
@@ -492,4 +526,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2022-03-16T07:23:30.854598307Z"
+generated: "2022-06-20T16:19:37.235044221Z"
