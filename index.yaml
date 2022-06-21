@@ -85,6 +85,44 @@ entries:
         - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot
     apiVersion: v1
     appVersion: 2.5.1
+    created: "2022-06-21T11:30:49.301308657Z"
+    description: Nutanix Container Storage Interface (CSI) Driver
+    digest: 7da80f766d55091ad36c8889787b9031390c3046b2fbf56e93bbf186816d727b
+    home: https://github.com/nutanix/helm
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Volumes
+    - Files
+    - StorageClass
+    - RedHat
+    - CentOS
+    - Ubuntu
+    - CSI
+    kubeVersion: '>= 1.17.0-0'
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-csi-storage
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-2.5.3/nutanix-csi-storage-2.5.3.tgz
+    version: 2.5.3
+  - annotations:
+      artifacthub.io/changes: |
+        - Update Nutanix CSI Driver to 2.5.1
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix CSI Storage
+      artifacthub.io/links: |
+        - name: Nutanix CSI Driver documentation
+          url: https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_5:CSI-Volume-Driver-v2_5
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/recommendations: |
+        - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot
+    apiVersion: v1
+    appVersion: 2.5.1
     created: "2022-03-16T07:23:30.8544781Z"
     description: Nutanix Container Storage Interface (CSI) Driver
     digest: 424b42f681c676ea38c19aadeab575358ece842f80010be8286884139e83108e
@@ -526,4 +564,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2022-06-20T16:19:37.235044221Z"
+generated: "2022-06-21T11:30:49.301587763Z"
