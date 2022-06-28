@@ -22,7 +22,11 @@ spec:
       hostNetwork: true
       containers:
         - name: csi-provisioner
+          {{- if semverCompare ">=1.20-0"  .Capabilities.KubeVersion.Version }}
           image: {{ .Values.sidecars.provisioner.image }}
+          {{- else }}
+          image: {{ .Values.sidecars.provisioner.imageLegacy }}
+          {{- end }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=$(ADDRESS)
