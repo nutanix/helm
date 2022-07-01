@@ -138,8 +138,9 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `nodeSelector`                | Add nodeSelector to all pods                                                                | `{}`                   |
 | `tolerations`                 | Add tolerations to all pods                                                                 | `[]`                   |
 | `imagePullPolicy`             | Specify imagePullPolicy for all pods                                                        | `IfNotPresent`         |
-| `provisioner.nodeSelector`    | Add nodeSelector to provisioner pod                                                         | `{}`                   |
-| `provisioner.tolerations`     | Add tolerations to provisioner pod                                                          | `[]`                   |
+| `controller.replicas`         | Number of Controllers replicas to deploy.                                                   | `2`                    |
+| `controller.nodeSelector`     | Add nodeSelector to provisioner pod                                                         | `{}`                   |
+| `controller.tolerations`      | Add tolerations to provisioner pod                                                          | `[]`                   |
 | `node.nodeSelector`           | Add nodeSelector to node pods                                                               | `{}`                   |
 | `node.tolerations`            | Add tolerations to node pods                                                                | `[]`                   |
 | `servicemonitor.enabled`      | Create ServiceMonitor to scrape CSI  metrics                                                | `false`                |

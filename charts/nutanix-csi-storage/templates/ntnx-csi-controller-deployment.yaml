@@ -2,27 +2,44 @@
 #
 # example usage: kubectl create -f <this_file>
 
-kind: StatefulSet
+kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: csi-provisioner-ntnx-plugin
+  name: nutanix-csi-controller
   namespace: {{ .Release.Namespace }}
 spec:
-  serviceName: csi-provisioner-ntnx-plugin
-  replicas: 1
+  replicas: {{ .Values.controller.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
   selector:
     matchLabels:
-      app: csi-provisioner-ntnx-plugin
+      app: nutanix-csi-controller
   template:
     metadata:
       labels:
-        app: csi-provisioner-ntnx-plugin
+        app: nutanix-csi-controller
     spec:
-      serviceAccount: csi-provisioner
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: nutanix-csi-controller
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      serviceAccount: nutanix-csi-controller
       hostNetwork: true
       containers:
         - name: csi-provisioner
+          {{- if semverCompare ">=1.20-0"  .Capabilities.KubeVersion.Version }}
           image: {{ .Values.sidecars.provisioner.image }}
+          {{- else }}
+          image: {{ .Values.sidecars.provisioner.imageLegacy }}
+          {{- end }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=$(ADDRESS)
@@ -33,7 +50,8 @@ spec:
             - --default-fstype=ext4
             # This is used to collect CSI operation metrics
             - --http-endpoint=:9809
-            - --v=5
+            - --v=2
+            - --leader-election=true
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
@@ -51,10 +69,10 @@ spec:
           image: {{ .Values.sidecars.resizer.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
-            - --v=5
+            - --v=2
             - --csi-address=$(ADDRESS)
             - --timeout=60s
-            - --leader-election=false
+            - --leader-election=true
             # NTNX CSI dirver supports online volume expansion.
             - --handle-volume-inuse-error=false
             - --http-endpoint=:9810
@@ -73,7 +91,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
           - --csi-address=$(ADDRESS)
-          - --leader-election=false
+          - --leader-election=true
           - --logtostderr=true
           - --timeout=300s
           env:
@@ -82,8 +100,8 @@ spec:
           volumeMounts:
           - name: socket-dir
             mountPath: /csi
-        - name: ntnx-csi-plugin
-          image: {{ .Values.provisioner.image }}
+        - name: nutanix-csi-plugin
+          image: {{ .Values.controller.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           securityContext:
             allowPrivilegeEscalation: true
@@ -133,11 +151,12 @@ spec:
           args:
             - --csi-address=/csi/csi.sock
             - --http-endpoint=:9807
-    {{- with (.Values.provisioner.nodeSelector | default .Values.nodeSelector) }}
+      priorityClassName: system-cluster-critical
+    {{- with (.Values.controller.nodeSelector | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with (.Values.provisioner.tolerations | default .Values.tolerations) }}
+    {{- with (.Values.controller.tolerations | default .Values.tolerations) }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}

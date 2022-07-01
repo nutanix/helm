@@ -5,25 +5,29 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: csi-node-ntnx-plugin
+  name: nutanix-csi-node
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
-      app: csi-node-ntnx-plugin
+      app: nutanix-csi-node
+  updateStrategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxUnavailable: 1
   template:
     metadata:
       labels:
-        app: csi-node-ntnx-plugin
+        app: nutanix-csi-node
     spec:
-      serviceAccount: csi-node-ntnx-plugin
+      serviceAccount: nutanix-csi-node
       hostNetwork: true
       containers:
         - name: driver-registrar
           image: {{ .Values.sidecars.registrar.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
-            - --v=5
+            - --v=2
             - --csi-address=$(ADDRESS)
             - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
           env:
@@ -47,7 +51,7 @@ spec:
               mountPath: /csi/
             - name: registration-dir
               mountPath: /registration
-        - name: csi-node-ntnx-plugin
+        - name: nutanix-csi-node
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
@@ -112,6 +116,7 @@ spec:
           args:
             - --csi-address=/csi/csi.sock
             - --http-endpoint=:9808
+      priorityClassName: system-cluster-critical
     {{- with (.Values.node.nodeSelector | default .Values.nodeSelector) }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -139,7 +144,11 @@ spec:
         - name: iscsi-dir
           hostPath:
             path: /etc/iscsi
+            {{- if eq .Values.kindtest true }}
+            type: DirectoryOrCreate
+            {{- else }}
             type: Directory
+            {{- end }}
         - name: root-dir
           hostPath:
             path: /
