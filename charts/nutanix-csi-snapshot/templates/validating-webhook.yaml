@@ -10,7 +10,7 @@
     {{- $key = get $secret.data "tls.key" }}
     {{- $crt = get $secret.data "tls.crt" }}
   {{- else }}
-    {{- $serviceName := (printf "%s.%s.svc" "snapshot-validation-service" .Release.Namespace)}}
+    {{- $serviceName := (printf "%s.%s.svc" "csi-snapshot-webhook" .Release.Namespace)}}
     {{- $cert := genSelfSignedCert $serviceName nil (list $serviceName) 3650 }}
     {{- $ca = b64enc $cert.Cert }}
     {{- $key = b64enc $cert.Key }}
@@ -44,7 +44,7 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
-      name: "snapshot-validation-service"
+      name: "csi-snapshot-webhook"
       path: "/volumesnapshot"
     caBundle: {{ $ca }}
   admissionReviewVersions: ["v1", "v1beta1"]
