@@ -66,7 +66,7 @@ Select the tag release based on the k8s version
 */}}
 {{- define "nutanix-csi-snapshot.release" -}}
 {{- if semverCompare ">=1.20-0"  .Capabilities.KubeVersion.Version }}
-{{- .Values.tag.rel42 }}
+{{- .Values.tag.rel60 }}
 {{- else }}
 {{- .Values.tag.rel3 }}
 {{- end }}
