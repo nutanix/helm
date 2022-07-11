@@ -63,6 +63,8 @@ helm repo update
 helm upgrade nutanix-csi nutanix/nutanix-csi-storage
 ```
 
+Warning: If you have created StorageClass during the Helm chart install your upgrade will failed because StorageClass is immutable. You can remove your automatically created StorageClass before upgrade and they will be recreated during Helm upgrade. You can also decide to not create StorageClass with Helm chart and do it manually to avoid upgrade complexity.
+
 ### Upgrading from yaml based deployment
 Starting with CSI driver v2.5.0, yaml based deployment is discontinued. So to upgrade from yaml based deployment, you need to patch your existing CSI deployment with helm annotations. Please follow the following procedure.
 
