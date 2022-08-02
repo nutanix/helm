@@ -1,0 +1,24 @@
+{{- if eq .Values.createConfig true }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.configName}}
+  namespace: {{ .Release.Namespace }}
+data:
+  nutanix_config.json: |-
+    {
+      "prismCentral": {
+        "address": "{{ .Values.prismCentralEndPoint}}",
+        "port": {{ .Values.prismCentralPort }},
+        "insecure": {{ .Values.prismCentralInsecure }},
+        "credentialRef": {
+          "kind": "secret",
+          "name": "{{ .Values.secretName }}"
+        }
+      },
+      "topologyCategories": {
+        "region": "{{ .Values.topologyCategories.region }}",
+        "zone": "{{ .Values.topologyCategories.zone }}"
+      }
+    }
+{{- end }}

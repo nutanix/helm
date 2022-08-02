@@ -1,0 +1,24 @@
+apiVersion: v2
+type: application
+name: nutanix-cloud-provider
+description: Nutanix Cloud Provider
+home: https://github.com/nutanix-cloud-native/cloud-provider-nutanix
+maintainers:
+  - name: nutanix-cloud-native-bot
+    email: cloudnative@nutanix.com
+icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+keywords:
+  - Nutanix
+  - Cloud Controller Manager
+  - Cloud
+  - CCM
+version: 0.1.0
+appVersion: "v0.1.0"
+annotations:
+  artifacthub.io/displayName: "Nutanix Cloud Provider"
+  artifacthub.io/containsSecurityUpdates: "true"
+  artifacthub.io/changes: |
+    - Nutanix Cloud provider
+  artifacthub.io/maintainers: |
+    - name: Nutanix Cloud Native Team
+      email: cloudnative@nutanix.com
