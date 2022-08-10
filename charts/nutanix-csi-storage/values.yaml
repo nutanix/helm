@@ -82,9 +82,6 @@ networkSegmentation: false
 #
 fileHost: 10.0.0.3
 filePath: share
-# Squash-type for files. 
-# Values are: none, root-squash, all-squash. Default is root-squash
-fileSquashType: root-squash
 
 # Dynamic Files Settings
 #
