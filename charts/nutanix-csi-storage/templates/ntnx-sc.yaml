@@ -55,6 +55,7 @@ metadata:
 provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixFiles
+    squashType: {{ .Values.fileSquashType }}
     nfsServer: {{ .Values.fileHost }}
     nfsPath: {{ .Values.filePath }}
 reclaimPolicy: {{ .Values.fileClassRetention }}
@@ -73,6 +74,7 @@ provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixFiles
     dynamicProv: ENABLED
+    squashType: {{ .Values.dynSquashType }}
     nfsServerName: {{ .Values.fileServerName }}
     csi.storage.k8s.io/provisioner-secret-name: {{ .Values.secretName }}
     csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
