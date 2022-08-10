@@ -91,7 +91,7 @@ fileSquashType: root-squash
 fileServerName: file
 # Squash-type for dynamic files. 
 # Values are: none, root-squash, all-squash. Default is root-squash
-dynSquashType: root-squash
+dynFileSquashType: root-squash
 
 # Volume metrics and CSI operations metrics configuration
 #
