@@ -118,7 +118,6 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `fileClass`                   | Activate Nutanix Files Storage Class                                                        | `false`                |
 | `fileClassName`               | Name of the Nutanix Files Storage Class                                                     | `nutanix-file`         |
 | `fileClassRetention`          | Retention policy for the Files Storage Class (Delete, Retain)                               | `Delete`               |
-| `fileSquashType`              | Squash type for NFS Volume (none, root-squash, all-squash)                                  | `root-squash`          |
 | `dynFileSquashType`           | Squash type for Nutanix Dynamic File Storage (none, root-squash, all-squash)                | `root-squash`          |
 | `dynamicFileClass`            | Activate Nutanix Dynamic Files Storage Class                                                | `false`                |
 | `dynamicFileClassName`        | Name of the Nutanix Dynamic Files Storage Class                                             | `nutanix-dynamicfile`  |
