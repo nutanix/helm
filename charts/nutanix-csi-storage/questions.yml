@@ -121,3 +121,10 @@ questions:
     description: "Specify Nutanix Files server name"
     group: "Nutanix Files Settings"
     show_if: "dynamicFileClass=true"
+  - variable: dynamicFileSquashType
+    label: "Squash Type for NFS"
+    type: string
+    required: false
+    description: "Specify Nutanix Files Squash Type"
+    group: "Nutanix Files Settings"
+    show_if: "dynamicFileClass=true"
