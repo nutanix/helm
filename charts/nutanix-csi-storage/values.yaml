@@ -73,8 +73,8 @@ createSecret: true
 
 # Volumes Settings
 #
-storageContainer: default-container-84242740336979
-fsType: xfs
+storageContainer: default-container-33951
+fsType: ext4
 
 lvmVolume: false
 lvmDisks: 4
@@ -106,12 +106,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:m0_test
+  image: quay.io/karbon/ntnx-csi:m1_test
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:m0_test
+  image: quay.io/karbon/ntnx-csi:m1_test
   nodeSelector: {}
   tolerations: []
 
