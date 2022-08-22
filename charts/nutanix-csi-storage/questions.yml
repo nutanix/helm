@@ -123,8 +123,9 @@ questions:
     show_if: "dynamicFileClass=true"
   - variable: dynamicFileSquashType
     label: "Squash Type for NFS"
-    type: string
-    required: false
+    type: enum
+    default: "root-squash"
+    options: ["root-squash", "all-squash", "none"]
     description: "Specify Nutanix Files Squash Type"
     group: "Nutanix Files Settings"
     show_if: "dynamicFileClass=true"
