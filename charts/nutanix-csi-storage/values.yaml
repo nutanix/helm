@@ -87,7 +87,7 @@ filePath: share
 #
 fileServerName: file
 
-# Squash-type for dynamic files. 
+# Squash-type for dynamic files.
 # Values are: none, root-squash, all-squash. Default is root-squash
 dynamicFileSquashType: root-squash
 
