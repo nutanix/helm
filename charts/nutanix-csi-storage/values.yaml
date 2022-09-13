@@ -107,12 +107,12 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v2.5.1
+  image: quay.io/karbon/ntnx-csi:v2.6.0
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.5.1
+  image: quay.io/karbon/ntnx-csi:v2.6.0
   nodeSelector: {}
   tolerations: []
 
@@ -120,7 +120,7 @@ sidecars:
   registrar:
     image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.1
   provisioner:
-    image: k8s.gcr.io/sig-storage/csi-provisioner:v3.2.0
+    image: k8s.gcr.io/sig-storage/csi-provisioner:v3.2.1
     imageLegacy: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.2
   snapshotter:
     image: k8s.gcr.io/sig-storage/csi-snapshotter:v6.0.1
