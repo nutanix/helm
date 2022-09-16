@@ -126,7 +126,7 @@ sidecars:
     image: k8s.gcr.io/sig-storage/csi-snapshotter:v6.0.1
     imageBeta: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
   resizer:
-    image: k8s.gcr.io/sig-storage/csi-resizer:v1.5.0
+    image: k8s.gcr.io/sig-storage/csi-resizer:v1.6.0
   livenessprobe:
     image: k8s.gcr.io/sig-storage/livenessprobe:v2.7.0
 
