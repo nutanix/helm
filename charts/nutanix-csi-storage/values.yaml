@@ -65,8 +65,7 @@ secretName: ntnx-secret
 # Nutanix Prism Elements Existing Secret
 #
 # if set to false a new secret will not be created
-createSecret: true
-
+createSecret: false
 
 # Volumes Settings
 #
@@ -101,7 +100,6 @@ servicemonitor:
     # on the prometheus.
     k8s-app: csi-driver
 
-
 # Pod pecific Settings
 #
 
@@ -129,7 +127,6 @@ sidecars:
     image: k8s.gcr.io/sig-storage/csi-resizer:v1.6.0
   livenessprobe:
     image: k8s.gcr.io/sig-storage/livenessprobe:v2.7.0
-
 
 # Used for deployment test in kind cluster
 #
