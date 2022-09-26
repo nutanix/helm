@@ -73,6 +73,7 @@ provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixFiles
     dynamicProv: ENABLED
+    squashType: {{ .Values.dynamicFileSquashType }}
     nfsServerName: {{ .Values.fileServerName }}
     csi.storage.k8s.io/provisioner-secret-name: {{ .Values.secretName }}
     csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
