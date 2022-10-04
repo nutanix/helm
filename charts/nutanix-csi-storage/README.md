@@ -124,19 +124,19 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `dynamicFileClassDescription` | Description prefix for each created Fileshare                                               | `dynamicFileClassName` |
 | `dynamicFileClassRetention`   | Retention policy for the Dynamic Files Storage Class (Delete, Retain)                       | `Delete`               |
 | `defaultStorageClass`         | Choose your default Storage Class (none, volume, file, dynfile)                             | `none`                 |
-| `prismEndPoint`               | Cluster Virtual IP Address                                                                  | `10.0.0.1`             |
-| `username`                    | Name used for the admin role (if created)                                                   | `admin`                |
-| `password`                    | Password for the admin role (if created)                                                    | `nutanix/4u`           |
-| `secretName`                  | Name of the secret to use for admin role                                                    | `ntnx-secret`          |
+| `prismEndPoint`               | Prism Element (PE) cluster Virtual IP Address or fully qualified domain name (FQDN)         |                        |
+| `username`                    | Username of a Prism Element (PE) cluster admin (if created)                                 |                        |
+| `password`                    | Password for the Prism Element (PE) cluster admin (if created)                              |                        |
+| `secretName`                  | Secret name that stores Prism Element (PE) cluster credentials                              | `ntnx-secret`          |
 | `createSecret`                | Create secret for admin role (if false use existing)                                        | `true`                 |
-| `storageContainer`            | Nutanix storage container name                                                              | `default`              |
-| `fsType`                      | Type of file system you are using (ext4, xfs)                                               | `xfs`                  |
+| `storageContainer`            | Name of the Nutanix storage container                                                       |                        |
+| `fsType`                      | Type of file system used inside Volume PV (ext4, xfs)                                       | `xfs`                  |
 | `networkSegmentation`         | Activate Volumes Network Segmentation support                                               | `false`                |
 | `lvmVolume`                   | Activate LVM to use multiple vdisks by Volume                                               | `false`                |
 | `lvmDisks`                    | Number of vdisks by volume if lvm enabled                                                   | `4`                    |
-| `fileHost`                    | NFS server IP address                                                                       | `10.0.0.3`             |
-| `filePath`                    | Path of the NFS share                                                                       | `share`                |
-| `fileServerName`              | Name of the Nutanix FIle Server                                                             | `file`                 |
+| `fileHost`                    | NFS server fully qualified domain name (FQDN) or IP address                                 |                        |
+| `filePath`                    | Path of the NFS share                                                                       |                        |
+| `fileServerName`              | Name of the Nutanix File Server (As seen in the Prism Interface)                            |                        |
 | `kubeletDir`                  | allows overriding the host location of kubelet's internal state                             | `/var/lib/kubelet`     |
 | `nodeSelector`                | Add nodeSelector to all pods                                                                | `{}`                   |
 | `tolerations`                 | Add tolerations to all pods                                                                 | `[]`                   |
