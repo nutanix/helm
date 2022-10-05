@@ -1,16 +1,28 @@
 # Nutanix Helm Charts repository
 
-Adding the chart repository:
+## Usage
 
-```code
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
+
+Once Helm has been set up correctly, add the repo as follows:
+
+```
 helm repo add nutanix https://nutanix.github.io/helm/
 ```
 
-Adding Nutanix chart repository to Rancher 2.X:
+If you had already added this repo earlier, run `helm repo update` to retrieve
+the latest versions of the packages.  You can then run `helm search repo
+<alias>` to see the charts.
 
-- Go to `Global -> Catalogs`
-- Click on `Add Catalog`
-- Fill in the fields
-  - Name: `nutanix`
-  - Catalog URL: `https://nutanix.github.io/helm/`
-  - Helm Version: `Helm v3`
+To install the <chart-name> chart:
+
+```
+helm install my-<chart-name> <alias>/<chart-name>
+```
+  
+To uninstall the chart:
+
+```
+helm delete my-<chart-name>
+```
