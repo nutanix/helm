@@ -123,9 +123,9 @@ entries:
         - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot
     apiVersion: v1
     appVersion: 2.6.0
-    created: "2022-10-05T8:30:53.489240479Z"
+    created: "2022-10-05T8:31:53.489240479Z"
     description: Nutanix Container Storage Interface (CSI) Driver
-    digest: 168f6375f4ac09baa8b21be0b9cd3e29003fb7e1c5681e5de4f88510694d89ab
+    digest: d9d2f9d370b2688464bce7d20029da890420d0552f100abce8bb35b577272bf0
     home: https://github.com/nutanix/helm
     icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
     keywords:
