@@ -25,7 +25,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 
 ## Features list
 
-- Nutanix CSI Driver v2.5.0
+- Nutanix CSI Driver v2.6.0
 - Nutanix Volumes support
 - Nutanix Files support
 - Volume clone
@@ -37,6 +37,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 - iSCSI Auto CHAP Authentication
 - OS independence
 - Volume metrics and CSI operations metrics support
+- Squash type support for Dynamic File mode
 
 ## Prerequisites
 
