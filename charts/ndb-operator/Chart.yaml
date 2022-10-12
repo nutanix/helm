@@ -1,0 +1,69 @@
+apiVersion: v2
+name: ndb-operator
+description: A Helm chart for Nutanix Database Kubernetes Operator
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.0.2
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "v0.0.2"
+
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "Helm chart for the NDB operator"
+    - kind: security
+      description: "Updated kube-proxy version"
+  artifacthub.io/containsSecurityUpdates: "true"  
+  artifacthub.io/crds: |
+    - kind: Database
+      version: v1alpha1
+      name: Database 
+  artifacthub.io/crdsExamples: |
+    - apiVersion: ndb.nutanix.com/v1alpha1
+      kind: Database
+      metadata:
+        name: db
+      spec:
+        ndb:
+          clusterId: "Nutanix Cluster Id"
+          credentialSecret : ndb-secret-name
+          server: https://[NDB IP]:8443/era/v0.9
+          skipCertificateVerification: true
+        databaseInstance:
+          databaseInstanceName: "Database Instance Name"
+          databaseNames:
+            - alpha
+            - beta
+          credentialSecret: db-instance-secret-name
+          size: 10
+          timezone: "UTC"
+          type: postgres
+  artifacthub.io/license: Apache-2.0   
+  artifacthub.io/maintainers: |
+    - name: Balakumar Balu
+      email: balakumar.balu@nutanix.com
+    - name: Krunal Jhaveri
+      email: krunal.jhaveri@nutanix.com
+    - name: Manav Rajvanshi
+      email: manav.rajvanshi@nutanix.com 
+    - name: Nutanix Cloud Native Team
+      email: cloudnative@nutanix.com
+  artifacthub.io/operator: "true"
+  artifacthub.io/operatorCapabilities: Basic Install
+  artifacthub.io/prerelease: "true"
