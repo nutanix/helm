@@ -23,6 +23,16 @@ version: 0.0.2
 # It is recommended to use it with quotes.
 appVersion: "v0.0.2"
 
+maintainers:
+  - name: balakumarbalu
+    email: balakumar.balu@nutanix.com
+  - name: krunal-jhaveri
+    email: krunal.jhaveri@nutanix.com
+  - name: manavrajvanshi
+    email: manav.rajvanshi@nutanix.com
+  - name: nutanix-cloud-native-bot
+    email: cloudnative@nutanix.com
+
 annotations:
   artifacthub.io/changes: |
     - kind: added
