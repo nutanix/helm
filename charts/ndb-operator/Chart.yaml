@@ -29,11 +29,11 @@ annotations:
       description: "Helm chart for the NDB operator"
     - kind: security
       description: "Updated kube-proxy version"
-  artifacthub.io/containsSecurityUpdates: "true"  
+  artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/crds: |
     - kind: Database
       version: v1alpha1
-      name: Database 
+      name: Database
   artifacthub.io/crdsExamples: |
     - apiVersion: ndb.nutanix.com/v1alpha1
       kind: Database
@@ -54,14 +54,14 @@ annotations:
           size: 10
           timezone: "UTC"
           type: postgres
-  artifacthub.io/license: Apache-2.0   
+  artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
     - name: Balakumar Balu
       email: balakumar.balu@nutanix.com
     - name: Krunal Jhaveri
       email: krunal.jhaveri@nutanix.com
     - name: Manav Rajvanshi
-      email: manav.rajvanshi@nutanix.com 
+      email: manav.rajvanshi@nutanix.com
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
   artifacthub.io/operator: "true"
