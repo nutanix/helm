@@ -19,7 +19,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: "ndb-operator-service-account"
 
-podAnnotations: 
+podAnnotations:
   kubectl.kubernetes.io/default-container: manager
 
 podSecurityContext:
