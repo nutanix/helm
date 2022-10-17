@@ -13,6 +13,7 @@ maintainers:
     email: manav.rajvanshi@nutanix.com
   - name: nutanix-cloud-native-bot
     email: cloudnative@nutanix.com
+icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
     - kind: added
