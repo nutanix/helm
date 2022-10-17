@@ -21,30 +21,6 @@ annotations:
     - kind: security
       description: "Updated kube-proxy version"
   artifacthub.io/containsSecurityUpdates: "true"
-  artifacthub.io/crds: |
-    - kind: Database
-      version: v1alpha1
-      name: Database
-  artifacthub.io/crdsExamples: |
-    - apiVersion: ndb.nutanix.com/v1alpha1
-      kind: Database
-      metadata:
-        name: db
-      spec:
-        ndb:
-          clusterId: "Nutanix Cluster Id"
-          credentialSecret : ndb-secret-name
-          server: https://[NDB IP]:8443/era/v0.9
-          skipCertificateVerification: false
-        databaseInstance:
-          databaseInstanceName: "Database Instance Name"
-          databaseNames:
-            - alpha
-            - beta
-          credentialSecret: db-instance-secret-name
-          size: 10
-          timezone: "UTC"
-          type: postgres
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
     - name: Balakumar Balu

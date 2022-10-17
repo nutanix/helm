@@ -73,7 +73,7 @@ spec:
     # The NDB Server
     server: https://[NDB IP]:8443/era/v0.9
     # Set to true to skip SSL verification, default: false.
-    skipCertificateVerification: true
+    skipCertificateVerification: false
   # Database instance specific details (that is to be provisioned)
   databaseInstance:
     # The database instance name on NDB
