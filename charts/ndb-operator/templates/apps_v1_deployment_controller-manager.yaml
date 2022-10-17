@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    control-plane: controller-manager
+    control-plane: {{ include "ndb-operator.fullname" . }}-controller-manager
   name: {{ include "ndb-operator.fullname" . }}-controller-manager
   namespace: {{.Release.Namespace}}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      control-plane: controller-manager
+      control-plane: {{ include "ndb-operator.fullname" . }}-controller-manager
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -17,7 +17,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        control-plane: controller-manager
+        control-plane: {{ include "ndb-operator.fullname" . }}-controller-manager
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

@@ -1,19 +1,22 @@
 # Nutanix Database Service Operator for Kubernetes
-The NDB operator brings automated and simplified database administration, provisioning, and life-cycle management to Kubernetes.
+The NDB operator automates and simplifies database administration, provisioning, and life-cycle management of NDB on Kubernetes.
 
+NDB operator supports these functionalities:
+1. Provisioning and deprovisioning a single instance postgres database.
+2. Creation of a service for the applications to consume the database within Kubernetes.
 ---
 
 ## Pre-requisites
-1. NDB [installation](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Era-User-Guide-v2_4:top-era-installation-c.html).
-2. A Kubernetes cluster.
-3. Helm installed.
+1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
+2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
+3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
 
 ## Installation and Running on the cluster
 Deploy the operator on the cluster:
 ```sh
 helm repo add nutanix https://nutanix.github.io/helm/
 
-helm install ndb-operator nutanix/ndb-operator --version 0.0.2
+helm install ndb-operator nutanix/ndb-operator -n ndb-operator --create-namespace
 ```
 ## Using the Operator
 
@@ -89,7 +92,7 @@ spec:
 ## Uninstalling the Chart
 To uninstall/delete the operator deployment/chart:
 ```console
-helm uninstall [RELEASE_NAME]
+helm uninstall ndb-operator -n ndb-operator
 ```
 ---
 ## Configuration
@@ -114,21 +117,20 @@ The following table lists the configurable parameters of the NDB operator chart 
 | `tolerations`               | Configure tolerations for Cloud Provider Pod                     | `refer to values.yaml`                                           |
 | `affinity`                  | Configure affinity for Cloud Provider Pod                        | `refer to values.yaml`                                           |
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a file with `-f value.yaml`.
 
 ### Configuration examples:
 
-Install the operator in the `ndb-operator-ns` namespace (add the `--create-namespace` flag if the namespace does not exist): 
+Install the operator in the `ndb-operator` namespace (add the `--create-namespace` flag if the namespace does not exist): 
 
 ```console
-helm install ndb-operator nutanix/ndb-operator -n ndb-operator-ns 
+helm install ndb-operator nutanix/ndb-operator -n ndb-operator 
 ```
 
 Individual configurations can be set by using `--set key=value[,key=value]` like:
 ```console
-helm install ndb-operator nutanix/ndb-operator  --set fullnameOverride=my-operator --set replicaCount=2 
+helm install ndb-operator nutanix/ndb-operator  --set replicaCount=2 
 ```
-In the above command  `fullnameOverride`, `replicaCount` refers to some of the variables defined in the values.yaml file. 
+In the above command `replicaCount` refers to one of the variables defined in the values.yaml file. 
 
 All the options can also be specified in a value.yaml file:
 
