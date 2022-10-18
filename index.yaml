@@ -1,5 +1,46 @@
 apiVersion: v1
 entries:
+  ndb-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Helm chart for the NDB operator"
+        - kind: security
+          description: "Updated kube-proxy version"
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Balakumar Balu
+          email: balakumar.balu@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: v0.0.2
+    created: "2022-10-18T06:45:19.524736323Z"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: 96bf6d9b5e5d44b165024304731f88af4cc2324a57d9d9d6efc3c3a6134a701e
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: balakumar.balu@nutanix.com
+      name: balakumarbalu
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/ndb-operator-0.0.2/ndb-operator-0.0.2.tgz
+    version: 0.0.2
   nutanix-csi-snapshot:
   - annotations:
       artifacthub.io/changes: |
@@ -123,7 +164,7 @@ entries:
         - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot
     apiVersion: v1
     appVersion: 2.6.0
-    created: "2022-10-05T8:31:53.489240479Z"
+    created: "2022-10-05T08:31:53.489240479Z"
     description: Nutanix Container Storage Interface (CSI) Driver
     digest: d9d2f9d370b2688464bce7d20029da890420d0552f100abce8bb35b577272bf0
     home: https://github.com/nutanix/helm
@@ -678,4 +719,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2022-10-04T18:30:53.489541283Z"
+generated: "2022-10-18T06:45:19.681061819Z"
