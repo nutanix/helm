@@ -23,7 +23,7 @@ annotations:
   artifacthub.io/displayName: "Nutanix CSI Storage"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Update Nutanix CSI driver to v2.6
+    - Update Nutanix CSI driver to v2.6.1
     - Update CSI Sidecar version
   artifacthub.io/links: |
     - name: Nutanix CSI Driver documentation
