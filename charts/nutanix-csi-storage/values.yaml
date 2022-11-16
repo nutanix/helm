@@ -121,28 +121,28 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v2.6.0
+  image: quay.io/karbon/ntnx-csi:v2.6.1
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.6.0
+  image: quay.io/karbon/ntnx-csi:v2.6.1
   nodeSelector: {}
   tolerations: []
 
 sidecars:
   registrar:
-    image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.1
+    image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.6.0
   provisioner:
-    image: k8s.gcr.io/sig-storage/csi-provisioner:v3.2.1
+    image: k8s.gcr.io/sig-storage/csi-provisioner:v3.3.0
     imageLegacy: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.2
   snapshotter:
-    image: k8s.gcr.io/sig-storage/csi-snapshotter:v6.0.1
+    image: k8s.gcr.io/sig-storage/csi-snapshotter:v6.1.0
     imageBeta: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
   resizer:
     image: k8s.gcr.io/sig-storage/csi-resizer:v1.6.0
   livenessprobe:
-    image: k8s.gcr.io/sig-storage/livenessprobe:v2.7.0
+    image: k8s.gcr.io/sig-storage/livenessprobe:v2.8.0
 
 # Used for deployment test in kind cluster
 #
