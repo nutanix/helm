@@ -110,12 +110,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:m1_test
+  image: quay.io/karbon/ntnx-csi:pc_rc0
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:m1_test
+  image: quay.io/karbon/ntnx-csi:pc_rc0
   nodeSelector: {}
   tolerations: []
 
