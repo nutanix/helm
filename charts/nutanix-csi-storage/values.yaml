@@ -58,26 +58,28 @@ defaultStorageClass: none
 # Allow dynamic creation of Volumes and Fileshare
 # needed if volumeClass or dynamicFileClass is set to true
 
-prismEndPoint: 10.45.34.226
-
-username: admin
-password: Nutanix.123
-
-secretName: ntnx-pc-secret
+# Nutanix Prism Central Existing Secret
+# if set to false a new secret will not be created. PrismCentral secret is
+# required for the csi driver else helm install/upgrade will fail. You can
+# create PrismCentral secret in the k8s cluster before helm install/upgrade.
+createPrismCentralSecret: true
+prismCentralEndPoint: 10.45.39.98
+pcUsername: admin
+pcPassword: Nutanix.123
+pcSecretName: ntnx-pc-secret
 
 # Nutanix Prism Element Secret which is used by dynamicFileClass.
 # The user needs to create this secret.
-peSecretName: ntnx-pe-secret
-
-# Nutanix Prism Central Existing Secret
-#
 # if set to false a new secret will not be created
-createSecret: true
-
+createSecret: false
+prismEndPoint: 10.40.147.100
+username: admin
+password: Nutanix.123
+secretName: ntnx-secret
 
 # Volumes Settings
 #
-storageContainer: default-container-33951
+storageContainer: default-container-10012
 fsType: ext4
 
 lvmVolume: false
@@ -110,12 +112,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:pc_rc0
+  image: quay.io/karbon/ntnx-csi:pc_rc1
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:pc_rc0
+  image: quay.io/karbon/ntnx-csi:pc_rc1
   nodeSelector: {}
   tolerations: []
 

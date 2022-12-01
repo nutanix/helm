@@ -153,4 +153,4 @@ spec:
             type: Directory
         - name: pc-secret
           secret:
-            secretName: {{ .Values.secretName }}
+            secretName: {{ .Values.pcSecretName }}
