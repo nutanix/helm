@@ -133,3 +133,5 @@ sidecars:
     image: k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
   livenessprobe:
     image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0
+  healthmonitor:
+    image: gcr.io/k8s-staging-sig-storage/csi-external-health-monitor-controller:v0.4.0
