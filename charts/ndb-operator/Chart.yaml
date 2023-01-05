@@ -2,8 +2,8 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.0.2
-appVersion: "v0.0.2"
+version: 0.0.3
+appVersion: "v0.0.3"
 maintainers:
   - name: balakumarbalu
     email: balakumar.balu@nutanix.com
@@ -16,10 +16,10 @@ maintainers:
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Helm chart for the NDB operator"
     - kind: security
       description: "Updated kube-proxy version"
+    - kind: security
+      description: "Updated multiple golang dependecy version"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
