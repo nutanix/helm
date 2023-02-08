@@ -1,14 +1,14 @@
 apiVersion: v2
 type: application
-version: 6.0.1
+version: 6.0.2
 kubeVersion: ">= 1.17.0-0"
-appVersion: "6.0.1"
+appVersion: "6.0.2"
 name: nutanix-csi-snapshot
 description: Snapshot components required for CSI snapshotting and not specific to any CSI driver
 home: https://github.com/nutanix/helm
 maintainers:
-- name: nutanix-cloud-native-bot
-  email: cloudnative@nutanix.com
+  - name: nutanix-cloud-native-bot
+    email: cloudnative@nutanix.com
 icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
 keywords:
   - Nutanix
