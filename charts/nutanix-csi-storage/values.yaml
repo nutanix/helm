@@ -35,6 +35,10 @@ volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
 # volumeClassDescription: ""
 
+# enable dataServiceEndPoint for the Volume storageclass
+volumeClassDataService: false
+#volumeClassDataServiceEndPoint: ""
+
 fileClass: false
 fileClassName: "nutanix-file"
 fileClassRetention: "Delete"
