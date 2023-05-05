@@ -6,6 +6,46 @@ entries:
         - kind: security
           description: "Updated kube-proxy version"
         - kind: security
+          description: "Updated controller image version"
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Balakumar Balu
+          email: balakumar.balu@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: v0.0.4
+    created: "2023-05-05T06:56:45.248020447Z"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: fe586c7ec1dd9b44c7e5bf06bf922888b09a54dd8d252b8ab0d05e5022f8d6d6
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: balakumar.balu@nutanix.com
+      name: balakumarbalu
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/ndb-operator-0.0.4/ndb-operator-0.0.4.tgz
+    version: 0.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: security
+          description: "Updated kube-proxy version"
+        - kind: security
           description: "Updated multiple golang dependecy version"
       artifacthub.io/containsSecurityUpdates: "true"
       artifacthub.io/license: Apache-2.0
@@ -874,4 +914,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-03-02T17:40:44.437854036Z"
+generated: "2023-05-05T06:56:45.248081852Z"
