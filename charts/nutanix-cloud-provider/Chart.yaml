@@ -12,7 +12,7 @@ keywords:
   - Cloud Controller Manager
   - Cloud
   - CCM
-version: 0.3.2
+version: 0.3.3
 appVersion: "v0.3.2"
 annotations:
   artifacthub.io/displayName: "Nutanix Cloud Provider"

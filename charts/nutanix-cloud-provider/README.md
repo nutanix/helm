@@ -61,31 +61,32 @@ helm delete nutanix-ccm -n <namespace of your choice>
 
 The following table lists the configurable parameters of the Nutanix-CSI chart and their default values.
 
-| Parameter                   | Description                                                      | Default                                                          |
-|-----------------------------|------------------------------------------------------------------|------------------------------------------------------------------|
-| `createConfig`              | Create config for Nutanix Cloud Provider (if false use existing) | `true`                                                           |
-| `configName`                | Name of the ConfigMap for Nutanix Cloud Provider config          | `nutanix-config`                                                 |
-| `prismCentralEndPoint`      | Hostname or IP to connect to Prism Central instance              | `10.0.0.1`                                                       |
-| `prismCentralPort`          | Port to connect to Prism Central instance                        | `9440`                                                           |
-| `prismCentralInsecure`      | Allow insecure server connections to Prism Central instance      | `false`                                                          |
-| `createSecret`              | Create secret for Nutanix Cloud Provider (if false use existing) | `true`                                                           |
-| `secretName`                | Name of the secret for Nutanix Cloud Provider credentials        | `nutanix-creds`                                                  |
-| `username`                  | Username to connect to Prism Central instance                    | `cpi`                                                            |
-| `password`                  | Password to connect to Prism Central instance                    | `nutanix/4u`                                                     |
-| `enableCustomLabeling`      | Add some additional custom Nutanix labels to nodes               | `false`                                                          |
-| `topologyDiscovery.type`    | Define how Topology will be discovered (Prism or Categories)     | `Prism`                                                          |
-| `topologyCategories.region` | Category name used to assign region topology                     | `region`                                                         |
-| `topologyCategories.zone`   | Category name used to assign zone topology                       | `zone`                                                           |
-| `replicas`                  | Number of instance(s) of Cloud Provider Pod                      | `1`                                                              |
-| `image.repository`          | Image for Cloud Provider Pod                                     | `ghcr.io/nutanix-cloud-native/cloud-provider-nutanix/controller` |
-| `image.pullPolicy`          | Image pullPolicy                                                 | `IfNotPresent`                                                   |
-| `image.tag`                 | Image tag                                                        | `appVersion`                                                     |
-| `imagePullSecrets`          | ImagePullSecrets list                                            | `[]`                                                             |
-| `podAnnotations`            | Add annotation to Cloud Provider Pod                             | `{}`                                                             |
-| `resources`                 | Configure resources for Cloud Provider Pod                       | `refer to values.yaml`                                           |
-| `nodeSelector`              | Configure nodeSelector for Cloud Provider Pod                    | `refer to values.yaml`                                           |
-| `tolerations`               | Configure tolerations for Cloud Provider Pod                     | `refer to values.yaml`                                           |
-| `affinity`                  | Configure affinity for Cloud Provider Pod                        | `refer to values.yaml`                                           |
+| Parameter                           | Description                                                      | Default                                                          |
+|-------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|
+| `createConfig`                      | Create config for Nutanix Cloud Provider (if false use existing) | `true`                                                           |
+| `configName`                        | Name of the ConfigMap for Nutanix Cloud Provider config          | `nutanix-config`                                                 |
+| `prismCentralEndPoint`              | Hostname or IP to connect to Prism Central instance              | ``                                                               |
+| `prismCentralPort`                  | Port to connect to Prism Central instance                        | `9440`                                                           |
+| `prismCentralInsecure`              | Allow insecure server connections to Prism Central instance      | `false`                                                          |
+| `prismCentralAdditionalTrustBundle` | Additional Trust Bundle to connect to Prism Central instance     | `false`                                                          |
+| `createSecret`                      | Create secret for Nutanix Cloud Provider (if false use existing) | `true`                                                           |
+| `secretName`                        | Name of the secret for Nutanix Cloud Provider credentials        | `nutanix-creds`                                                  |
+| `username`                          | Username to connect to Prism Central instance                    | `admin`                                                          |
+| `password`                          | Password to connect to Prism Central instance                    | ``                                                               |
+| `enableCustomLabeling`              | Add some additional custom Nutanix labels to nodes               | `false`                                                          |
+| `topologyDiscovery.type`            | Define how Topology will be discovered (Prism or Categories)     | `Prism`                                                          |
+| `topologyCategories.region`         | Category name used to assign region topology                     | `region`                                                         |
+| `topologyCategories.zone`           | Category name used to assign zone topology                       | `zone`                                                           |
+| `replicas`                          | Number of instance(s) of Cloud Provider Pod                      | `1`                                                              |
+| `image.repository`                  | Image for Cloud Provider Pod                                     | `ghcr.io/nutanix-cloud-native/cloud-provider-nutanix/controller` |
+| `image.pullPolicy`                  | Image pullPolicy                                                 | `IfNotPresent`                                                   |
+| `image.tag`                         | Image tag                                                        | `appVersion`                                                     |
+| `imagePullSecrets`                  | ImagePullSecrets list                                            | `[]`                                                             |
+| `podAnnotations`                    | Add annotation to Cloud Provider Pod                             | `{}`                                                             |
+| `resources`                         | Configure resources for Cloud Provider Pod                       | `refer to values.yaml`                                           |
+| `nodeSelector`                      | Configure nodeSelector for Cloud Provider Pod                    | `refer to values.yaml`                                           |
+| `tolerations`                       | Configure tolerations for Cloud Provider Pod                     | `refer to values.yaml`                                           |
+| `affinity`                          | Configure affinity for Cloud Provider Pod                        | `refer to values.yaml`                                           |
 
 
 
