@@ -1,0 +1,100 @@
+# Default values for nutanix-cloud-provider.
+# This is a YAML-formatted file.
+
+# Nutanix Prism Central
+#
+
+# Nutanix Prism Central settings
+#
+# Allow dynamic retrieval of nodes info
+# Read-only RBAC is enough
+
+# if set to true a new config will be created if not configName will be used
+createConfig: true
+configName: nutanix-config
+
+prismCentralEndPoint: ""
+prismCentralPort: 9440
+prismCentralInsecure: false
+prismCentralAdditionalTrustBundle: ""
+
+# if set to true a new secret will not be created if not secretname will be used
+createSecret: true
+secretName: nutanix-creds
+
+username: admin
+password: ""
+
+# Nutanix Cloud Provider Config
+#
+
+# If set to true add some additional custom Nutanix labels to nodes
+#   (prism-element-name, prism-element-uuid, prism-host-name, prism-host-uuid)
+enableCustomLabeling: false
+
+topologyDiscovery:
+  # Define how Topology will be discovered
+  # type can be Prism or Categories
+  #  Prism: use PC as Region and PE as Zone (default settings)
+  #  Categories: read categories to set Region and Zone
+  type: Prism
+
+# If topologyDiscovery.type set to Categories define the name of categories to read for each toplogy
+# ( precedence order is VM -> PE -> PC )
+
+topologyCategories:
+  region: region
+  zone: zone
+
+# Nutanix Cloud Provider Controller Settings
+#
+
+replicas: 1
+
+image:
+  repository: ghcr.io/nutanix-cloud-native/cloud-provider-nutanix/controller
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 50Mi
+
+nodeSelector:
+  node-role.kubernetes.io/control-plane: ""
+
+tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/control-plane
+    operator: Exists
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 120
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 120
+  - effect: NoSchedule
+    key: node.cloudprovider.kubernetes.io/uninitialized
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - topologyKey: "kubernetes.io/hostname"
+        labelSelector:
+          matchLabels:
+            k8s-app: nutanix-cloud-controller-manager
