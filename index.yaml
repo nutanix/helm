@@ -133,6 +133,35 @@ entries:
           email: cloudnative@nutanix.com
     apiVersion: v2
     appVersion: v0.3.2
+    created: "2023-05-11T12:43:53.4848654Z"
+    description: Nutanix Cloud Provider
+    digest: 0d28eb63c60aa66f4898a663d540f9ed9e040a9612ddeead00bd0f694becc7ed
+    home: https://github.com/nutanix-cloud-native/cloud-provider-nutanix
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Cloud Controller Manager
+    - Cloud
+    - CCM
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-cloud-provider
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-cloud-provider-0.3.3/nutanix-cloud-provider-0.3.3.tgz
+    version: 0.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - Nutanix Cloud provider upgrade to v0.3.2
+        - Add Additional Trust Bundle Support
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix Cloud Provider
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+    apiVersion: v2
+    appVersion: v0.3.2
     created: "2023-05-11T11:06:47.278395342Z"
     description: Nutanix Cloud Provider
     digest: 3228da32db00e1e6e6d8b91b641736d02df02f9f93b512d80ccfb34f63519852
@@ -944,4 +973,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-05-11T11:06:47.278447043Z"
+generated: "2023-05-11T12:43:53.484943901Z"
