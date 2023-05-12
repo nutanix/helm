@@ -379,7 +379,7 @@ entries:
     appVersion: 2.6.3
     created: "2023-05-11T12:52:02.866590646Z"
     description: Nutanix Container Storage Interface (CSI) Driver
-    digest: 8a6f46502850d7743b7f8cc8d65666335151595bf3580352d1782c528fe6f98f
+    digest: 4bcfa4258aa41dee027114599c2a52f9ed039a676f456ff9e47afdf714f6ad27
     home: https://github.com/nutanix/helm
     icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
     keywords:
