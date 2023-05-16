@@ -26,6 +26,10 @@ kubeletDir: "/var/nutanix/var/lib/kubelet"
 # csiSecretDir is the directory where PC (Prism Central) secret is mounted.
 csiSecretDir: "/var/run/ntnx-secret-dir"
 
+# category configmap name and namespace
+csiCategoryConfigmapName: ntnx-cluster-configmap
+csiCategoryConfigmapNamespace: ntnx-system
+
 nodeSelector: {}
 tolerations: []
 imagePullPolicy: IfNotPresent
@@ -112,12 +116,12 @@ servicemonitor:
 #
 
 provisioner:
-  image: quay.io/karbon/ntnx-csi:pc_ea_rc2
+  image: quay.io/karbon/ntnx-csi:pc_ea_rc3
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:pc_ea_rc2
+  image: quay.io/karbon/ntnx-csi:pc_ea_rc3
   nodeSelector: {}
   tolerations: []
 
