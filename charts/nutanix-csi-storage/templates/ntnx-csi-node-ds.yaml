@@ -72,6 +72,10 @@ spec:
                   fieldPath: status.hostIP
             - name: CSI_SECRET_DIR
               value: {{ .Values.csiSecretDir }}
+            - name: CSI_CATEGORY_CONFIGMAP_NAME
+              value: {{ .Values.csiCategoryConfigmapName }}
+            - name: CSI_CATEGORY_CONFIGMAP_NAMESPACE
+              value: {{ .Values.csiCategoryConfigmapNamespace }}
           resources:
             limits:
               cpu: 100m
