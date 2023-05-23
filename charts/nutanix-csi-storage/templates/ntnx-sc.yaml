@@ -1,4 +1,7 @@
 {{- if eq .Values.volumeClass true }}
+---
+{{- $storageContainer := .Values.storageContainer | required "storageContainer is required." -}}
+
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -35,8 +38,12 @@ parameters:
   storageType: NutanixVolumes
 deletionPolicy: Delete
 {{- end }}
----
+
 {{- if eq .Values.fileClass true }}
+---
+{{- $fileHost := .Values.fileHost | required "fileHost is required." -}}
+{{- $filePath := .Values.filePath | required "filePath is required." -}}
+
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -53,8 +60,11 @@ parameters:
 allowVolumeExpansion: true
 reclaimPolicy: {{ .Values.fileClassRetention }}
 {{- end }}
----
+
 {{- if eq .Values.dynamicFileClass true }}
+---
+{{- $fileServerName := .Values.fileServerName | required "fileServerName is required." -}}
+
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -67,6 +77,7 @@ provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixFiles
     dynamicProv: ENABLED
+    squashType: {{ .Values.dynamicFileSquashType }}
     nfsServerName: {{ .Values.fileServerName }}
     csi.storage.k8s.io/provisioner-secret-name: {{ .Values.peSecretName }}
     csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}

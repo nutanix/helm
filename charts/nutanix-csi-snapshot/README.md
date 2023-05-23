@@ -69,6 +69,14 @@ helm upgrade nutanix-csi-snapshot nutanix/nutanix-csi-snapshot
 
 You can renew webhook certificate during an upgrade by specifiying `--set "tls.renew=true"`.
 
+## Uninstalling the Chart
+
+To uninstall/delete the `nutanix-csi-snapshot` deployment:
+
+```console
+helm delete nutanix-csi-snapshot -n <namespace of your choice>
+```
+
 ## Configuration
 
 Kubernetes Webhooks need to run on HTTPS and for this they need a certificate. This charts offers several options:
@@ -86,22 +94,25 @@ Kubernetes Webhooks need to run on HTTPS and for this they need a certificate. T
 
 The following table lists the configurable parameters of the Nutanix-CSI chart and their default values.
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `tls.source` | Source of the Certificate for the Webhook. Possible values: `generate`, `secret`. | `generate` |
-| `tls.renew` | Force renewal of certificate when auto-generating. | `false` |
-| `tls.secretName` | Name of the secret where certificate are stored. | `"snapshot-validation-webhook-cert"` |
-| `tls.validityDuration` | Certificate Validity in day(s). | `3650` |
-| `validationWebHook.replica` | Number of validationWebHook replicas to deploy. | `2` |
-| `validationWebHook.timeoutSeconds` | Timeout to use when contacting webhook server. | `2` |
-| `validationWebHook.failurePolicy` | Policy to apply when webhook is unavailable. Possible values: `Fail`, `Ignore`. | `Fail` |
-| `nodeSelector`                   | Add nodeSelector to all pods | `{}` |
-| `tolerations`                    | Add tolerations to all pods | `[]` |
-| `imagePullPolicy`                | Specify imagePullPolicy for all pods| `IfNotPresent`|
-| `controller.nodeSelector`       | Add nodeSelector to controller pod | `{}` |
-| `controller.tolerations`        | Add tolerations to controller pod | `[]`  |
-| `validationWebHook.nodeSelector` | Add nodeSelector to validationWebHook pods | `{}` |
-| `validationWebHook.tolerations` | Add tolerations to validationWebHook pods | `[]` |
+| Parameter                          | Description                                                                       | Default                              |
+|------------------------------------|-----------------------------------------------------------------------------------|--------------------------------------|
+| `tls.source`                       | Source of the Certificate for the Webhook. Possible values: `generate`, `secret`. | `generate`                           |
+| `tls.renew`                        | Force renewal of certificate when auto-generating.                                | `false`                              |
+| `tls.secretName`                   | Name of the secret where certificate are stored.                                  | `"snapshot-validation-webhook-cert"` |
+| `tls.validityDuration`             | Certificate Validity in day(s).                                                   | `3650`                               |
+| `validationWebHook.replicas`       | Number of validationWebHook replicas to deploy.                                   | `2`                                  |
+| `validationWebHook.timeoutSeconds` | Timeout to use when contacting webhook server.                                    | `2`                                  |
+| `validationWebHook.failurePolicy`  | Policy to apply when webhook is unavailable. Possible values: `Fail`, `Ignore`.   | `Fail`                               |
+| `nodeSelector`                     | Add nodeSelector to all pods                                                      | `{}`                                 |
+| `tolerations`                      | Add tolerations to all pods                                                       | `[]`                                 |
+| `imagePullPolicy`                  | Specify imagePullPolicy for all pods                                              | `IfNotPresent`                       |
+| `controller.replicas`              | Number of controller replicas to deploy.                                          | `2`                                  |
+| `controller.nodeSelector`          | Add nodeSelector to controller pod                                                | `{}`                                 |
+| `controller.tolerations`           | Add tolerations to controller pod                                                 | `[]`                                 |
+| `validationWebHook.nodeSelector`   | Add nodeSelector to validationWebHook pods                                        | `{}`                                 |
+| `validationWebHook.tolerations`    | Add tolerations to validationWebHook pods                                         | `[]`                                 |
+
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
 
 [`kubernetes.io/tls`]: https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets
 

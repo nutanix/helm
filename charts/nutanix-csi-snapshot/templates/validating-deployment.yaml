@@ -1,20 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: snapshot-validation-deployment
+  name: csi-snapshot-webhook
   namespace: {{ .Release.Namespace }}
   labels:
-    app: snapshot-validation
+    app: csi-snapshot-webhook
 spec:
-  replicas: {{ .Values.validationWebHook.replica }}
+  replicas: {{ .Values.validationWebHook.replicas }}
   selector:
     matchLabels:
-      app: snapshot-validation
+      app: csi-snapshot-webhook
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        app: snapshot-validation
+        app: csi-snapshot-webhook
     spec:
+      serviceAccountName: csi-snapshot-webhook
       containers:
       - name: snapshot-validation
         image: {{ .Values.validationWebHook.image }}:{{ include "nutanix-csi-snapshot.release" . }}
@@ -26,6 +32,10 @@ spec:
           - --port=8443
         ports:
         - containerPort: 8443
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
         securityContext:
           capabilities:
             drop:
@@ -40,7 +50,10 @@ spec:
       volumes:
         - name: snapshot-validation-webhook-certs
           secret:
-            secretName: {{ .Values.tls.secretName }}   
+            secretName: {{ .Values.tls.secretName }}
+      priorityClassName: system-cluster-critical
+      securityContext:
+        runAsNonRoot: true
       nodeSelector:
     {{- with (.Values.validationWebHook.nodeSelector | default .Values.nodeSelector ) }}
         {{- toYaml . | nindent 8 }}
@@ -49,15 +62,24 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: csi-snapshot-webhook
+                topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: snapshot-validation-service
+  name: csi-snapshot-webhook
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
-    app: snapshot-validation
+    app: csi-snapshot-webhook
   ports:
     - name: webhook
       protocol: TCP

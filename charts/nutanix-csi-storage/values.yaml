@@ -67,23 +67,23 @@ defaultStorageClass: none
 # required for the csi driver else helm install/upgrade will fail. You can
 # create PrismCentral secret in the k8s cluster before helm install/upgrade.
 createPrismCentralSecret: true
-prismCentralEndPoint: 10.45.39.98
-pcUsername: admin
-pcPassword: Nutanix.123
+prismCentralEndPoint: 00.00.00.00
+pcUsername: username
+pcPassword: password
 pcSecretName: ntnx-pc-secret
 
 # Nutanix Prism Element Secret which is used by dynamicFileClass.
 # The user needs to create this secret.
 # if set to false a new secret will not be created
 createSecret: false
-prismEndPoint: 10.40.147.100
-username: admin
-password: Nutanix.123
+prismEndPoint: 00.00.000.000
+username: username
+password: password
 secretName: ntnx-secret
 
 # Volumes Settings
 #
-storageContainer: default-container-10012
+storageContainer: add-container-name
 fsType: ext4
 
 lvmVolume: false
@@ -93,13 +93,22 @@ networkSegmentation: false
 
 # Files Settings
 #
-fileHost: 10.0.0.3
-filePath: share
+
+## NFS server fully qualified domain name (FQDN) or IP address
+# fileHost:
+
+## path for the NFS share
+# filePath:
 
 # Dynamic Files Settings
 #
-fileServerName: file
 
+## name of the file server. (As seen in the Prism Interface)
+# fileServerName:
+
+# Squash-type for dynamic files.
+# Values are: none, root-squash, all-squash. Default is root-squash
+dynamicFileSquashType: root-squash
 
 # Volume metrics and CSI operations metrics configuration
 #
@@ -111,11 +120,11 @@ servicemonitor:
     # on the prometheus.
     k8s-app: csi-driver
 
-
 # Pod pecific Settings
 #
 
-provisioner:
+controller:
+  replicas: 2
   image: quay.io/karbon/ntnx-csi:pc_ea_rc3
   nodeSelector: {}
   tolerations: []
@@ -127,17 +136,22 @@ node:
 
 sidecars:
   registrar:
-    image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
+    image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.8.0
   provisioner:
-    image: k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0
+    image: registry.k8s.io/sig-storage/csi-provisioner:v3.5.0
+    imageLegacy: registry.k8s.io/sig-storage/csi-provisioner:v2.2.2
   attacher:
     image: k8s.gcr.io/sig-storage/csi-attacher:v3.4.0
   snapshotter:
-    image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
-    imageBeta: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.3
+    image: registry.k8s.io/sig-storage/csi-snapshotter:v6.2.1
+    imageBeta: registry.k8s.io/sig-storage/csi-snapshotter:v3.0.3
   resizer:
-    image: k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
+    image: registry.k8s.io/sig-storage/csi-resizer:v1.8.0
   livenessprobe:
-    image: k8s.gcr.io/sig-storage/livenessprobe:v2.3.0
+    image: registry.k8s.io/sig-storage/livenessprobe:v2.10.0
   healthmonitor:
     image: gcr.io/k8s-staging-sig-storage/csi-external-health-monitor-controller:v0.4.0
+# Used for deployment test in kind cluster
+#
+
+kindtest: false
