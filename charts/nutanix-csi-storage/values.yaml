@@ -152,7 +152,7 @@ sidecars:
   livenessprobe:
     image: registry.k8s.io/sig-storage/livenessprobe:v2.10.0
   healthmonitor:
-    image: gcr.io/k8s-staging-sig-storage/csi-external-health-monitor-controller:v0.4.0
+    image: gcr.io/k8s-staging-sig-storage/csi-external-health-monitor-controller:v0.9.0
 # Used for deployment test in kind cluster
 #
 
