@@ -51,6 +51,7 @@ spec:
             # This is used to collect CSI operation metrics
             - --http-endpoint=:9809
             - --feature-gates=Topology=true
+            - --leader-election=true
             - --v=2
           env:
             - name: ADDRESS
