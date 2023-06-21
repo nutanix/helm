@@ -2,29 +2,33 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.0.4
-appVersion: "v0.0.4"
+version: 0.0.5
+appVersion: "v0.0.5"
 maintainers:
-  - name: balakumarbalu
-    email: balakumar.balu@nutanix.com
-  - name: krunal-jhaveri
+  - name: Akshay Mishra
+    email: akshay.mishra@nutanix.com
+  - name: Pritika Shenoy
+    email: pritika.shenoy@nutanix.com
+  - name: Krunal Jhaveri
     email: krunal.jhaveri@nutanix.com
-  - name: manavrajvanshi
+  - name: Manav Rajvanshi
     email: manav.rajvanshi@nutanix.com
-  - name: nutanix-cloud-native-bot
+  - name: Nutanix Cloud Native Team
     email: cloudnative@nutanix.com
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
-    - kind: security
-      description: "Updated kube-proxy version"
-    - kind: security
-      description: "Updated controller image version"
-  artifacthub.io/containsSecurityUpdates: "true"
+    - kind: added
+      description: "MSSQL Provisioning"
+    - kind: added
+      description: "Ability to provide profile information"
+  artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
-    - name: Balakumar Balu
-      email: balakumar.balu@nutanix.com
+    - name: Akshay Mishra
+      email: akshay.mishra@nutanix.com
+    - name: Pritika Shenoy
+      email: pritika.shenoy@nutanix.com
     - name: Krunal Jhaveri
       email: krunal.jhaveri@nutanix.com
     - name: Manav Rajvanshi
