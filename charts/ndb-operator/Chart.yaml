@@ -5,16 +5,16 @@ type: application
 version: 0.0.5
 appVersion: "v0.0.5"
 maintainers:
-  - name: Akshay Mishra
+  - name: akshmish
     email: akshay.mishra@nutanix.com
-  - name: Pritika Shenoy
+  - name: shenoypritika
     email: pritika.shenoy@nutanix.com
-  - name: Krunal Jhaveri
+  - name: krunal-jhaveri
     email: krunal.jhaveri@nutanix.com
-  - name: Manav Rajvanshi
+  - name: manavrajvanshi
     email: manav.rajvanshi@nutanix.com
-  - name: Nutanix Cloud Native Team
-    email: cloudnative@nutanix.com
+  - name: yash-ntnx
+    email: yashesh.mankad@nutanix.com
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
@@ -25,16 +25,16 @@ annotations:
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
-    - name: Akshay Mishra
+    - name: akshmish
       email: akshay.mishra@nutanix.com
-    - name: Pritika Shenoy
+    - name: shenoypritika
       email: pritika.shenoy@nutanix.com
-    - name: Krunal Jhaveri
+    - name: krunal-jhaveri
       email: krunal.jhaveri@nutanix.com
-    - name: Manav Rajvanshi
+    - name: manavrajvanshi
       email: manav.rajvanshi@nutanix.com
-    - name: Nutanix Cloud Native Team
-      email: cloudnative@nutanix.com
+    - name: yash-ntnx
+      email: yashesh.mankad@nutanix.com
   artifacthub.io/operator: "true"
   artifacthub.io/operatorCapabilities: Basic Install
   artifacthub.io/prerelease: "true"
