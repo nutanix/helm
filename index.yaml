@@ -3,6 +3,54 @@ entries:
   ndb-operator:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "MSSQL Provisioning"
+        - kind: added
+          description: "Ability to provide profile information"
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Akshay Mishra
+          email: akshay.mishra@nutanix.com
+        - name: Pritika Shenoy
+          email: pritika.shenoy@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Yashesh Mankad
+          email: yashesh.mankad@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: v0.0.5
+    created: "2023-06-22T08:01:48.426492098Z"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: d50f3fa223b57a268f10bf4a837d928512e44d947e4c2567c3ba3abdb512794a
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: akshay.mishra@nutanix.com
+      name: akshmish
+    - email: pritika.shenoy@nutanix.com
+      name: shenoypritika
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: yashesh.mankad@nutanix.com
+      name: yash-ntnx
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/ndb-operator-0.0.5/ndb-operator-0.0.5.tgz
+    version: 0.0.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: security
           description: "Updated kube-proxy version"
         - kind: security
@@ -1049,4 +1097,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-05-11T12:52:02.866845851Z"
+generated: "2023-06-22T08:01:48.573102783Z"
