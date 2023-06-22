@@ -25,7 +25,7 @@ helm install ndb-operator nutanix/ndb-operator -n ndb-operator --create-namespac
 apiVersion: v1
 kind: Secret
 metadata:
-  name: your-ndb-secret
+  name: ndb-secret-name
 type: Opaque
 stringData:
   username: username-for-ndb-server
@@ -38,7 +38,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: your-db-secret
+  name: db-instance-secret-name
 type: Opaque
 stringData:
   password: password-for-the-database-instance
@@ -65,29 +65,54 @@ spec:
   ndb:
     # Cluster id of the cluster where the Database has to be provisioned
     # Can be fetched from the GET /clusters endpoint
-    clusterId: "Nutanix Cluster Id" 
+    clusterId: "Nutanix Cluster Id"
     # Credentials secret name for NDB installation
-    # data: username, password, 
+    # data: username, password,
     # stringData: ca_certificate
-    credentialSecret: your-ndb-secret
+    credentialSecret: ndb-secret-name
     # The NDB Server
     server: https://[NDB IP]:8443/era/v0.9
     # Set to true to skip SSL verification, default: false.
-    skipCertificateVerification: false
+    skipCertificateVerification: true
   # Database instance specific details (that is to be provisioned)
   databaseInstance:
     # The database instance name on NDB
     databaseInstanceName: "Database-Instance-Name"
     # Names of the databases on that instance
     databaseNames:
-      - alpha
-      - beta
+      - database_one
+      - database_two
+      - database_three
     # Credentials secret name for NDB installation
     # data: password, ssh_public_key
-    credentialSecret: your-db-secret
+    credentialSecret: db-instance-secret-name
     size: 10
     timezone: "UTC"
     type: postgres
+
+    # You can specify any (or none) of these types of profiles: compute, software, network, dbParam
+    # If not specified, the corresponding Out-of-Box (OOB) profile will be used wherever applicable
+    # Name is case-sensitive. ID is the UUID of the profile. Profile should be in the "READY" state
+    # "id" & "name" are optional. If none provided, OOB may be resolved to any profile of that type
+    profiles:
+      compute:
+        id: ""
+        name: ""
+      # A Software profile is a mandatory input for closed-source engines: MSSQL & Oracle
+      software:
+        name: ""
+        id: ""
+      network:
+        id: ""
+        name: ""
+      dbParam:
+        name: ""
+        id: ""
+      # Only applicable for MSSQL databases
+      dbParamInstance:
+        name: ""
+        id: ""
+
 ```
 ## Uninstalling the Chart
 To uninstall/delete the operator deployment/chart:
@@ -104,7 +129,7 @@ The following table lists the configurable parameters of the NDB operator chart 
 | `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
 | `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
 | `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
-| `image.tag`           | Image tag                                                     | `v0.0.4, defaults to Chart.appVersion if removed`      |
+| `image.tag`           | Image tag                                                     | `v0.0.5, defaults to Chart.appVersion if removed`      |
 | `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
 | `nameOverride`        | To override the name of the operator chart                    | `""`                                                   |
 | `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
