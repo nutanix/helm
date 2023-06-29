@@ -47,7 +47,7 @@ dynamicFileClassRetention: "Delete"
 # Default Storage Class settings
 #
 # Decide wich storageclass will be the default
-# value are: node, volume, file, dynfile
+# value are: none, volume, file, dynfile
 defaultStorageClass: none
 
 # Nutanix Prism Elements settings
