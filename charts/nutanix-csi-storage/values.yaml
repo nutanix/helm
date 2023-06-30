@@ -156,4 +156,6 @@ sidecars:
 # Used for deployment test in kind cluster
 #
 
+# PC versions on which Nutanix CSI Driver is supported currently. PLEASE DO NOT CHANGE.
+supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1"
 kindtest: false
