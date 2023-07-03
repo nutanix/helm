@@ -126,12 +126,12 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v3.0.0-rc0
+  image: quay.io/karbon/ntnx-csi:v3.0.0-rc1
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v3.0.0-rc0
+  image: quay.io/karbon/ntnx-csi:v3.0.0-rc1
   nodeSelector:
     kubernetes.io/os: linux
   tolerations: []
