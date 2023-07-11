@@ -5,3 +5,4 @@ metadata:
   namespace: ntnx-system
 data:
   supportedPCVersions: {{ .Values.supportedPCVersions }}
+  kubernetesClusterDeploymentType: {{ .Values.kubernetesClusterDeploymentType }}
