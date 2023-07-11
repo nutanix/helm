@@ -77,7 +77,7 @@ provisioner: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
     storageType: NutanixFiles
     dynamicProv: ENABLED
-    squashType: {{ .Values.dynamicFileSquashType }}
+    squashType: {{ .Values.dynamicFileSquashType | default "none" }}
     nfsServerName: {{ .Values.fileServerName }}
     csi.storage.k8s.io/provisioner-secret-name: {{ .Values.peSecretName }}
     csi.storage.k8s.io/provisioner-secret-namespace: {{ .Release.Namespace }}
@@ -86,7 +86,6 @@ parameters:
     csi.storage.k8s.io/controller-expand-secret-name: {{ .Values.peSecretName }}
     csi.storage.k8s.io/controller-expand-secret-namespace: {{ .Release.Namespace }}
     description: {{ quote (.Values.dynamicFileClassDescription | default .Values.dynamicFileClassName) }}
-    squashType: "none"
 allowVolumeExpansion: true
 reclaimPolicy: {{ .Values.dynamicFileClassRetention }}
 {{- end }}

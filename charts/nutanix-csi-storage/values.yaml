@@ -80,7 +80,7 @@ createSecret: false
 prismEndPoint: 00.00.000.000
 username: username
 password: password
-secretName: ntnx-secret
+peSecretName: ntnx-secret
 
 # Volumes Settings
 #

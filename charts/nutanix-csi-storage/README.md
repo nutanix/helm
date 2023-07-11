@@ -128,7 +128,7 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `prismEndPoint`               | Prism Element (PE) cluster Virtual IP Address or fully qualified domain name (FQDN)         |                        |
 | `username`                    | Username of a Prism Element (PE) cluster admin (if created)                                 |                        |
 | `password`                    | Password for the Prism Element (PE) cluster admin (if created)                              |                        |
-| `secretName`                  | Secret name that stores Prism Element (PE) cluster credentials                              | `ntnx-secret`          |
+| `peSecretName`                | Secret name that stores Prism Element (PE) cluster credentials                              | `ntnx-secret`          |
 | `createSecret`                | Create secret for admin role (if false use existing)                                        | `true`                 |
 | `storageContainer`            | Name of the Nutanix storage container                                                       |                        |
 | `fsType`                      | Type of file system used inside Volume PV (ext4, xfs)                                       | `xfs`                  |
