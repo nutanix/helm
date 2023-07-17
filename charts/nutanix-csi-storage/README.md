@@ -41,7 +41,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 
 ## Prerequisites
 
-- Kubernetes 1.17 or later
+- Kubernetes 1.20 or later
 - Kubernetes worker nodes must have the iSCSI package installed (Nutanix Volumes mode) and/or NFS tools (Nutanix Files mode)
 - This chart have been validated on RHEL/CentOS 7/8 and Ubuntu 18.04/20.04/21.04/21.10, but the new architecture enables easy portability to other distributions.
 

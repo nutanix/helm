@@ -17,6 +17,8 @@ spec:
       maxUnavailable: "10%"
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: nutanix-csi-node
       labels:
         app: nutanix-csi-node
     spec:

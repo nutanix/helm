@@ -19,6 +19,8 @@ spec:
       app: nutanix-csi-controller
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: nutanix-csi-plugin
       labels:
         app: nutanix-csi-controller
     spec:
