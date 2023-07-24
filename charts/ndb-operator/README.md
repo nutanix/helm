@@ -1,15 +1,16 @@
 # Nutanix Database Service Operator for Kubernetes
-The NDB operator automates and simplifies database administration, provisioning, and life-cycle management of NDB on Kubernetes.
+The NDB operator brings automated and simplified database administration, provisioning, and life-cycle management to Kubernetes.
 
-NDB operator supports these functionalities:
-1. Provisioning and deprovisioning a single instance postgres database.
-2. Creation of a service for the applications to consume the database within Kubernetes.
+
 ---
 
 ## Pre-requisites
-1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
-2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
-3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
+1. NDB [installation](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:Nutanix-NDB-User-Guide-v2_5).
+2. A Kubernetes cluster to run against, which should have network connectivity to the NDB installation. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
+**Note:** The operator will automatically use the current context in your kubeconfig file (i.e. whatever cluster `kubectl cluster-info` shows).
+3. The operator-sdk installed.
+4. A clone of the source code ([this](https://github.com/nutanix-cloud-native/ndb-operator) repository).
+5. Cert-manager. Please follow the instructions [here](https://cert-manager.io/docs/installation/), and wait for the resources created by the cert-manager installation to be ready before deploying/installing the NDB Operator.
 
 ## Installation and Running on the cluster
 Deploy the operator on the cluster:
@@ -45,15 +46,15 @@ stringData:
   ssh_public_key: SSH-PUBLIC-KEY
 
 ```
-2. To create instances of custom resources (provision databases), edit the crd file with the NDB installation and database instance details and run:
+2. To create instances of custom resources (provision databases), edit the custom resource file with the NDB installation and database instance details and run:
 ```sh
-kubectl apply -f CRD_FILE.yaml
+kubectl apply -f CR_FILE.yaml
 ```
 3. To delete instances of custom resources (deprovision databases) run:
 ```sh
-kubectl delete -f CRD_FILE.yaml
+kubectl delete -f CR_FILE.yaml
 ```
-The CRD is described as follows:
+The CR is described as follows:
 ```yaml
 apiVersion: ndb.nutanix.com/v1alpha1
 kind: Database
@@ -98,7 +99,7 @@ spec:
       compute:
         id: ""
         name: ""
-      # A Software profile is a mandatory input for closed-source engines: MSSQL & Oracle
+      # A Software profile is a mandatory input for closed-source engines: SQL Server & Oracle
       software:
         name: ""
         id: ""
@@ -112,6 +113,14 @@ spec:
       dbParamInstance:
         name: ""
         id: ""
+    timeMachine:                        # Optional block, if removed the SLA defaults to NONE
+      sla : "NAME OF THE SLA"
+      dailySnapshotTime:   "12:34:56"   # Time for daily snapshot in hh:mm:ss format
+      snapshotsPerDay:     4            # Number of snapshots per day
+      logCatchUpFrequency: 90           # Frequency (in minutes)
+      weeklySnapshotDay:   "WEDNESDAY"  # Day of the week for weekly snapshot
+      monthlySnapshotDay:  24           # Day of the month for monthly snapshot
+      quarterlySnapshotMonth: "Jan"     # Start month of the quarterly snapshot
 
 ```
 ## Uninstalling the Chart
@@ -129,7 +138,7 @@ The following table lists the configurable parameters of the NDB operator chart 
 | `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
 | `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
 | `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
-| `image.tag`           | Image tag                                                     | `v0.0.5, defaults to Chart.appVersion if removed`      |
+| `image.tag`           | Image tag                                                     | `v0.0.6, defaults to Chart.appVersion if removed`      |
 | `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
 | `nameOverride`        | To override the name of the operator chart                    | `""`                                                   |
 | `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
@@ -193,6 +202,6 @@ Issues and enhancement requests can be submitted in the [Issues tab of this repo
 
 ## License
 
-Copyright 2021-2022 Nutanix, Inc.
+Copyright 2022-2023 Nutanix, Inc.
 
 The project is released under version 2.0 of the [Apache license](http://www.apache.org/licenses/LICENSE-2.0).
