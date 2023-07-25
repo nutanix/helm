@@ -1,0 +1,52 @@
+apiVersion: v1
+entries:
+  ndb-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "MSSQL Provisioning"
+        - kind: added
+          description: "Ability to provide profile information"
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Akshay Mishra
+          email: akshay.mishra@nutanix.com
+        - name: Pritika Shenoy
+          email: pritika.shenoy@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Yashesh Mankad
+          email: yashesh.mankad@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: v0.0.5
+    created: "2023-07-24T22:47:52.35053-07:00"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: a4f224f3276ce31ec8aaf533321e751111efd69f56b24a5b15fe5e6115407576
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: akshay.mishra@nutanix.com
+      name: akshmish
+    - email: pritika.shenoy@nutanix.com
+      name: shenoypritika
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: yashesh.mankad@nutanix.com
+      name: yash-ntnx
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - ndb-operator-0.0.5.tgz
+    version: 0.0.5
+generated: "2023-07-24T22:47:52.34942-07:00"
