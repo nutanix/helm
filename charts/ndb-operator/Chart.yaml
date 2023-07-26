@@ -21,9 +21,9 @@ icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nuta
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "MSSQL Provisioning"
-    - kind: added
-      description: "Ability to provide profile information"
+      description: "Ability to provide Time Machine / SLA information"
+    - kind: fixed
+      description: "Error handling and minor bug fixes"
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
