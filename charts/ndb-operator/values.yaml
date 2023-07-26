@@ -1,14 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/pritikanutanix/ndb_operator
+  repository: ghcr.io/nutanix-cloud-native/ndb-operator/controller
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-<<<<<<< HEAD
   tag: "v0.0.6"
-=======
-  tag: "latest"
->>>>>>> 2d5fa86d50c34c61773cc059080c70210a11b838
 
 imagePullSecrets: []
 nameOverride: ""
