@@ -63,8 +63,9 @@ spec:
                     type: string
                   databaseNames:
                     default:
-                    - alpha
-                    - beta
+                    - database_one
+                    - database_two
+                    - database_three
                     description: Name of the database to be provisiond in the database
                       instance
                     items:
@@ -77,28 +78,35 @@ spec:
                         properties:
                           id:
                             type: string
-                          versionId:
+                          name:
                             type: string
                         type: object
                       dbParam:
                         properties:
                           id:
                             type: string
-                          versionId:
+                          name:
+                            type: string
+                        type: object
+                      dbParamInstance:
+                        properties:
+                          id:
+                            type: string
+                          name:
                             type: string
                         type: object
                       network:
                         properties:
                           id:
                             type: string
-                          versionId:
+                          name:
                             type: string
                         type: object
                       software:
                         properties:
                           id:
                             type: string
-                          versionId:
+                          name:
                             type: string
                         type: object
                     type: object
@@ -107,6 +115,69 @@ spec:
                     description: Size of the database instance
                     minimum: 10
                     type: integer
+                  timeMachine:
+                    default: {}
+                    description: Information related to time machine that is to be
+                      associated with this database
+                    properties:
+                      dailySnapshotTime:
+                        default: "04:05:06"
+                        description: Daily snapshot time in HH:MM:SS (24 hour format)
+                        format: ^(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$
+                        type: string
+                      description:
+                        type: string
+                      logCatchUpFrequency:
+                        default: 30
+                        description: Log catch up frequency in minutes
+                        enum:
+                        - 15
+                        - 30
+                        - 60
+                        - 90
+                        - 120
+                        type: integer
+                      monthlySnapshotDay:
+                        default: 15
+                        description: Day of the month for monthly snapshot
+                        maximum: 28
+                        minimum: 1
+                        type: integer
+                      name:
+                        type: string
+                      quarterlySnapshotMonth:
+                        default: Jan
+                        description: Start month for the quarterly snapshot Jan =>
+                          Jan, Apr, Jul, Oct. Feb => Feb, May, Aug, Nov. Mar => Mar,
+                          Jun, Sep, Dec.
+                        enum:
+                        - Jan
+                        - Feb
+                        - Mar
+                        type: string
+                      sla:
+                        default: NONE
+                        description: Name of the SLA to be used
+                        type: string
+                      snapshotsPerDay:
+                        default: 1
+                        description: Number of snapshots per day
+                        maximum: 6
+                        minimum: 1
+                        type: integer
+                      weeklySnapshotDay:
+                        default: FRIDAY
+                        description: Day of the week for weekly snapshot
+                        enum:
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
+                        - SUNDAY
+                        type: string
+                    type: object
                   timezone:
                     default: UTC
                     type: string
@@ -116,6 +187,7 @@ spec:
                     - mysql
                     - postgres
                     - mongodb
+                    - mssql
                     type: string
                 required:
                 - credentialSecret
@@ -158,11 +230,14 @@ spec:
                 type: string
               status:
                 type: string
+              type:
+                type: string
             required:
             - dbServerId
             - id
             - ipAddress
             - status
+            - type
             type: object
         type: object
     served: true
