@@ -129,7 +129,7 @@ The following table lists the configurable parameters of the NDB operator chart 
 | `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
 | `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
 | `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
-| `image.tag`           | Image tag                                                     | `v0.0.6, defaults to Chart.appVersion if removed`      |
+| `image.tag`           | Image tag                                                     | `""`      |
 | `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
 | `nameOverride`        | To override the name of the operator chart                    | `""`                                                   |
 | `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
