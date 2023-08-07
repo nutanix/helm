@@ -57,6 +57,7 @@ defaultStorageClass: none
 
 ## fully qualified domain name (FQDN) or the cluster virtual IP address (if one is not configured, use the virtual IP address of any Controller VM in the cluster).
 # prismEndPoint:
+prismPort: 9440
 
 ## username of the Prism Element (PE) cluster admin
 # username:
