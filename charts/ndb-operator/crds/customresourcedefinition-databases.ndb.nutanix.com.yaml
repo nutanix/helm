@@ -2,10 +2,20 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: cert-manager-test/selfsigned-cert
     controller-gen.kubebuilder.io/version: v0.9.2
-  creationTimestamp: null
   name: databases.ndb.nutanix.com
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        service:
+          name: ndb-operator-webhook-service
+          namespace: ndb-operator-system
+          path: /convert
+      conversionReviewVersions:
+      - v1
   group: ndb.nutanix.com
   names:
     kind: Database
@@ -24,11 +34,8 @@ spec:
     - jsonPath: .status.status
       name: Status
       type: string
-    - jsonPath: .status.id
-      name: Database Instance ID
-      type: string
-    - jsonPath: .status.dbServerId
-      name: Database Server ID
+    - jsonPath: .status.type
+      name: Type
       type: string
     name: v1alpha1
     schema:
@@ -58,19 +65,14 @@ spec:
                       database instance (password and ssh key)
                     type: string
                   databaseInstanceName:
-                    default: database_instance_name
                     description: Name of the database instance
                     type: string
                   databaseNames:
-                    default:
-                    - database_one
-                    - database_two
-                    - database_three
-                    description: Name of the database to be provisiond in the database
-                      instance
+                    description: Name(s) of the database(s) to be provisiond inside
+                      the database instance default [ "database_one", "database_two",
+                      "database_three" ]
                     items:
                       type: string
-                    minItems: 1
                     type: array
                   profiles:
                     properties:
@@ -111,88 +113,49 @@ spec:
                         type: object
                     type: object
                   size:
-                    default: 10
-                    description: Size of the database instance
-                    minimum: 10
+                    description: Size of the database instance, minimum 10 (GBs)
                     type: integer
                   timeMachine:
-                    default: {}
                     description: Information related to time machine that is to be
                       associated with this database
                     properties:
                       dailySnapshotTime:
-                        default: "04:05:06"
                         description: Daily snapshot time in HH:MM:SS (24 hour format)
-                        format: ^(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$
                         type: string
                       description:
                         type: string
                       logCatchUpFrequency:
-                        default: 30
                         description: Log catch up frequency in minutes
-                        enum:
-                        - 15
-                        - 30
-                        - 60
-                        - 90
-                        - 120
                         type: integer
                       monthlySnapshotDay:
-                        default: 15
                         description: Day of the month for monthly snapshot
-                        maximum: 28
-                        minimum: 1
                         type: integer
                       name:
                         type: string
                       quarterlySnapshotMonth:
-                        default: Jan
                         description: Start month for the quarterly snapshot Jan =>
                           Jan, Apr, Jul, Oct. Feb => Feb, May, Aug, Nov. Mar => Mar,
                           Jun, Sep, Dec.
-                        enum:
-                        - Jan
-                        - Feb
-                        - Mar
                         type: string
                       sla:
-                        default: NONE
-                        description: Name of the SLA to be used
+                        description: Name of the SLA to be used, default NONE
                         type: string
                       snapshotsPerDay:
-                        default: 1
                         description: Number of snapshots per day
-                        maximum: 6
-                        minimum: 1
                         type: integer
                       weeklySnapshotDay:
-                        default: FRIDAY
                         description: Day of the week for weekly snapshot
-                        enum:
-                        - MONDAY
-                        - TUESDAY
-                        - WEDNESDAY
-                        - THURSDAY
-                        - FRIDAY
-                        - SATURDAY
-                        - SUNDAY
                         type: string
                     type: object
                   timezone:
-                    default: UTC
+                    description: default UTC
                     type: string
                   type:
-                    default: postgres
-                    enum:
-                    - mysql
-                    - postgres
-                    - mongodb
-                    - mssql
                     type: string
                 required:
                 - credentialSecret
                 - databaseInstanceName
-                - databaseNames
+                - size
                 - type
                 type: object
               ndb:
@@ -205,15 +168,16 @@ spec:
                       (username and password)
                     type: string
                   server:
+                    description: NDB Server URL
                     type: string
                   skipCertificateVerification:
-                    default: false
                     description: Skip server's certificate and hostname verification
                     type: boolean
                 required:
                 - clusterId
                 - credentialSecret
                 - server
+                - skipCertificateVerification
                 type: object
             required:
             - databaseInstance
