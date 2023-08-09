@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  labels:
+    app.kubernetes.io/component: certificate
+    app.kubernetes.io/created-by: ndb-operator
+    app.kubernetes.io/instance: serving-cert
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: certificate
+    app.kubernetes.io/part-of: ndb-operator
+  name: ndb-operator-serving-cert
+  namespace: ndb-operator-system
+spec:
+  dnsNames:
+  - ndb-operator-webhook-service.ndb-operator-system.svc
+  - ndb-operator-webhook-service.ndb-operator-system.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: ndb-operator-selfsigned-issuer
+  secretName: webhook-server-cert
