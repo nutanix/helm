@@ -23,7 +23,7 @@ annotations:
     - kind: added
       description: "Ability to provide Time Machine / SLA information"
     - kind: added
-      description: "Integrated Webhooks for Validation and Default values assignment"
+      description: "Webhooks support for the custom resource validations"
     - kind: fixed
       description: "Error handling and minor bug fixes"
   artifacthub.io/containsSecurityUpdates: "false"
