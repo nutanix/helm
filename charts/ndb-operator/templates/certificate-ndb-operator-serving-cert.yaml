@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: certificate
     app.kubernetes.io/part-of: ndb-operator
-  name: ndb-operator-serving-cert
-  namespace: ndb-operator-system
+  name: {{ include "ndb-operator.fullname" . }}-serving-cert
+  namespace: {{.Release.Namespace}}
 spec:
   dnsNames:
   - ndb-operator-webhook-service.ndb-operator-system.svc

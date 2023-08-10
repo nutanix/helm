@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   creationTimestamp: null
-  name: ndb-operator-manager-role
+  name: {{ include "ndb-operator.fullname" . }}-manager-role
 rules:
 - apiGroups:
   - ndb.nutanix.com

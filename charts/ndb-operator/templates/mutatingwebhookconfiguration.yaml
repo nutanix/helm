@@ -10,14 +10,14 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: mutatingwebhookconfiguration
     app.kubernetes.io/part-of: ndb-operator
-  name: ndb-operator-mutating-webhook-configuration
+  name: {{ include "ndb-operator.fullname" . }}-mutating-webhook-configuration
 webhooks:
 - admissionReviewVersions:
   - v1
   clientConfig:
     service:
-      name: ndb-operator-webhook-service
-      namespace: ndb-operator-system
+      name: {{ include "ndb-operator.fullname" . }}-webhook-service
+      namespace: {{.Release.Namespace}}
       path: /mutate-ndb-nutanix-com-v1alpha1-database
   failurePolicy: Fail
   name: mdatabase.kb.io

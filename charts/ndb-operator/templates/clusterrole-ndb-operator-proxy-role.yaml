@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: ndb-operator-proxy-role
+  name: {{ include "ndb-operator.fullname" . }}-proxy-role
 rules:
 - apiGroups:
   - authentication.k8s.io

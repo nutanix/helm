@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: ndb-operator-leader-election-role
-  namespace: ndb-operator-system
+  name: {{ include "ndb-operator.fullname" . }}-leader-election-role
+  namespace: {{.Release.Namespace}}
 rules:
 - apiGroups:
   - ""
