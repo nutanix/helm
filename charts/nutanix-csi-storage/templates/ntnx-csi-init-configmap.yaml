@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ntnx-init-configmap
-  namespace: ntnx-system
+  namespace: {{ .Release.Namespace }}
 data:
   supportedPCVersions: {{ .Values.supportedPCVersions }}
   kubernetesClusterDeploymentType: {{ .Values.kubernetesClusterDeploymentType }}

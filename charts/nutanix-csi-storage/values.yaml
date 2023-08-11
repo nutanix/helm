@@ -157,7 +157,7 @@ sidecars:
 #
 
 # PC versions on which Nutanix CSI Driver is supported currently. PLEASE DO NOT CHANGE.
-supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1"
+supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1,fraser-2023.3-stable-pc-0"
 
 # kubernetesClusterDeploymentType : Takes values in ["non-bare-metal", "bare-metal"] depending on the type of deployment
 kubernetesClusterDeploymentType: "non-bare-metal"
