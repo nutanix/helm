@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: service
     app.kubernetes.io/part-of: ndb-operator
-  name: {{ include "ndb-operator.fullname" . }}-webhook-service
+  name: ndb-operator-webhook-service
   namespace: {{.Release.Namespace}}
 spec:
   ports:

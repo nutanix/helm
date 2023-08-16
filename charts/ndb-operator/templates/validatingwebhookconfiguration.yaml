@@ -10,13 +10,13 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/name: validatingwebhookconfiguration
     app.kubernetes.io/part-of: ndb-operator
-  name: {{ include "ndb-operator.fullname" . }}-validating-webhook-configuration
+  name: ndb-operator-validating-webhook-configuration
 webhooks:
 - admissionReviewVersions:
   - v1
   clientConfig:
     service:
-      name: {{ include "ndb-operator.fullname" . }}-webhook-service
+      name: ndb-operator-webhook-service
       namespace: {{.Release.Namespace}}
       path: /validate-ndb-nutanix-com-v1alpha1-database
   failurePolicy: Fail

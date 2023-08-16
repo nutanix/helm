@@ -16,7 +16,7 @@ webhooks:
   - v1
   clientConfig:
     service:
-      name: {{ include "ndb-operator.fullname" . }}-webhook-service
+      name: ndb-operator-webhook-service
       namespace: {{.Release.Namespace}}
       path: /mutate-ndb-nutanix-com-v1alpha1-database
   failurePolicy: Fail

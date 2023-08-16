@@ -12,7 +12,7 @@ spec:
       clientConfig:
         service:
           name: ndb-operator-webhook-service
-          namespace: ndb-operator-system
+          namespace: namespace: {{.Release.Namespace}}
           path: /convert
       conversionReviewVersions:
       - v1
