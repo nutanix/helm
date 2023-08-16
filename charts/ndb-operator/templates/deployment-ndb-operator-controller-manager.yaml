@@ -83,7 +83,7 @@ spec:
             - ALL
       securityContext:
         runAsNonRoot: true
-      serviceAccountName: ndb-operator-controller-manager
+      serviceAccountName: {{ include "ndb-operator.serviceAccountName" . }}
       terminationGracePeriodSeconds: 10
       volumes:
       - name: cert
