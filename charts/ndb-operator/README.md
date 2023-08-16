@@ -10,6 +10,7 @@ NDB operator supports these functionalities:
 1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
 2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
 3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
+4. [Install] (https://cert-manager.io/docs/installation/helm/) cert manager v1.12. Wait for the resources in the "cert-manager" namespace to be up and running before proceeding further.
 
 ## Installation and Running on the cluster
 Deploy the operator on the cluster:
