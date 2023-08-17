@@ -45,7 +45,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=$(ADDRESS)
-            - --timeout=60s
+            - --timeout=300s
             - --worker-threads=16
             # This adds PV/PVC metadata to create volume requests
             - --extra-create-metadata=true
@@ -73,7 +73,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - --csi-address=$(ADDRESS)
-            - --timeout=60s
+            - --timeout=300s
             - --worker-threads=16
             - --http-endpoint=:9810
             - --v=2
@@ -97,7 +97,7 @@ spec:
           args:
             - --v=2
             - --csi-address=$(ADDRESS)
-            - --timeout=60s
+            - --timeout=300s
             - --leader-election=true
             # NTNX CSI dirver supports online volume expansion.
             - --handle-volume-inuse-error=false
