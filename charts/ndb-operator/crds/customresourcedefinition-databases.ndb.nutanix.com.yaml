@@ -6,16 +6,18 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.9.2
   name: databases.ndb.nutanix.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: ndb-operator-webhook-service
-          namespace: namespace: {{.Release.Namespace}}
-          path: /convert
-      conversionReviewVersions:
-      - v1
+  # Commenting this out as templating logic for "namespace" is not supported inside the crds directory
+  # need to check how the conversion webhooks is created by the operator-sdk & if can it be disabled
+  # conversion:
+  #   strategy: Webhook
+  #   webhook:
+  #     clientConfig:
+  #       service:
+  #         name: ndb-operator-webhook-service
+  #         namespace: {{.Release.Namespace}}
+  #         path: /convert
+  #     conversionReviewVersions:
+  #     - v1
   group: ndb.nutanix.com
   names:
     kind: Database
