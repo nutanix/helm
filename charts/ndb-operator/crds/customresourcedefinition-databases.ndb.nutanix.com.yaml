@@ -6,8 +6,10 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.9.2
   name: databases.ndb.nutanix.com
 spec:
-  # Commenting this out as templating logic for "namespace" is not supported inside the crds directory
-  # need to check how the conversion webhooks is created by the operator-sdk & if can it be disabled
+  # Commenting out this as Helm templating logic is not supported inside the crds/ directory and this is not critical for NDB operator
+  # The webhook is also responsible for implementing a conversion over versions in the cert-manager CustomResources (cert-manager.io). 
+  # This means that multiple API versions can be supported simultaneously; from v1alpha2 through to v1. This makes it possible to rely 
+  # on a particular version of our configuration schema. More information available at https://cert-manager.io/docs/concepts/webhook/
   # conversion:
   #   strategy: Webhook
   #   webhook:

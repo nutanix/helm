@@ -10,9 +10,7 @@ NDB operator supports these functionalities:
 1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
 2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
 3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
-4. Installing the cert-manager. Please follow the instructions [here] (https://cert-manager.io/docs/installation/#getting-started).
-5. Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
-
+4. Installing the cert-manager. Please follow the instructions [here] (https://cert-manager.io/docs/installation/#getting-started). Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
 
 ## Installation and Running on the cluster
 Deploy the operator on the cluster:
