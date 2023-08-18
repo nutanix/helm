@@ -3,7 +3,7 @@ name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
 version: 0.0.7
-appVersion: "v0.0.7"
+appVersion: v0.0.7
 maintainers:
   - name: akshmish
     email: akshay.mishra@nutanix.com
