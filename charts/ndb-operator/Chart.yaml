@@ -2,8 +2,8 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.0.6
-appVersion: "v0.0.6"
+version: 0.0.7
+appVersion: v0.0.7
 maintainers:
   - name: akshmish
     email: akshay.mishra@nutanix.com
@@ -20,6 +20,8 @@ maintainers:
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "Added the K8s Webhooks support for validating and defaulting logic for provisioning"
     - kind: added
       description: "Ability to provide Time Machine / SLA information"
     - kind: fixed
