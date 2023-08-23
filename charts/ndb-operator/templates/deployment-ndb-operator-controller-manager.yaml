@@ -12,19 +12,21 @@ spec:
       control-plane: controller-manager
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        kubectl.kubernetes.io/default-container: manager
       labels:
         control-plane: controller-manager
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end}}
       containers:
         - args:
             - --health-probe-bind-address=:8081
             - --metrics-bind-address=127.0.0.1:8080
             - --leader-elect
-          image: ghcr.io/nutanix-cloud-native/ndb-operator/controller:v0.0.7
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag | default $.Chart.AppVersion }}
           livenessProbe:
             httpGet:
               path: /healthz
@@ -80,7 +82,7 @@ spec:
                 - ALL
       securityContext:
         runAsNonRoot: true
-      serviceAccountName: ndb-operator-controller-manager
+      serviceAccountName: {{ include "ndb-operator.serviceAccountName" . }}
       terminationGracePeriodSeconds: 10
       volumes:
         - name: cert
