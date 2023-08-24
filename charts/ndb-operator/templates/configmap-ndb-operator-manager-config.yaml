@@ -16,4 +16,4 @@ data:
 kind: ConfigMap
 metadata:
   name: ndb-operator-manager-config
-  namespace: ndb-operator-system
+  namespace: {{.Release.Namespace}}
