@@ -9,5 +9,5 @@ roleRef:
   name: ndb-operator-leader-election-role
 subjects:
 - kind: ServiceAccount
-  name: {{ include "ndb-operator.serviceAccountName" . }}
+  name: ndb-operator-service-account
   namespace: {{.Release.Namespace}}
