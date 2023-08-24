@@ -79,6 +79,9 @@ spec:
   databaseInstance:
     # The database instance name on NDB
     databaseInstanceName: "Database-Instance-Name"
+    # Description for the database instance. Optional.
+    # Default : "Database provisioned by ndb-operator: <database name>"
+    description: "Database provisioned by ndb-operator"
     # Names of the databases on that instance
     databaseNames:
       - database_one

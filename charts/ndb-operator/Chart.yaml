@@ -5,6 +5,8 @@ type: application
 version: 0.0.7
 appVersion: v0.0.7
 maintainers:
+  - name: mazin-s
+    email: mazin.shaaeldin@nutanix.com
   - name: akshmish
     email: akshay.mishra@nutanix.com
   - name: shenoypritika
@@ -33,6 +35,8 @@ annotations:
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
+    - name: Mazin Shaaeldin
+      email: mazin.shaaeldin@nutanix.com
     - name: Akshay Mishra
       email: akshay.mishra@nutanix.com
     - name: Pritika Shenoy
