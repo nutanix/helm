@@ -21,11 +21,15 @@ icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nuta
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added the K8s Webhooks support for validating and defaulting logic for provisioning"
+      description: "Added the K8s Webhooks support for the validation of database specs"
     - kind: added
-      description: "Ability to provide Time Machine / SLA information"
-    - kind: fixed
-      description: "Error handling and minor bug fixes"
+      description: "Added Provisioning Operation Id to the DB Status"
+    - kind: added
+      description: "Integrated Kubernetes events with the operator"
+    - kind: added
+      description: "Added description property for Database in the database specs"
+    - kind: added
+      description: "Added end-to-end tests for automated testing of operator"
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
