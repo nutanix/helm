@@ -25,7 +25,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 
 ## Features list
 
-- Nutanix CSI Driver v2.6.3
+- Nutanix CSI Driver v2.6.4
 - Nutanix Volumes support
 - Nutanix Files support
 - Volume clone
