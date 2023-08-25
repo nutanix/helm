@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/name: certificate
     app.kubernetes.io/part-of: ndb-operator
   name: {{ include "ndb-operator.fullname" . }}-serving-cert
-  namespace:  {{.Release.Namespace}}
+  namespace: {{.Release.Namespace}}
 spec:
   dnsNames:
   - {{ include "ndb-operator.fullname" . }}-webhook-service.{{.Release.Namespace}}.svc
