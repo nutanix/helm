@@ -127,25 +127,20 @@ helm uninstall ndb-operator -n ndb-operator
 ## Configuration
 
 The following table lists the configurable parameters of the NDB operator chart and their default values.
-
+|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 | Parameter             | Description                                                   | Default                                                |
 |-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 | `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
 | `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
 | `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
-| `image.tag`           | Image tag                                                     | `""`      |
+| `image.tag`           | Image tag                                                     | `""`                                                   |
 | `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
-| `nameOverride`        | To override the name of the operator chart                    | `""`                                                   |
 | `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
-| `serviceAccount.name` | Name of the service account that will be used by the operator | `ndb-operator-service-account`                         |
-| `podAnnotations`      | Add annotation to NDB Operator controller pods                | `kubectl.kubernetes.io/default-container: manager`     |
-| `podSecurityContext`  | Security context for the pod(s) running the operator          | `runAsNonRoot: true`                                   |
-| `securityContext`     | Security context for the container running the controller     | `allowPrivilegeEscalation: false`                      |
 | `resources`           | Configure resources for Cloud Provider Pod                    | `refer to values.yaml`                                 |
 | `nodeSelector`        | Configure nodeSelector for Cloud Provider Pod                 | `refer to values.yaml`                                 |
 | `tolerations`         | Configure tolerations for Cloud Provider Pod                  | `refer to values.yaml`                                 |
 | `affinity`            | Configure affinity for Cloud Provider Pod                     | `refer to values.yaml`                                 |
-
+|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 
 ### Configuration examples:
 

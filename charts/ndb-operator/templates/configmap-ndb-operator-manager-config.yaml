@@ -15,5 +15,5 @@ data:
     true\n"
 kind: ConfigMap
 metadata:
-  name: ndb-operator-manager-config
+  name: {{ include "ndb-operator.fullname" . }}-manager-config
   namespace: {{.Release.Namespace}}

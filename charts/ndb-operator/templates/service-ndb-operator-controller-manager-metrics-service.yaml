@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     control-plane: controller-manager
-  name: ndb-operator-controller-manager-metrics-service
+  name: {{ include "ndb-operator.fullname" . }}-controller-manager-metrics-service
   namespace: {{.Release.Namespace}}
 spec:
   ports:

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     control-plane: controller-manager
-  name: ndb-operator-controller-manager
+  name: {{ include "ndb-operator.fullname" . }}-controller-manager
   namespace: {{.Release.Namespace}}
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -44,10 +44,10 @@ spec:
               port: 8081
             initialDelaySeconds: 5
             periodSeconds: 10
-            {{- with .Values.resources.controller }}
-            resources:
-              {{- toYaml . | nindent 12 }}
-            {{- end }}
+          {{- with .Values.resources.controller }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           securityContext:
             allowPrivilegeEscalation: false
           volumeMounts:
@@ -76,7 +76,7 @@ spec:
                 - ALL
       securityContext:
         runAsNonRoot: true
-      serviceAccountName: ndb-operator-service-account
+      serviceAccountName: {{ include "ndb-operator.fullname" . }}-service-account
       terminationGracePeriodSeconds: 10
       volumes:
         - name: cert
