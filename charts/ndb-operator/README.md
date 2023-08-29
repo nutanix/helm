@@ -10,6 +10,7 @@ NDB operator supports these functionalities:
 1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
 2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
 3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
+4. Installing the cert-manager. Please follow the instructions [here] (https://cert-manager.io/docs/installation/#getting-started). Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
 
 ## Installation and Running on the cluster
 Deploy the operator on the cluster:
@@ -78,6 +79,9 @@ spec:
   databaseInstance:
     # The database instance name on NDB
     databaseInstanceName: "Database-Instance-Name"
+    # Description for the database instance. Optional.
+    # Default : "Database provisioned by ndb-operator: <database name>"
+    description: "Database provisioned by ndb-operator"
     # Names of the databases on that instance
     databaseNames:
       - database_one
@@ -123,25 +127,20 @@ helm uninstall ndb-operator -n ndb-operator
 ## Configuration
 
 The following table lists the configurable parameters of the NDB operator chart and their default values.
-
+|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 | Parameter             | Description                                                   | Default                                                |
 |-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 | `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
 | `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
 | `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
-| `image.tag`           | Image tag                                                     | `""`      |
+| `image.tag`           | Image tag                                                     | `""`                                                   |
 | `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
-| `nameOverride`        | To override the name of the operator chart                    | `""`                                                   |
 | `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
-| `serviceAccount.name` | Name of the service account that will be used by the operator | `ndb-operator-service-account`                         |
-| `podAnnotations`      | Add annotation to NDB Operator controller pods                | `kubectl.kubernetes.io/default-container: manager`     |
-| `podSecurityContext`  | Security context for the pod(s) running the operator          | `runAsNonRoot: true`                                   |
-| `securityContext`     | Security context for the container running the controller     | `allowPrivilegeEscalation: false`                      |
 | `resources`           | Configure resources for Cloud Provider Pod                    | `refer to values.yaml`                                 |
 | `nodeSelector`        | Configure nodeSelector for Cloud Provider Pod                 | `refer to values.yaml`                                 |
 | `tolerations`         | Configure tolerations for Cloud Provider Pod                  | `refer to values.yaml`                                 |
 | `affinity`            | Configure affinity for Cloud Provider Pod                     | `refer to values.yaml`                                 |
-
+|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 
 ### Configuration examples:
 

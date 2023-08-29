@@ -8,5 +8,5 @@ roleRef:
   name: {{ include "ndb-operator.fullname" . }}-manager-role
 subjects:
 - kind: ServiceAccount
-  name: {{ include "ndb-operator.serviceAccountName" . }}
+  name: {{ include "ndb-operator.fullname" . }}-service-account
   namespace: {{.Release.Namespace}}

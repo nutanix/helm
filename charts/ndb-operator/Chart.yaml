@@ -2,9 +2,11 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.0.6
-appVersion: "v0.0.6"
+version: 0.0.7
+appVersion: v0.0.7
 maintainers:
+  - name: mazin-s
+    email: mazin.shaaeldin@nutanix.com
   - name: akshmish
     email: akshay.mishra@nutanix.com
   - name: shenoypritika
@@ -21,12 +23,20 @@ icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nuta
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Ability to provide Time Machine / SLA information"
-    - kind: fixed
-      description: "Error handling and minor bug fixes"
+      description: "Added the K8s Webhooks support for the validation of database specs"
+    - kind: added
+      description: "Added Provisioning Operation Id to the DB Status"
+    - kind: added
+      description: "Integrated Kubernetes events with the operator"
+    - kind: added
+      description: "Added description property for Database in the database specs"
+    - kind: added
+      description: "Added end-to-end tests for automated testing of operator"
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
+    - name: Mazin Shaaeldin
+      email: mazin.shaaeldin@nutanix.com
     - name: Akshay Mishra
       email: akshay.mishra@nutanix.com
     - name: Pritika Shenoy
