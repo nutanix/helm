@@ -4,6 +4,64 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added the K8s Webhooks support for the validation of database specs"
+        - kind: added
+          description: "Added Provisioning Operation Id to the DB Status"
+        - kind: added
+          description: "Integrated Kubernetes events with the operator"
+        - kind: added
+          description: "Added description property for Database in the database specs"
+        - kind: added
+          description: "Added end-to-end tests for automated testing of operator"
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Mazin Shaaeldin
+          email: mazin.shaaeldin@nutanix.com
+        - name: Akshay Mishra
+          email: akshay.mishra@nutanix.com
+        - name: Pritika Shenoy
+          email: pritika.shenoy@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Yashesh Mankad
+          email: yashesh.mankad@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: v0.0.7
+    created: "2023-08-29T06:23:14.794689371Z"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: 5ff768d847f38c41092135d9d969c60400ddf36c9101dd9d4d51c19b28f13a7b
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: mazin.shaaeldin@nutanix.com
+      name: mazin-s
+    - email: akshay.mishra@nutanix.com
+      name: akshmish
+    - email: pritika.shenoy@nutanix.com
+      name: shenoypritika
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: yashesh.mankad@nutanix.com
+      name: yash-ntnx
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/ndb-operator-0.0.7/ndb-operator-0.0.7.tgz
+    version: 0.0.7
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Ability to provide Time Machine / SLA information"
         - kind: fixed
           description: "Error handling and minor bug fixes"
@@ -1184,4 +1242,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-08-21T08:57:56.553324733Z"
+generated: "2023-08-29T06:23:14.794761172Z"
