@@ -10,7 +10,7 @@ NDB operator supports these functionalities:
 1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
 2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
 3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
-4. Installing the cert-manager. Please follow the instructions [here] (https://cert-manager.io/docs/installation/#getting-started). Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
+4. [Install](https://cert-manager.io/docs/installation/#getting-started) cert-manager. Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
 
 ## Installation and Running on the cluster
 Deploy the operator on the cluster:
@@ -21,7 +21,7 @@ helm install ndb-operator nutanix/ndb-operator -n ndb-operator --create-namespac
 ```
 ## Using the Operator
 
-1. Create the secrets that are to be used by the custom resource:
+1. Create the secrets that are to be used by the custom resource(s):
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -46,7 +46,7 @@ stringData:
   ssh_public_key: SSH-PUBLIC-KEY
 
 ```
-2. To create instances of custom resources (provision databases), edit the crd file with the NDB installation and database instance details and run:
+2. To create instances of custom resources (provision databases), edit the CRD file with the NDB installation and database instance details and run:
 ```sh
 kubectl apply -f CRD_FILE.yaml
 ```
@@ -116,6 +116,14 @@ spec:
       dbParamInstance:
         name: ""
         id: ""
+    timeMachine:
+      sla : "NAME OF THE SLA"           # Name of the SLA to use for the Time Machine
+      dailySnapshotTime:   "12:34:56"   # Time for daily snapshot in hh:mm:ss format
+      snapshotsPerDay:     4            # Number of snapshots per day
+      logCatchUpFrequency: 90           # Frequency (in minutes)
+      weeklySnapshotDay:   "WEDNESDAY"  # Day of the week for weekly snapshot
+      monthlySnapshotDay:  24           # Day of the month for monthly snapshot
+      quarterlySnapshotMonth: "Jan"     # Start month of the quarterly snapshot
 
 ```
 ## Uninstalling the Chart
@@ -127,7 +135,6 @@ helm uninstall ndb-operator -n ndb-operator
 ## Configuration
 
 The following table lists the configurable parameters of the NDB operator chart and their default values.
-|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 | Parameter             | Description                                                   | Default                                                |
 |-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
 | `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
@@ -140,7 +147,7 @@ The following table lists the configurable parameters of the NDB operator chart 
 | `nodeSelector`        | Configure nodeSelector for Cloud Provider Pod                 | `refer to values.yaml`                                 |
 | `tolerations`         | Configure tolerations for Cloud Provider Pod                  | `refer to values.yaml`                                 |
 | `affinity`            | Configure affinity for Cloud Provider Pod                     | `refer to values.yaml`                                 |
-|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
+
 
 ### Configuration examples:
 
@@ -192,6 +199,6 @@ Issues and enhancement requests can be submitted in the [Issues tab of this repo
 
 ## License
 
-Copyright 2021-2022 Nutanix, Inc.
+Copyright 2022-2023 Nutanix, Inc.
 
 The project is released under version 2.0 of the [Apache license](http://www.apache.org/licenses/LICENSE-2.0).
