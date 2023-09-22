@@ -84,11 +84,11 @@ spec:
               value: {{ .Values.csiCategoryConfigmapNamespace }}
           resources:
             limits:
-              cpu: 100m
-              memory: 200Mi
+              cpu: {{ .Values.node.cpu }}
+              memory: {{ .Values.node.memory }}
             requests:
-              cpu: 100m
-              memory: 200Mi
+              cpu: {{ .Values.node.cpu }}
+              memory: {{ .Values.node.memory }}
           volumeMounts:
             - mountPath: {{ .Values.csiSecretDir }}
               name: pc-secret

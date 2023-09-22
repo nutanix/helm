@@ -159,11 +159,11 @@ spec:
               value: {{ .Values.csiCategoryConfigmapNamespace }}
           resources:
             limits:
-              cpu: 100m
-              memory: 200Mi
+              cpu: {{ .Values.controller.cpu }}
+              memory: {{ .Values.controller.memory }}
             requests:
-              cpu: 100m
-              memory: 200Mi
+              cpu: {{ .Values.controller.cpu }}
+              memory: {{ .Values.controller.memory }}
           volumeMounts:
             - mountPath: /var/lib/csi/sockets/pluginproxy/
               name: socket-dir

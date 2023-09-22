@@ -129,15 +129,19 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v3.0.0-rc2
+  image: quay.io/karbon/ntnx-csi:v3.0.0-rc3
   nodeSelector: {}
   tolerations: []
+  cpu: 200m
+  memory: 200Mi
 
 node:
-  image: quay.io/karbon/ntnx-csi:v3.0.0-rc2
+  image: quay.io/karbon/ntnx-csi:v3.0.0-rc3
   nodeSelector:
     kubernetes.io/os: linux
   tolerations: []
+  cpu: 200m
+  memory: 200Mi
 
 sidecars:
   registrar:
@@ -156,8 +160,6 @@ sidecars:
     image: registry.k8s.io/sig-storage/livenessprobe:v2.10.0
   healthmonitor:
     image: gcr.io/k8s-staging-sig-storage/csi-external-health-monitor-controller:v0.9.0
-# Used for deployment test in kind cluster
-#
 
 # PC versions on which Nutanix CSI Driver is supported currently. PLEASE DO NOT CHANGE.
 supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1,fraser-2023.3-stable-pc-0"
@@ -165,4 +167,6 @@ supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1,fraser-202
 # kubernetesClusterDeploymentType : Takes values in ["non-bare-metal", "bare-metal"] depending on the type of deployment
 kubernetesClusterDeploymentType: "non-bare-metal"
 
+# Used for deployment test in kind cluster
+#
 kindtest: false
