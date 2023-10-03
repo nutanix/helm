@@ -129,14 +129,14 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v3.0.0-rc3
+  image: quay.io/karbon/ntnx-csi:v3.0.0-rc4
   nodeSelector: {}
   tolerations: []
   cpu: 200m
   memory: 200Mi
 
 node:
-  image: quay.io/karbon/ntnx-csi:v3.0.0-rc3
+  image: quay.io/karbon/ntnx-csi:v3.0.0-rc4
   nodeSelector:
     kubernetes.io/os: linux
   tolerations: []
