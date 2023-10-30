@@ -116,10 +116,10 @@ spec:
             httpGet:
               path: /healthz
               port: http-endpoint
-            initialDelaySeconds: 10
-            timeoutSeconds: 3
-            periodSeconds: 2
-            failureThreshold: 3
+            initialDelaySeconds: {{ .Values.liveness.node.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.liveness.node.timeoutSeconds }}
+            periodSeconds: {{ .Values.liveness.node.periodSeconds }}
+            failureThreshold: {{ .Values.liveness.node.failureThreshold }}
         - name: liveness-probe
           volumeMounts:
             - mountPath: /csi

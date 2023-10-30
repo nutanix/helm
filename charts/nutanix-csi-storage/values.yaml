@@ -167,6 +167,19 @@ supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1,fraser-202
 # kubernetesClusterDeploymentType : Takes values in ["non-bare-metal", "bare-metal"] depending on the type of deployment
 kubernetesClusterDeploymentType: "non-bare-metal"
 
+# liveness probe configuration
+liveness:
+  controller:
+    initialDelaySeconds: 60
+    timeoutSeconds: 3
+    periodSeconds: 2
+    failureThreshold: 3
+  node:
+    initialDelaySeconds: 60
+    timeoutSeconds: 3
+    periodSeconds: 2
+    failureThreshold: 3
+
 # Used for deployment test in kind cluster
 #
 kindtest: false

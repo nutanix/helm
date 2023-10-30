@@ -181,10 +181,10 @@ spec:
             httpGet:
               path: /healthz
               port: http-endpoint
-            initialDelaySeconds: 10
-            timeoutSeconds: 3
-            periodSeconds: 2
-            failureThreshold: 3
+            initialDelaySeconds: {{ .Values.liveness.controller.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.liveness.controller.timeoutSeconds }}
+            periodSeconds: {{ .Values.liveness.controller.periodSeconds }}
+            failureThreshold: {{ .Values.liveness.controller.failureThreshold }}
         - name: liveness-probe
           resources:
             requests:
