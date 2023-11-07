@@ -2,8 +2,8 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.0.7
-appVersion: v0.0.7
+version: 0.0.8
+appVersion: v0.0.8
 maintainers:
   - name: mazin-s
     email: mazin.shaaeldin@nutanix.com
@@ -23,15 +23,19 @@ icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nuta
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added the K8s Webhooks support for the validation of database specs"
+      description: "Added Clone Functionality"
     - kind: added
-      description: "Added Provisioning Operation Id to the DB Status"
+      description: "Automation Testing for Time machine"
     - kind: added
-      description: "Integrated Kubernetes events with the operator"
+      description: "Automation Scaffolding for future db engine tests"
     - kind: added
-      description: "Added description property for Database in the database specs"
+      description: "Added Operation tracking"
     - kind: added
-      description: "Added end-to-end tests for automated testing of operator"
+      description: "Support for Engine Specific Inputs in DB Provisioning"
+    - kind: added
+      description: "NDB and DB Integration"
+    - kind: added
+      description: "Upgrade the versions for controller-runtime & kube-rbac-proxy and Operator-sdk"
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
@@ -51,4 +55,4 @@ annotations:
       email: cloudnative@nutanix.com
   artifacthub.io/operator: "true"
   artifacthub.io/operatorCapabilities: Basic Install
-  artifacthub.io/prerelease: "true"
+  artifacthub.io/prerelease: "false"

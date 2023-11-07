@@ -6,6 +6,16 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.9.2
   name: databases.ndb.nutanix.com
 spec:
+  # conversion:
+  #   strategy: Webhook
+  #   webhook:
+  #     clientConfig:
+  #       service:
+  #         name: ndb-operator-webhook-service
+  #         namespace: ndb-operator-system
+  #         path: /convert
+  #     conversionReviewVersions:
+  #     - v1
   group: ndb.nutanix.com
   names:
     kind: Database
@@ -47,15 +57,98 @@ spec:
           spec:
             description: DatabaseSpec defines the desired state of Database
             properties:
-              databaseInstance:
-                description: Database instance specific details
+              clone:
                 properties:
+                  additionalArguments:
+                    additionalProperties:
+                      type: string
+                    description: Additional database engine specific arguments
+                    type: object
+                  clusterId:
+                    description: Id of the cluster to clone the database on
+                    type: string
                   credentialSecret:
                     description: Name of the secret holding the credentials for the
                       database instance (password and ssh key)
                     type: string
-                  databaseInstanceName:
-                    description: Name of the database instance
+                  description:
+                    description: Description of the clone instance
+                    type: string
+                  name:
+                    description: Name of the clone instance
+                    type: string
+                  profiles:
+                    properties:
+                      compute:
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                        type: object
+                      dbParam:
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                        type: object
+                      dbParamInstance:
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                        type: object
+                      network:
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                        type: object
+                      software:
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                        type: object
+                    type: object
+                  snapshotId:
+                    description: Id of the snapshot to create a clone from
+                    type: string
+                  sourceDatabaseId:
+                    description: Id of the source database on NDB to clone from
+                    type: string
+                  timezone:
+                    description: default UTC
+                    type: string
+                  type:
+                    description: Type of parent clone
+                    type: string
+                required:
+                - clusterId
+                - credentialSecret
+                - name
+                - snapshotId
+                - sourceDatabaseId
+                - type
+                type: object
+              databaseInstance:
+                description: Database instance specific details
+                properties:
+                  additionalArguments:
+                    additionalProperties:
+                      type: string
+                    description: Additional database engine specific arguments
+                    type: object
+                  clusterId:
+                    description: Id of the cluster to provision the database on
+                    type: string
+                  credentialSecret:
+                    description: Name of the secret holding the credentials for the
+                      database instance (password and ssh key)
                     type: string
                   databaseNames:
                     description: Name(s) of the database(s) to be provisiond inside
@@ -66,6 +159,9 @@ spec:
                     type: array
                   description:
                     description: Description of the database instance
+                    type: string
+                  name:
+                    description: Name of the database instance
                     type: string
                   profiles:
                     properties:
@@ -146,56 +242,42 @@ spec:
                   type:
                     type: string
                 required:
+                - clusterId
                 - credentialSecret
-                - databaseInstanceName
+                - name
                 - size
                 - type
                 type: object
-              ndb:
-                description: Details of the NDB installation
-                properties:
-                  clusterId:
-                    type: string
-                  credentialSecret:
-                    description: Name of the secret holding the credentials for NDB
-                      (username and password)
-                    type: string
-                  server:
-                    description: NDB Server URL
-                    type: string
-                  skipCertificateVerification:
-                    description: Skip server's certificate and hostname verification
-                    type: boolean
-                required:
-                - clusterId
-                - credentialSecret
-                - server
-                - skipCertificateVerification
-                type: object
+              isClone:
+                type: boolean
+              ndbRef:
+                type: string
             required:
-            - databaseInstance
-            - ndb
+            - ndbRef
             type: object
           status:
             description: DatabaseStatus defines the observed state of Database
             properties:
+              creationOperationId:
+                type: string
               dbServerId:
+                type: string
+              deregistrationOperationId:
                 type: string
               id:
                 type: string
               ipAddress:
-                type: string
-              provisioningOperationId:
                 type: string
               status:
                 type: string
               type:
                 type: string
             required:
+            - creationOperationId
             - dbServerId
+            - deregistrationOperationId
             - id
             - ipAddress
-            - provisioningOperationId
             - status
             - type
             type: object
