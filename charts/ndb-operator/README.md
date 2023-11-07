@@ -2,7 +2,7 @@
 The NDB operator automates and simplifies database administration, provisioning, and life-cycle management of NDB on Kubernetes.
 
 NDB operator supports these functionalities:
-1. Provisioning and deprovisioning a single instance postgres, mssql, sql server, and mongodb database with our without time machine.
+1. Provisioning and deprovisioning a single instance postgres, mssql, sql server, and mongodb database with or without time machine.
 2. Cloning support for the above database engines
 3. Creation of a service for the applications to consume the database within Kubernetes.
 ---
