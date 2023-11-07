@@ -20,9 +20,9 @@ helm repo add nutanix https://nutanix.github.io/helm/
 
 helm install ndb-operator nutanix/ndb-operator -n ndb-operator --create-namespace
 ```
-## Using the Operator
+## Usage
+###  Create secrets to be used by the NDBServer and Database resources using the manifest:
 
-1. Create the secrets that are to be used by the custom resource(s):
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -47,16 +47,43 @@ stringData:
   ssh_public_key: SSH-PUBLIC-KEY
 
 ```
-2. To create instances of custom resources edit the CRD file with the NDB installation and database instance details and run. Note a database custom resource can either be provisioned or cloned on NDB based on the inputs specified in the database manifests:
-```sh
-kubectl apply -f CRD_FILE.yaml
+
+Create the secrets:
+
 ```
-3. To delete instances of custom resources (deprovision databases) run:
-```sh
-kubectl delete -f CRD_FILE.yaml
+kubectl apply -f <path/to/secrets-manifest.yaml>
 ```
 
-### Provisioning manifest:
+###  Create the NDBServer resource. The manifest for NDBServer is described as follows:
+
+```yaml
+apiVersion: ndb.nutanix.com/v1alpha1
+kind: NDBServer
+metadata:
+  labels:
+    app.kubernetes.io/name: ndbserver
+    app.kubernetes.io/instance: ndbserver
+    app.kubernetes.io/part-of: ndb-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: ndb-operator
+  name: ndb
+spec:
+    # Name of the secret that holds the credentials for NDB: username, password and ca_certificate created earlier
+    credentialSecret: ndb-secret-name
+    # NDB Server's API URL
+    server: https://[NDB IP]:8443/era/v0.9
+    # Set to true to skip SSL certificate validation, should be false if ca_certificate is provided in the credential secret.
+    skipCertificateVerification: true
+
+```
+Create the NDBServer resource using:
+```sh
+kubectl apply -f <path/to/NDBServer-manifest.yaml>
+```
+
+### Create a Database Resource. A database can either be provisioned or cloned on NDB based on the inputs specified in the database manifest.
+
+#### Provisioning manifest
 ```yaml
 apiVersion: ndb.nutanix.com/v1alpha1
 kind: Database
@@ -123,7 +150,7 @@ spec:
 
 ```
 
-### Cloning manifest:
+#### Cloning manifest
 ```yaml
 apiVersion: ndb.nutanix.com/v1alpha1
 kind: Database
@@ -180,7 +207,15 @@ spec:
 
 ```
 
-### Provisioning Optional Additional Arguments
+Create the Database resource:
+```sh
+kubectl apply -f <path/to/database-manifest.yaml>
+```
+
+### Additional Arguments for Databases
+Below are the various optional addtionalArguments you can specify along with examples of their corresponding values. Arguments that have defaults will be indicated.
+
+Provisioning Additional Arguments: 
 ```yaml
 # PostGres
 additionalArguments:
@@ -208,10 +243,9 @@ additionalArguments:
   windows_domain_profile_id: <domain-profile-id>   # NO Default. Must specify vm_db_server_user.
   vm_db_server_user: <vm-db-server-use>            # NO Default. Must specify windows_domain_profile_id.
   vm_win_license_key: <licenseKey>                 # NO Default.
-
 ```
 
-### Cloning Optional Additional Arguments
+Cloning Additional Arguments: 
 ```yaml
 MSSQL:
   windows_domain_profile_id   
@@ -249,8 +283,22 @@ MySQL:
   refreshInDays                
   refreshTime                  
   refreshDateTimezone  
-
 ```
+
+
+### Deleting the Database resource
+To deregister the database and delete the VM run:
+```sh
+kubectl delete -f <path/to/database-manifest.yaml>
+```
+
+### Deleting the NDBServer resource
+To deregister the database and delete the VM run:
+```sh
+kubectl delete -f <path/to/NDBServer-manifest.yaml>
+```
+
+---
 
 ## Uninstalling the Chart
 To uninstall/delete the operator deployment/chart:
