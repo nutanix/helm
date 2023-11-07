@@ -56,4 +56,3 @@ annotations:
   artifacthub.io/operator: "true"
   artifacthub.io/operatorCapabilities: Basic Install
   artifacthub.io/prerelease: "false"
-  
