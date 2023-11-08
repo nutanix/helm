@@ -58,6 +58,14 @@ dynamicFileClassRetention: "Delete"
 # value are: node, volume, file, dynfile
 defaultStorageClass: none
 
+# VolumeSnapshotClass settings
+#
+# If createVolumeSnapshotClass is set to true, volumesnapshotclass will be created as part of the deployment.
+# volumeSnapshotClassRetention sets retention policy
+createVolumeSnapshotClass: true
+volumeSnapshotClassName: "nutanix-snapshot-class"
+volumeSnapshotClassRetention: "Retain"
+
 # Nutanix Prism Central settings
 #
 # Allow dynamic creation of Volumes and Fileshare
@@ -154,6 +162,8 @@ sidecars:
   snapshotter:
     image: registry.k8s.io/sig-storage/csi-snapshotter:v6.2.1
     imageBeta: registry.k8s.io/sig-storage/csi-snapshotter:v3.0.3
+    # set it to true, if external-snapshotter sidecar should be deployed along with controller. 
+    deploy: true
   resizer:
     image: registry.k8s.io/sig-storage/csi-resizer:v1.8.0
   livenessprobe:

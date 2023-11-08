@@ -108,6 +108,8 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
+        # Checks whether to deploy snapshotter sidecar.
+        {{- if eq .Values.sidecars.snapshotter.deploy true }}
         - name: csi-snapshotter
           {{- if .Capabilities.APIVersions.Has "snapshot.storage.k8s.io/v1" }}
           image: {{ .Values.sidecars.snapshotter.image }}
@@ -131,6 +133,7 @@ spec:
           volumeMounts:
           - name: socket-dir
             mountPath: /csi
+        {{- end }}
         - name: nutanix-csi-plugin
           image: {{ .Values.controller.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
