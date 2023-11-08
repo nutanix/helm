@@ -4,6 +4,68 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added Clone Functionality"
+        - kind: added
+          description: "Automation Testing for Time machine"
+        - kind: added
+          description: "Automation Scaffolding for future db engine tests"
+        - kind: added
+          description: "Added Operation tracking"
+        - kind: added
+          description: "Support for Engine Specific Inputs in DB Provisioning"
+        - kind: added
+          description: "NDB and DB Integration"
+        - kind: added
+          description: "Upgrade the versions for controller-runtime & kube-rbac-proxy and Operator-sdk"
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Mazin Shaaeldin
+          email: mazin.shaaeldin@nutanix.com
+        - name: Akshay Mishra
+          email: akshay.mishra@nutanix.com
+        - name: Pritika Shenoy
+          email: pritika.shenoy@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Yashesh Mankad
+          email: yashesh.mankad@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
+    appVersion: v0.5.0
+    created: "2023-11-08T14:50:17.894850651Z"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: 15d071ac4d29b20d0c8717289b39efdb8a5465ffceefcf16c242452add759bdb
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: mazin.shaaeldin@nutanix.com
+      name: mazin-s
+    - email: akshay.mishra@nutanix.com
+      name: akshmish
+    - email: pritika.shenoy@nutanix.com
+      name: shenoypritika
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: yashesh.mankad@nutanix.com
+      name: yash-ntnx
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/ndb-operator-0.5.0/ndb-operator-0.5.0.tgz
+    version: 0.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added the K8s Webhooks support for the validation of database specs"
         - kind: added
           description: "Added Provisioning Operation Id to the DB Status"
@@ -1281,4 +1343,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-09-29T14:31:38.953576098Z"
+generated: "2023-11-08T14:50:17.894939356Z"
