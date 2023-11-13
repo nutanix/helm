@@ -22,11 +22,11 @@ maintainers:
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
-    - kind: added
+    - kind: security
       description: "Bumped kube-rbac-proxy to v0.15.0"
-    - kind: added
+    - kind: removed
       description: "Removed tag from values.yaml"
-  artifacthub.io/containsSecurityUpdates: "false"
+  artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
     - name: Mazin Shaaeldin
