@@ -24,8 +24,6 @@ annotations:
   artifacthub.io/changes: |
     - kind: security
       description: "Bumped kube-rbac-proxy to v0.15.0"
-    - kind: removed
-      description: "Removed tag from values.yaml"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |

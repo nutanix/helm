@@ -315,6 +315,7 @@ The following table lists the configurable parameters of the NDB operator chart 
 | `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
 | `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
 | `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
+| `image.tag`           | Image tag                                                     | `""`                                                   |
 | `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
 | `resources`           | Configure resources for Cloud Provider Pod                    | `refer to values.yaml`                                 |
 | `nodeSelector`        | Configure nodeSelector for Cloud Provider Pod                 | `refer to values.yaml`                                 |
