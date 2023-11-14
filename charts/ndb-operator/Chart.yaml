@@ -2,7 +2,7 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.5.0
+version: 0.5.1
 appVersion: v0.5.0
 maintainers:
   - name: mazin-s
@@ -22,21 +22,9 @@ maintainers:
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added Clone Functionality"
-    - kind: added
-      description: "Automation Testing for Time machine"
-    - kind: added
-      description: "Automation Scaffolding for future db engine tests"
-    - kind: added
-      description: "Added Operation tracking"
-    - kind: added
-      description: "Support for Engine Specific Inputs in DB Provisioning"
-    - kind: added
-      description: "NDB and DB Integration"
-    - kind: added
-      description: "Upgrade the versions for controller-runtime & kube-rbac-proxy and Operator-sdk"
-  artifacthub.io/containsSecurityUpdates: "false"
+    - kind: security
+      description: "Bumped kube-rbac-proxy to v0.15.0"
+  artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
     - name: Mazin Shaaeldin
