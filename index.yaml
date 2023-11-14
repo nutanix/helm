@@ -3,6 +3,56 @@ entries:
   ndb-operator:
   - annotations:
       artifacthub.io/changes: |
+        - kind: security
+          description: "Bumped kube-rbac-proxy to v0.15.0"
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/maintainers: |
+        - name: Mazin Shaaeldin
+          email: mazin.shaaeldin@nutanix.com
+        - name: Akshay Mishra
+          email: akshay.mishra@nutanix.com
+        - name: Pritika Shenoy
+          email: pritika.shenoy@nutanix.com
+        - name: Krunal Jhaveri
+          email: krunal.jhaveri@nutanix.com
+        - name: Manav Rajvanshi
+          email: manav.rajvanshi@nutanix.com
+        - name: Yashesh Mankad
+          email: yashesh.mankad@nutanix.com
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/operator: "true"
+      artifacthub.io/operatorCapabilities: Basic Install
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
+    appVersion: v0.5.0
+    created: "2023-11-14T17:09:06.868945304Z"
+    description: A Helm chart for Nutanix Database Kubernetes Operator
+    digest: 08aeb42800ed76a0d5ab1aee876d729d60967b59cea8a1a04b4407982dab0378
+    icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
+    maintainers:
+    - email: mazin.shaaeldin@nutanix.com
+      name: mazin-s
+    - email: akshay.mishra@nutanix.com
+      name: akshmish
+    - email: pritika.shenoy@nutanix.com
+      name: shenoypritika
+    - email: krunal.jhaveri@nutanix.com
+      name: krunal-jhaveri
+    - email: manav.rajvanshi@nutanix.com
+      name: manavrajvanshi
+    - email: yashesh.mankad@nutanix.com
+      name: yash-ntnx
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: ndb-operator
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/ndb-operator-0.5.1/ndb-operator-0.5.1.tgz
+    version: 0.5.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added Clone Functionality"
         - kind: added
@@ -1343,4 +1393,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-11-08T14:50:17.894939356Z"
+generated: "2023-11-14T17:09:06.869047474Z"
