@@ -1,8 +1,8 @@
 apiVersion: v2
 type: application
-version: 6.2.1
-kubeVersion: ">= 1.17.0-0"
-appVersion: "6.2.1"
+version: 6.3.2
+kubeVersion: ">= 1.20.0-0"
+appVersion: "6.3.2"
 name: nutanix-csi-snapshot
 description: Snapshot components required for CSI snapshotting and not specific to any CSI driver
 home: https://github.com/nutanix/helm
@@ -20,8 +20,7 @@ annotations:
   artifacthub.io/displayName: "Nutanix CSI Snapshot"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Update Snapshot Controller version
-    - Change Snapshot Controller to HA deployement
+    - Update Snapshot Controller to v6.3.2
   artifacthub.io/links: |
     - name: Kubernetes CSI Developer Documentation
       url: https://kubernetes-csi.github.io/docs/
