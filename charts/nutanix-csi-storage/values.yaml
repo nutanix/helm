@@ -38,10 +38,19 @@ imagePullPolicy: IfNotPresent
 # Storage Class settings
 #
 # choose for which mode (Volume, File, Dynamic File) storageclass need to be created
+# If you have an existing VolumeSnapshot which was created using Nutanix CSI Driver < 3.0.0, 
+# you need a storageclass compatible with CSI Driver < 3.0.0 to restore a PV from that volume snapshot.
+# Please set volumeClass to true for that.
 volumeClass: true
 volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
 # volumeClassDescription: ""
+
+# If you want to create a new storage class, set this to true
+newVolumeClass: true
+newVolumeClassName: "nutanix-volume-v3"
+newVolumeClassRetention: "Delete"
+# newVolumeClassDescription: ""
 
 fileClass: false
 fileClassName: "nutanix-file"
@@ -55,7 +64,7 @@ dynamicFileClassRetention: "Delete"
 # Default Storage Class settings
 #
 # Decide wich storageclass will be the default
-# value are: node, volume, file, dynfile
+# values are: node, volume, volume-v3, file, dynfile
 defaultStorageClass: none
 
 # VolumeSnapshotClass settings
@@ -87,7 +96,7 @@ pcSecretName: ntnx-pc-secret
 # If set to true in older version and you are upgrading to CSI 3.0,
 # ensure you retain values of following variables
 # so that the ntnx-secret is not deleted or modified.
-createSecret: false
+createSecret: true
 prismEndPoint: 00.00.000.000
 username: username
 password: password
