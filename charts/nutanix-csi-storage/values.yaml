@@ -34,6 +34,7 @@ csiCategoryConfigmapNamespace: ntnx-system
 nodeSelector: {}
 tolerations: []
 imagePullPolicy: IfNotPresent
+maxVolumesPerNode: 64
 
 # Storage Class settings
 #

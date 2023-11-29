@@ -64,6 +64,7 @@ spec:
             - "--nodeid=$(NODE_ID)"
             - "--drivername={{ include "nutanix-csi-storage.drivername" . }}"
             - "--use-pc=true"
+            - "--max-volumes-per-node={{ .Values.maxVolumesPerNode }}"
             # - --volume-capacity-threshold=50.0
           env:
             - name: CSI_ENDPOINT
