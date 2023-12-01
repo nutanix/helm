@@ -449,6 +449,42 @@ entries:
   nutanix-csi-snapshot:
   - annotations:
       artifacthub.io/changes: |
+        - Update Snapshot Controller to v6.3.2
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix CSI Snapshot
+      artifacthub.io/links: |
+        - name: Kubernetes CSI Developer Documentation
+          url: https://kubernetes-csi.github.io/docs/
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/recommendations: |
+        - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-storage
+    apiVersion: v2
+    appVersion: 6.3.2
+    created: "2023-12-01T05:04:02.930594205Z"
+    description: Snapshot components required for CSI snapshotting and not specific
+      to any CSI driver
+    digest: ce3c838be7e01d155b9cda888a4a153a8da0573d015a49eb74bff646cd551097
+    home: https://github.com/nutanix/helm
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Snapshot
+    - SnapshotClass
+    - CSI
+    kubeVersion: '>= 1.20.0-0'
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-csi-snapshot
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-csi-snapshot-6.3.2/nutanix-csi-snapshot-6.3.2.tgz
+    version: 6.3.2
+  - annotations:
+      artifacthub.io/changes: |
         - Update Snapshot Controller version
         - Change Snapshot Controller to HA deployement
       artifacthub.io/containsSecurityUpdates: "true"
@@ -627,6 +663,45 @@ entries:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-snapshot-1.0.0/nutanix-csi-snapshot-1.0.0.tgz
     version: 1.0.0
   nutanix-csi-storage:
+  - annotations:
+      artifacthub.io/changes: |
+        - Update Nutanix CSI driver to v2.6.6
+        - Update CSI Sidecar version
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix CSI Storage
+      artifacthub.io/links: |
+        - name: Nutanix CSI Driver documentation
+          url: https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_6:CSI-Volume-Driver-v2_6
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+      artifacthub.io/recommendations: |
+        - url: https://artifacthub.io/packages/helm/nutanix/nutanix-csi-snapshot
+    apiVersion: v1
+    appVersion: 2.6.6
+    created: "2023-12-01T05:04:03.073551919Z"
+    description: Nutanix Container Storage Interface (CSI) Driver
+    digest: a32b66af25aa7fdddf84b89d25f769b9bc55f4d6e75a0de8c98210dbfef43bc6
+    home: https://github.com/nutanix/helm
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Storage
+    - Volumes
+    - Files
+    - StorageClass
+    - RedHat
+    - CentOS
+    - Ubuntu
+    - CSI
+    kubeVersion: '>= 1.20.0-0'
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-csi-storage
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-2.6.6/nutanix-csi-storage-2.6.6.tgz
+    version: 2.6.6
   - annotations:
       artifacthub.io/changes: |
         - Update Nutanix CSI driver to v2.6.4
@@ -1393,4 +1468,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2023-11-14T17:09:06.869047474Z"
+generated: "2023-12-01T05:04:03.073918974Z"
