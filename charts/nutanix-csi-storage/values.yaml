@@ -41,6 +41,7 @@ imagePullPolicy: IfNotPresent
 volumeClass: true
 volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
+volumeClassHypervisorAttached: "ENABLED"
 # volumeClassDescription: ""
 # volumeClassAnnotations: {}
 # volumeClassLabels: {}
@@ -84,9 +85,9 @@ volumeSnapshotClassRetention: "Retain"
 # required for the csi driver else helm install/upgrade will fail. You can
 # create PrismCentral secret in the k8s cluster before helm install/upgrade.
 createPrismCentralSecret: true
-prismCentralEndPoint: 00.00.00.00
-pcUsername: username
-pcPassword: password
+# prismCentralEndPoint: 00.00.00.00
+# pcUsername: username
+# pcPassword: password
 pcSecretName: ntnx-pc-secret
 
 # Nutanix Prism Element Secret which is used by dynamicFileClass.
@@ -96,9 +97,9 @@ pcSecretName: ntnx-pc-secret
 # ensure you retain values of following variables
 # so that the ntnx-secret is not deleted or modified.
 createSecret: false
-prismEndPoint: 00.00.000.000
-username: username
-password: password
+# prismEndPoint: 00.00.000.000
+# username: username
+# password: password
 peSecretName: ntnx-secret
 
 # Volumes Settings

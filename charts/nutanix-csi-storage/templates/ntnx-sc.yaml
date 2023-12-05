@@ -24,6 +24,9 @@ parameters:
   csi.storage.k8s.io/fstype: {{ .Values.fsType }}
   isSegmentedIscsiNetwork: {{ quote .Values.networkSegmentation }}
   description: {{ quote (.Values.volumeClassDescription | default .Values.volumeClassName) }}
+{{- if eq .Values.volumeClassHypervisorAttached "ENABLED" }}
+  hypervisorAttached: "ENABLED"
+{{- end }}
 {{- if eq .Values.lvmVolume true }}
   isLVMVolume: "true"
   numLVMDisks: {{ quote .Values.lvmDisks }}
