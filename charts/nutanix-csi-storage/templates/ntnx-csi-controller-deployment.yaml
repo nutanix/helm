@@ -2,6 +2,10 @@
 #
 # example usage: kubectl create -f <this_file>
 
+{{- if ne .Release.Namespace "ntnx-system" }}
+{{- fail (printf "Invalid namespace. Expected: %s, Actual: %s" "ntnx-system" .Release.Namespace) }}
+{{- end }}
+
 kind: Deployment
 apiVersion: apps/v1
 metadata:
