@@ -41,6 +41,7 @@ imagePullPolicy: IfNotPresent
 volumeClass: true
 volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
+volumeClassHypervisorAttached: "ENABLED"
 # volumeClassDescription: ""
 # volumeClassAnnotations: {}
 # volumeClassLabels: {}
@@ -84,9 +85,9 @@ volumeSnapshotClassRetention: "Retain"
 # required for the csi driver else helm install/upgrade will fail. You can
 # create PrismCentral secret in the k8s cluster before helm install/upgrade.
 createPrismCentralSecret: true
-prismCentralEndPoint: 00.00.00.00
-pcUsername: username
-pcPassword: password
+# prismCentralEndPoint: 00.00.00.00
+# pcUsername: username
+# pcPassword: password
 pcSecretName: ntnx-pc-secret
 
 # Nutanix Prism Element Secret which is used by dynamicFileClass.
@@ -96,9 +97,9 @@ pcSecretName: ntnx-pc-secret
 # ensure you retain values of following variables
 # so that the ntnx-secret is not deleted or modified.
 createSecret: false
-prismEndPoint: 00.00.000.000
-username: username
-password: password
+# prismEndPoint: 00.00.000.000
+# username: username
+# password: password
 peSecretName: ntnx-secret
 
 # Volumes Settings
@@ -180,7 +181,7 @@ sidecars:
     image: gcr.io/k8s-staging-sig-storage/csi-external-health-monitor-controller:v0.9.0
 
 # PC versions on which Nutanix CSI Driver is supported currently. PLEASE DO NOT CHANGE.
-supportedPCVersions: "fraser-6.6-stable-pc-1,fraser-6.6-stable-pc-1.1,fraser-2023.3-stable-pc-0,fraser-2023.4-stable-pc-0"
+supportedPCVersions: "fraser-2023.3-stable-pc-0,fraser-2023.4-stable-pc-0"
 
 # kubernetesClusterDeploymentType : Takes values in ["non-bare-metal", "bare-metal"] depending on the type of deployment
 kubernetesClusterDeploymentType: "non-bare-metal"
