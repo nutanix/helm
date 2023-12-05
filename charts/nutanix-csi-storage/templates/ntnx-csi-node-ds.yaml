@@ -14,9 +14,11 @@ spec:
   updateStrategy:
     type: "RollingUpdate"
     rollingUpdate:
-      maxUnavailable: 10%
+      maxUnavailable: "10%"
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: nutanix-csi-node
       labels:
         app: nutanix-csi-node
     spec:
@@ -58,6 +60,8 @@ spec:
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(NODE_ID)"
             - "--drivername={{ include "nutanix-csi-storage.drivername" . }}"
+            - "--use-pc=true"
+            # - --volume-capacity-threshold=50.0
           env:
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
@@ -69,11 +73,23 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+            - name: CSI_SECRET_DIR
+              value: {{ .Values.csiSecretDir }}
+            - name: CSI_CATEGORY_CONFIGMAP_NAME
+              value: {{ .Values.csiCategoryConfigmapName }}
+            - name: CSI_CATEGORY_CONFIGMAP_NAMESPACE
+              value: {{ .Values.csiCategoryConfigmapNamespace }}
           resources:
+            limits:
+              cpu: {{ .Values.node.cpu }}
+              memory: {{ .Values.node.memory }}
             requests:
-              cpu: 100m
-              memory: 200Mi
+              cpu: {{ .Values.node.cpu }}
+              memory: {{ .Values.node.memory }}
           volumeMounts:
+            - mountPath: {{ .Values.csiSecretDir }}
+              name: pc-secret
+              readOnly: true
             - name: plugin-dir
               mountPath: /csi
             - name: pods-mount-dir
@@ -97,10 +113,10 @@ spec:
             httpGet:
               path: /healthz
               port: http-endpoint
-            initialDelaySeconds: 10
-            timeoutSeconds: 3
-            periodSeconds: 2
-            failureThreshold: 3
+            initialDelaySeconds: {{ .Values.liveness.node.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.liveness.node.timeoutSeconds }}
+            periodSeconds: {{ .Values.liveness.node.periodSeconds }}
+            failureThreshold: {{ .Values.liveness.node.failureThreshold }}
         - name: liveness-probe
           resources:
             requests:
@@ -151,3 +167,6 @@ spec:
           hostPath:
             path: /
             type: Directory
+        - name: pc-secret
+          secret:
+            secretName: {{ .Values.pcSecretName }}

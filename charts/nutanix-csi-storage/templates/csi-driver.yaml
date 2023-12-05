@@ -3,5 +3,5 @@ kind: CSIDriver
 metadata:
   name: {{ include "nutanix-csi-storage.drivername" . }}
 spec:
-  attachRequired: false
+  attachRequired: true
   podInfoOnMount: true
