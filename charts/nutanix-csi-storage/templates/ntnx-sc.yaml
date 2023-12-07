@@ -50,7 +50,7 @@ driver: {{ include "nutanix-csi-storage.drivername" . }}
 parameters:
   storageType: NutanixVolumes
 deletionPolicy: {{ .Values.volumeSnapshotClassRetention}}
-{{- end }}
+{{ end }}
 
 {{- if eq .Values.fileClass true }}
 
@@ -79,7 +79,7 @@ parameters:
   nfsPath: {{ .Values.filePath }}
 allowVolumeExpansion: true
 reclaimPolicy: {{ .Values.fileClassRetention }}
-{{- end }}
+{{ end }}
 
 {{- if eq .Values.dynamicFileClass true }}
 

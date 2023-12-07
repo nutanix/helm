@@ -132,6 +132,12 @@ networkSegmentation: false
 # Values are: none, root-squash, all-squash. Default is root-squash
 dynamicFileSquashType: root-squash
 
+## Files key to use Snapshot feature
+filesKey:
+  # endpoint: FileServer FQDN or FileServer IP
+  # username: REST API Username
+  # password: REST API Password
+
 # Volume metrics and CSI operations metrics configuration
 #
 

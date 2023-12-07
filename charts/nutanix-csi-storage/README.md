@@ -150,6 +150,9 @@ The following table lists the configurable parameters of the Nutanix-CSI chart a
 | `filePath`                       | Path of the NFS share                                                                       |                          |
 | `fileServerName`                 | Name of the Nutanix File Server (As seen in the Prism Interface)                            |                          |
 | `dynamicFileSquashType`          | Squash-type for dynamic files (none, root-squash, all-squash)                               | `root-squash`            |
+| `filesKey.endpoint`              | FileServer FQDN or FileServer IP (used for snapshot feature)                                |                          |
+| `filesKey.username`              | FileServer REST API Username (used for snapshot feature)                                    |                          |
+| `filesKey.password`              | FileServer REST API Password (used for snapshot feature)                                    |                          |
 | `kubeletDir`                     | allows overriding the host location of kubelet's internal state                             | `/var/lib/kubelet`       |
 | `nodeSelector`                   | Add nodeSelector to all pods                                                                | `{}`                     |
 | `tolerations`                    | Add tolerations to all pods                                                                 | `[]`                     |
