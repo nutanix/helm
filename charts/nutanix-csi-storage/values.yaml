@@ -19,9 +19,17 @@ openshift:
   workerIscsiConfig: false
 
 # kubeletDir allows overriding the host location of kubelet's internal state.
+# for NKE cluster set it to "/var/nutanix/var/lib/kubelet"
 kubeletDir: "/var/lib/kubelet"
 
 # Global Settings for all pods
+
+# csiSecretDir is the directory where PC (Prism Central) secret is mounted.
+csiSecretDir: "/var/run/ntnx-secret-dir"
+
+# category configmap name and namespace
+csiCategoryConfigmapName: ntnx-cluster-configmap
+csiCategoryConfigmapNamespace: ntnx-system
 
 nodeSelector: {}
 tolerations: []
@@ -33,13 +41,11 @@ imagePullPolicy: IfNotPresent
 volumeClass: false
 volumeClassName: "nutanix-volume"
 volumeClassRetention: "Delete"
+# Allows disks to be attached directly to the host without using iSCSI
+volumeClassHypervisorAttached: "ENABLED"
 # volumeClassDescription: ""
 # volumeClassAnnotations: {}
 # volumeClassLabels: {}
-
-volumeSnapshotClassName: "nutanix-snapshot-class"
-# volumeSnapshotClassAnnotations: {}
-# volumeSnapshotClassLabels: {}
 
 fileClass: false
 fileClassName: "nutanix-file"
@@ -60,38 +66,47 @@ dynamicFileClassRetention: "Delete"
 # value are: none, volume, file, dynfile
 defaultStorageClass: none
 
-# Nutanix Prism Elements settings
+# VolumeSnapshotClass settings
+#
+# If createVolumeSnapshotClass is set to true, volumesnapshotclass will be created as part of the deployment.
+# volumeSnapshotClassRetention sets retention policy
+createVolumeSnapshotClass: true
+volumeSnapshotClassName: "nutanix-snapshot-class"
+# volumeSnapshotClassAnnotations: {}
+# volumeSnapshotClassLabels: {}
+volumeSnapshotClassRetention: "Retain"
+
+# Nutanix Prism Central settings
 #
 # Allow dynamic creation of Volumes and Fileshare
 # needed if volumeClass or dynamicFileClass is set to true
 
-## fully qualified domain name (FQDN) or the cluster virtual IP address (if one is not configured, use the virtual IP address of any Controller VM in the cluster).
-# prismEndPoint:
-prismPort: 9440
+# Nutanix Prism Central Existing Secret
+# if set to false a new secret will not be created. PrismCentral secret is
+# required for the csi driver else helm install/upgrade will fail. You can
+# create PrismCentral secret in the k8s cluster before helm install/upgrade.
+createPrismCentralSecret: true
+# prismCentralEndPoint: 00.00.00.00
+# pcUsername: username
+# pcPassword: password
+pcSecretName: ntnx-pc-secret
 
-## username of the Prism Element (PE) cluster admin
-# username:
-
-## password for the PE cluster admin.
-# password:
-
-## secret name that stores Nutanix cluster credentials
-secretName: ntnx-secret
-
-## Nutanix Prism Elements Existing Secret
-#
-
+# Nutanix Prism Element Secret which is used by dynamicFileClass.
+# The user needs to create this secret.
 # if set to false a new secret will not be created
-createSecret: true
+# If set to true in older version and you are upgrading to CSI 3.0,
+# ensure you retain values of following variables
+# so that the ntnx-secret is not deleted or modified.
+createSecret: false
+# prismEndPoint: 00.00.000.000
+# username: username
+# password: password
+peSecretName: ntnx-secret
 
-## Volumes Settings
+# Volumes Settings
 #
-
-## name of the Nutanix storage container
-# storageContainer:
-
-## Filesystem used in volume PV
-fsType: xfs
+# storageContainer: add-container-name
+fsType: ext4
 
 lvmVolume: false
 lvmDisks: 4
@@ -117,6 +132,12 @@ networkSegmentation: false
 # Values are: none, root-squash, all-squash. Default is root-squash
 dynamicFileSquashType: root-squash
 
+## Files key to use Snapshot feature
+filesKey:
+  # endpoint: FileServer FQDN or FileServer IP
+  # username: REST API Username
+  # password: REST API Password
+
 # Volume metrics and CSI operations metrics configuration
 #
 
@@ -132,30 +153,59 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v2.6.6
+  image: quay.io/karbon/ntnx-csi:v3.0.0-beta.1
   nodeSelector: {}
   tolerations: []
+  cpu: 200m
+  memory: 200Mi
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.6.6
-  nodeSelector: {}
+  image: quay.io/karbon/ntnx-csi:v3.0.0-beta.1
+  nodeSelector:
+    kubernetes.io/os: linux
   tolerations: []
+  cpu: 200m
+  memory: 200Mi
 
 sidecars:
   registrar:
-    image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.1
+    image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.2
   provisioner:
     image: registry.k8s.io/sig-storage/csi-provisioner:v3.6.2
     imageLegacy: registry.k8s.io/sig-storage/csi-provisioner:v2.2.2
+  attacher:
+    image: registry.k8s.io/sig-storage/csi-attacher:v4.4.2
   snapshotter:
     image: registry.k8s.io/sig-storage/csi-snapshotter:v6.3.2
     imageBeta: registry.k8s.io/sig-storage/csi-snapshotter:v3.0.3
+    # set it to true, if external-snapshotter sidecar should be deployed along with controller.
+    deploy: true
   resizer:
     image: registry.k8s.io/sig-storage/csi-resizer:v1.9.2
   livenessprobe:
     image: registry.k8s.io/sig-storage/livenessprobe:v2.11.0
+  healthmonitor:
+    image: registry.k8s.io/sig-storage/csi-external-health-monitor-controller:v0.10.0
+
+# PC versions on which Nutanix CSI Driver is supported currently. PLEASE DO NOT CHANGE.
+supportedPCVersions: "fraser-2023.3-stable-pc-0,fraser-2023.3-stable-pc-0.1,fraser-2023.4-stable-pc-0"
+
+# kubernetesClusterDeploymentType : Takes values in ["non-bare-metal", "bare-metal"] depending on the type of deployment
+kubernetesClusterDeploymentType: "non-bare-metal"
+
+# liveness probe configuration
+liveness:
+  controller:
+    initialDelaySeconds: 60
+    timeoutSeconds: 3
+    periodSeconds: 2
+    failureThreshold: 3
+  node:
+    initialDelaySeconds: 60
+    timeoutSeconds: 3
+    periodSeconds: 2
+    failureThreshold: 3
 
 # Used for deployment test in kind cluster
 #
-
 kindtest: false

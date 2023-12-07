@@ -25,7 +25,7 @@ https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_
 
 ## Features list
 
-- Nutanix CSI Driver v2.6.6
+- Nutanix CSI Driver v3.0.0
 - Nutanix Volumes support
 - Nutanix Files support
 - Volume clone
@@ -109,46 +109,61 @@ helm delete nutanix-csi -n <namespace of your choice>
 
 The following table lists the configurable parameters of the Nutanix-CSI chart and their default values.
 
-| Parameter                     | Description                                                                                 | Default                |
-|-------------------------------|---------------------------------------------------------------------------------------------|------------------------|
-| `legacy`                      | Use old reverse notation for CSI driver name                                                | `false`                |
-| `volumeClass`                 | Activate Nutanix Volumes Storage Class                                                      | `false`                |
-| `volumeClassName`             | Name of the Nutanix Volumes Storage Class                                                   | `nutanix-volume`       |
-| `volumeClassDescription`      | Description prefix for each created VG                                                      | `volumeClassName`      |
-| `volumeClassRetention`        | Retention policy for the Volumes Storage Class (Delete, Retain)                             | `Delete`               |
-| `fileClass`                   | Activate Nutanix Files Storage Class                                                        | `false`                |
-| `fileClassName`               | Name of the Nutanix Files Storage Class                                                     | `nutanix-file`         |
-| `fileClassRetention`          | Retention policy for the Files Storage Class (Delete, Retain)                               | `Delete`               |
-| `dynamicFileSquashType`       | Squash type for Nutanix Dynamic File Storage (none, root-squash, all-squash)                | `root-squash`          |
-| `dynamicFileClass`            | Activate Nutanix Dynamic Files Storage Class                                                | `false`                |
-| `dynamicFileClassName`        | Name of the Nutanix Dynamic Files Storage Class                                             | `nutanix-dynamicfile`  |
-| `dynamicFileClassDescription` | Description prefix for each created Fileshare                                               | `dynamicFileClassName` |
-| `dynamicFileClassRetention`   | Retention policy for the Dynamic Files Storage Class (Delete, Retain)                       | `Delete`               |
-| `defaultStorageClass`         | Choose your default Storage Class (none, volume, file, dynfile)                             | `none`                 |
-| `prismEndPoint`               | Prism Element (PE) cluster Virtual IP Address or fully qualified domain name (FQDN)         |                        |
-| `username`                    | Username of a Prism Element (PE) cluster admin (if created)                                 |                        |
-| `password`                    | Password for the Prism Element (PE) cluster admin (if created)                              |                        |
-| `secretName`                  | Secret name that stores Prism Element (PE) cluster credentials                              | `ntnx-secret`          |
-| `createSecret`                | Create secret for admin role (if false use existing)                                        | `true`                 |
-| `storageContainer`            | Name of the Nutanix storage container                                                       |                        |
-| `fsType`                      | Type of file system used inside Volume PV (ext4, xfs)                                       | `xfs`                  |
-| `networkSegmentation`         | Activate Volumes Network Segmentation support                                               | `false`                |
-| `lvmVolume`                   | Activate LVM to use multiple vdisks by Volume                                               | `false`                |
-| `lvmDisks`                    | Number of vdisks by volume if lvm enabled                                                   | `4`                    |
-| `fileHost`                    | NFS server fully qualified domain name (FQDN) or IP address                                 |                        |
-| `filePath`                    | Path of the NFS share                                                                       |                        |
-| `fileServerName`              | Name of the Nutanix File Server (As seen in the Prism Interface)                            |                        |
-| `kubeletDir`                  | allows overriding the host location of kubelet's internal state                             | `/var/lib/kubelet`     |
-| `nodeSelector`                | Add nodeSelector to all pods                                                                | `{}`                   |
-| `tolerations`                 | Add tolerations to all pods                                                                 | `[]`                   |
-| `imagePullPolicy`             | Specify imagePullPolicy for all pods                                                        | `IfNotPresent`         |
-| `controller.replicas`         | Number of Controllers replicas to deploy.                                                   | `2`                    |
-| `controller.nodeSelector`     | Add nodeSelector to provisioner pod                                                         | `{}`                   |
-| `controller.tolerations`      | Add tolerations to provisioner pod                                                          | `[]`                   |
-| `node.nodeSelector`           | Add nodeSelector to node pods                                                               | `{}`                   |
-| `node.tolerations`            | Add tolerations to node pods                                                                | `[]`                   |
-| `servicemonitor.enabled`      | Create ServiceMonitor to scrape CSI  metrics                                                | `false`                |
-| `servicemonitor.labels`       | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`  |
+| Parameter                        | Description                                                                                 | Default                  |
+|----------------------------------|---------------------------------------------------------------------------------------------|--------------------------|
+| `legacy`                         | Use old reverse notation for CSI driver name                                                | `false`                  |
+| `volumeClass`                    | Activate Nutanix Volumes Storage Class                                                      | `false`                  |
+| `volumeClassName`                | Name of the Nutanix Volumes Storage Class                                                   | `nutanix-volume`         |
+| `volumeClassDescription`         | Description prefix for each created VG                                                      | `volumeClassName`        |
+| `volumeClassRetention`           | Retention policy for the Volumes Storage Class (Delete, Retain)                             | `Delete`                 |
+| `volumeClassHypervisorAttached`  | Allows disks to be attached directly to the host without using iSCSI                        | `ENABLED`                |
+| `fileClass`                      | Activate Nutanix Files Storage Class                                                        | `false`                  |
+| `fileClassName`                  | Name of the Nutanix Files Storage Class                                                     | `nutanix-file`           |
+| `fileClassRetention`             | Retention policy for the Files Storage Class (Delete, Retain)                               | `Delete`                 |
+| `dynamicFileSquashType`          | Squash type for Nutanix Dynamic File Storage (none, root-squash, all-squash)                | `root-squash`            |
+| `dynamicFileClass`               | Activate Nutanix Dynamic Files Storage Class                                                | `false`                  |
+| `dynamicFileClassName`           | Name of the Nutanix Dynamic Files Storage Class                                             | `nutanix-dynamicfile`    |
+| `dynamicFileClassDescription`    | Description prefix for each created Fileshare                                               | `dynamicFileClassName`   |
+| `dynamicFileClassRetention`      | Retention policy for the Dynamic Files Storage Class (Delete, Retain)                       | `Delete`                 |
+| `defaultStorageClass`            | Choose your default Storage Class (none, volume, file, dynfile)                             | `none`                   |
+| `createVolumeSnapshotClass`      | Volumesnapshotclass will be created as part of the deployment                               | `true`                   |
+| `volumeSnapshotClassName`        | Name of the volumesnapshotclass                                                             | `nutanix-snapshot-class` |
+| `volumeSnapshotClassAnnotations` | Annotations to add to the volumesnapshotclass                                               | {}                       |
+| `volumeSnapshotClassLabels`      | Labels to add to the volumesnapshotclass                                                    | {}                       |
+| `volumeSnapshotClassRetention`   | Retention policy for the volumesnapshotclass (Delete, Retain)                               | `Retain`                 |
+| `createPrismCentralSecret`       | Create secret for PC account (if false use existing)                                        |                          |
+| `prismCentralEndPoint`           | Prism Central (PC) cluster Virtual IP Address or fully qualified domain name (FQDN)         |                          |
+| `pcUsername`                     | Username of a Prism Central (PC) cluster admin (if created)                                 |                          |
+| `pcPassword`                     | Password for the Prism Central (PC) cluster admin (if created)                              |                          |
+| `peSecretName`                   | Secret name that stores Prism Central (PC) cluster credentials                              |                          |
+| `createSecret`                   | Create secret for PE account (if false use existing)                                        | `false`                  |
+| `prismEndPoint`                  | Prism Element (PE) cluster Virtual IP Address or fully qualified domain name (FQDN)         |                          |
+| `username`                       | Username of a Prism Element (PE) cluster admin (if created)                                 |                          |
+| `password`                       | Password for the Prism Element (PE) cluster admin (if created)                              |                          |
+| `secretName`                     | Secret name that stores Prism Element (PE) cluster credentials                              | `ntnx-secret`            |
+| `storageContainer`               | Name of the Nutanix storage container                                                       |                          |
+| `fsType`                         | Type of file system used inside Volume PV (ext4, xfs)                                       | `xfs`                    |
+| `lvmVolume`                      | Activate LVM to use multiple vdisks by Volume                                               | `false`                  |
+| `lvmDisks`                       | Number of vdisks by volume if lvm enabled                                                   | `4`                      |
+| `networkSegmentation`            | Activate Volumes Network Segmentation support                                               | `false`                  |
+| `fileHost`                       | NFS server fully qualified domain name (FQDN) or IP address                                 |                          |
+| `filePath`                       | Path of the NFS share                                                                       |                          |
+| `fileServerName`                 | Name of the Nutanix File Server (As seen in the Prism Interface)                            |                          |
+| `dynamicFileSquashType`          | Squash-type for dynamic files (none, root-squash, all-squash)                               | `root-squash`            |
+| `filesKey.endpoint`              | FileServer FQDN or FileServer IP (used for snapshot feature)                                |                          |
+| `filesKey.username`              | FileServer REST API Username (used for snapshot feature)                                    |                          |
+| `filesKey.password`              | FileServer REST API Password (used for snapshot feature)                                    |                          |
+| `kubeletDir`                     | allows overriding the host location of kubelet's internal state                             | `/var/lib/kubelet`       |
+| `nodeSelector`                   | Add nodeSelector to all pods                                                                | `{}`                     |
+| `tolerations`                    | Add tolerations to all pods                                                                 | `[]`                     |
+| `imagePullPolicy`                | Specify imagePullPolicy for all pods                                                        | `IfNotPresent`           |
+| `controller.replicas`            | Number of Controllers replicas to deploy.                                                   | `2`                      |
+| `controller.nodeSelector`        | Add nodeSelector to provisioner pod                                                         | `{}`                     |
+| `controller.tolerations`         | Add tolerations to provisioner pod                                                          | `[]`                     |
+| `node.nodeSelector`              | Add nodeSelector to node pods                                                               | `{}`                     |
+| `node.tolerations`               | Add tolerations to node pods                                                                | `[]`                     |
+| `servicemonitor.enabled`         | Create ServiceMonitor to scrape CSI  metrics                                                | `false`                  |
+| `servicemonitor.labels`          | Labels to add to the ServiceMonitor (for match the Prometheus serviceMonitorSelector logic) | `k8s-app: csi-driver`    |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install` or provide a a file whit `-f value.yaml`.
