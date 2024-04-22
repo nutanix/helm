@@ -22,7 +22,7 @@ maintainers:
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
-    - kind: fix 
+    - kind: fix
       description: "Upgraded CONTROLLER_TOOLS_VERSION from v0.9.2 to v0.14.0"
     - kind: fix
       description: "Upgraded go version in go.mod from 1.20 to 1.21.7"
