@@ -28,7 +28,7 @@ annotations:
       description: "Upgraded go version in go.mod from 1.20 to 1.21.7"
     - kind: fix
       description: "Removed samples folder reference which was located in config/manifests/kustomization"
-    - kind: security 
+    - kind: security
       description: "Upgraded kube-rbac-proxy version from v0.15.0 to v0.16.0 and other go modules to newer versions"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
