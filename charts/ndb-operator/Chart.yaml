@@ -25,7 +25,7 @@ annotations:
     - kind: fix
       description: "Upgraded internal dependencies."
     - kind: security
-      description: "Upgraded kube-rbac-proxy from v0.15.0 to v0.17.0."
+      description: "Upgraded kube-rbac-proxy from v0.15.0 to v0.16.0."
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
