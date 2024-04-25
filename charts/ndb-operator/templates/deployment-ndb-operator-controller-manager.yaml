@@ -59,7 +59,7 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=0
-        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.15.0
+        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
@@ -83,7 +83,6 @@ spec:
         secret:
           defaultMode: 420
           secretName: webhook-server-cert
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -96,4 +95,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      terminationGracePeriodSeconds: 10
