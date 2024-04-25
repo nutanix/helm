@@ -2,7 +2,7 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.5.2
+version: 0.5.3
 appVersion: v0.5.1
 maintainers:
   - name: mazin-s
@@ -22,7 +22,7 @@ maintainers:
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
-    - kind: fix
+    - kind: fixed
       description: "Upgraded internal dependencies."
     - kind: security
       description: "Upgraded kube-rbac-proxy from v0.15.0 to v0.16.0."
