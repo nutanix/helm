@@ -12,14 +12,13 @@ keywords:
   - Cloud Controller Manager
   - Cloud
   - CCM
-version: 0.3.3
+version: 0.3.4
 appVersion: "v0.3.2"
 annotations:
   artifacthub.io/displayName: "Nutanix Cloud Provider"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Nutanix Cloud provider upgrade to v0.3.2
-    - Add Additional Trust Bundle Support
+    - Fix SWEET32 issue
   artifacthub.io/maintainers: |
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
