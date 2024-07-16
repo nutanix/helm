@@ -54,6 +54,7 @@ spec:
           args:
             - "--leader-elect=true"
             - "--cloud-config=/etc/cloud/nutanix_config.json"
+            - "--tls-cipher-suites={{ .Values.tlsCipherSuites }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
