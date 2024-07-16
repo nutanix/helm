@@ -494,6 +494,34 @@ entries:
   nutanix-cloud-provider:
   - annotations:
       artifacthub.io/changes: |
+        - Fix SWEET32 issue
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix Cloud Provider
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+    apiVersion: v2
+    appVersion: v0.3.2
+    created: "2024-07-16T07:22:58.852255286Z"
+    description: Nutanix Cloud Provider
+    digest: 40baf521409ae1b4e7a63343dfc38344957947ce23c7f6d156b45768b1df45cf
+    home: https://github.com/nutanix-cloud-native/cloud-provider-nutanix
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Cloud Controller Manager
+    - Cloud
+    - CCM
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-cloud-provider
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-cloud-provider-0.3.4/nutanix-cloud-provider-0.3.4.tgz
+    version: 0.3.4
+  - annotations:
+      artifacthub.io/changes: |
         - Nutanix Cloud provider upgrade to v0.3.2
         - Add Additional Trust Bundle Support
       artifacthub.io/containsSecurityUpdates: "true"
@@ -1572,4 +1600,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2024-04-25T19:05:18.614225748Z"
+generated: "2024-07-16T07:22:58.852359552Z"
