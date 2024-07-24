@@ -132,12 +132,12 @@ servicemonitor:
 
 controller:
   replicas: 2
-  image: quay.io/karbon/ntnx-csi:v2.6.6
+  image: quay.io/karbon/ntnx-csi:v2.6.10
   nodeSelector: {}
   tolerations: []
 
 node:
-  image: quay.io/karbon/ntnx-csi:v2.6.6
+  image: quay.io/karbon/ntnx-csi:v2.6.10
   nodeSelector: {}
   tolerations: []
 
