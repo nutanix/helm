@@ -12,13 +12,17 @@ keywords:
   - Cloud Controller Manager
   - Cloud
   - CCM
-version: 0.3.4
-appVersion: "v0.3.2"
+version: 0.4.0
+appVersion: "v0.4.0"
 annotations:
   artifacthub.io/displayName: "Nutanix Cloud Provider"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Fix SWEET32 issue
+    - Use a cached prism-go-client with session auth
+    - Do not log node exists/shutdown status at default verbosity
+    - Nutanix CCM should scope secret informers per namespace
+    - Update k8s dependencies to v0.30.2
+    - Update prism-go-client to v0.4.0
   artifacthub.io/maintainers: |
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
