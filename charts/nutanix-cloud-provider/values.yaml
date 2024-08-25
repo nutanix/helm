@@ -32,6 +32,9 @@ password: ""
 #   (prism-element-name, prism-element-uuid, prism-host-name, prism-host-uuid)
 enableCustomLabeling: false
 
+# IP addresses to ignore when discovering node addresses from Prism Central
+ignoredNodeIPs: []
+
 topologyDiscovery:
   # Define how Topology will be discovered
   # type can be Prism or Categories

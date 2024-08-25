@@ -24,6 +24,9 @@ data:
 
       },
       "enableCustomLabeling": {{ .Values.enableCustomLabeling }},
+{{- with .Values.ignoredNodeIPs }}
+      "ignoredNodeIPs": [ {{ range $idx, $ip := . }}{{ if $idx }}, {{ end }}"{{ . }}"{{ end }} ],
+{{- end }}
 
 {{- if eq .Values.topologyDiscovery.type "Categories" }}
       "topologyDiscovery": {
