@@ -494,6 +494,35 @@ entries:
   nutanix-cloud-provider:
   - annotations:
       artifacthub.io/changes: |
+        - Support ignoring node IPs in node address discovery
+        - Update to CCM v0.4.1
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix Cloud Provider
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+    apiVersion: v2
+    appVersion: v0.4.1
+    created: "2024-08-25T20:00:15.959124634Z"
+    description: Nutanix Cloud Provider
+    digest: 6d97303e426bfe122e6945661400be8710a7acfc460fece4b936b85a1c7e365d
+    home: https://github.com/nutanix-cloud-native/cloud-provider-nutanix
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Cloud Controller Manager
+    - Cloud
+    - CCM
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-cloud-provider
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-cloud-provider-0.4.1/nutanix-cloud-provider-0.4.1.tgz
+    version: 0.4.1
+  - annotations:
+      artifacthub.io/changes: |
         - Use a cached prism-go-client with session auth
         - Do not log node exists/shutdown status at default verbosity
         - Nutanix CCM should scope secret informers per namespace
@@ -1671,4 +1700,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2024-07-29T13:47:55.451196243Z"
+generated: "2024-08-25T20:00:15.959241893Z"
