@@ -494,6 +494,36 @@ entries:
   nutanix-cloud-provider:
   - annotations:
       artifacthub.io/changes: |
+        - Fix panic in getNodeAddresses when vm has no NicList
+        - Update kubernetes deps to v1.32
+        - Update to CCM v0.5.1
+      artifacthub.io/containsSecurityUpdates: "true"
+      artifacthub.io/displayName: Nutanix Cloud Provider
+      artifacthub.io/maintainers: |
+        - name: Nutanix Cloud Native Team
+          email: cloudnative@nutanix.com
+    apiVersion: v2
+    appVersion: v0.5.1
+    created: "2025-07-17T13:42:23.999169305Z"
+    description: Nutanix Cloud Provider
+    digest: 0151c4f52e0cf0faea39713292fc0fbfc0a20cabf09c2deb006e38c7aca38a2f
+    home: https://github.com/nutanix-cloud-native/cloud-provider-nutanix
+    icon: https://avatars2.githubusercontent.com/u/6165865?s=200&v=4
+    keywords:
+    - Nutanix
+    - Cloud Controller Manager
+    - Cloud
+    - CCM
+    maintainers:
+    - email: cloudnative@nutanix.com
+      name: nutanix-cloud-native-bot
+    name: nutanix-cloud-provider
+    type: application
+    urls:
+    - https://github.com/nutanix/helm/releases/download/nutanix-cloud-provider-0.5.1/nutanix-cloud-provider-0.5.1.tgz
+    version: 0.5.1
+  - annotations:
+      artifacthub.io/changes: |
         - Support ignoring ranges and CIDRs for node IPs
         - add read access to services
         - Skip updating node status address if already set
@@ -1760,4 +1790,4 @@ entries:
     urls:
     - https://github.com/nutanix/helm/releases/download/nutanix-csi-storage-0.8.1/nutanix-csi-storage-0.8.1.tgz
     version: 0.8.1
-generated: "2025-01-16T17:32:27.679995412Z"
+generated: "2025-07-17T13:42:23.999286245Z"
