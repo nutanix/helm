@@ -12,16 +12,15 @@ keywords:
   - Cloud Controller Manager
   - Cloud
   - CCM
-version: 0.5.0
-appVersion: "v0.5.0"
+version: 0.5.1
+appVersion: "v0.5.1"
 annotations:
   artifacthub.io/displayName: "Nutanix Cloud Provider"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Support ignoring ranges and CIDRs for node IPs
-    - add read access to services
-    - Skip updating node status address if already set
-    - Update to CCM v0.5.0
+    - Fix panic in getNodeAddresses when vm has no NicList
+    - Update kubernetes deps to v1.32
+    - Update to CCM v0.5.1
   artifacthub.io/maintainers: |
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
