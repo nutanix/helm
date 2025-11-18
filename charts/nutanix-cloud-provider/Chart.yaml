@@ -12,14 +12,14 @@ keywords:
   - Cloud Controller Manager
   - Cloud
   - CCM
-version: 0.5.2
-appVersion: "v0.5.2"
+version: 0.6.0
+appVersion: "v0.6.0"
 annotations:
   artifacthub.io/displayName: "Nutanix Cloud Provider"
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/changes: |
-    - Update kubernetes deps to v1.33
-    - Update to CCM v0.5.2
+    - Update kubernetes deps to v1.34
+    - Update to CCM v0.6.0
   artifacthub.io/maintainers: |
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
