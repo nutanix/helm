@@ -51,6 +51,9 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           args:
             - "--leader-elect=true"
             - "--cloud-config=/etc/cloud/nutanix_config.json"

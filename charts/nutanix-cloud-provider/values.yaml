@@ -64,6 +64,13 @@ imagePullSecrets: []
 
 podAnnotations: {}
 
+# Extra environment variables to pass to the container
+# Example:
+# extraEnv:
+#   - name: LOG_LEVEL
+#     value: "info"
+extraEnv: []
+
 resources:
   requests:
     cpu: 100m
