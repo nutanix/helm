@@ -7,33 +7,7 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - events
-  verbs:
-  - create
-  - patch
-- apiGroups:
-  - ""
-  resources:
   - endpoints
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
   - services
   verbs:
   - create
@@ -44,34 +18,24 @@ rules:
   - update
   - watch
 - apiGroups:
-  - ndb.nutanix.com
+  - ""
   resources:
-  - databases
+  - events
   verbs:
   - create
-  - delete
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
   - get
   - list
-  - patch
-  - update
   - watch
 - apiGroups:
   - ndb.nutanix.com
   resources:
-  - databases/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - ndb.nutanix.com
-  resources:
-  - databases/status
-  verbs:
-  - get
-  - patch
-  - update
-- apiGroups:
-  - ndb.nutanix.com
-  resources:
+  - databases
   - ndbservers
   verbs:
   - create
@@ -84,12 +48,14 @@ rules:
 - apiGroups:
   - ndb.nutanix.com
   resources:
+  - databases/finalizers
   - ndbservers/finalizers
   verbs:
   - update
 - apiGroups:
   - ndb.nutanix.com
   resources:
+  - databases/status
   - ndbservers/status
   verbs:
   - get

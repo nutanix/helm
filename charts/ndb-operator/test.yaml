@@ -1,0 +1,442 @@
+---
+# Source: ndb-operator/templates/serviceaccount-ndb-operator-controller-manager.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ndb-operator-service-account
+  namespace: ndb-operator-system
+---
+# Source: ndb-operator/templates/configmap-ndb-operator-manager-config.yaml
+apiVersion: v1
+data:
+  controller_manager_config.yaml: "apiVersion: controller-runtime.sigs.k8s.io/v1alpha1\nkind:
+    ControllerManagerConfig\nhealth:\n  healthProbeBindAddress: :8081\nmetrics:\n
+    \ bindAddress: 127.0.0.1:8080\nwebhook:\n  port: 9443\nleaderElection:\n  leaderElect:
+    true\n  resourceName: 81efaee7.nutanix.com\n#   leaderElectionReleaseOnCancel
+    defines if the leader should step down volume \n#   when the Manager ends. This
+    requires the binary to immediately end when the\n#   Manager is stopped, otherwise,
+    this setting is unsafe. Setting this significantly\n#   speeds up voluntary leader
+    transitions as the new leader don't have to wait\n#   LeaseDuration time first.\n#
+    \  In the default scaffold provided, the program ends immediately after \n#   the
+    manager stops, so would be fine to enable this option. However, \n#   if you are
+    doing or is intended to do any operation such as perform cleanups \n#   after
+    the manager stops then its usage might be unsafe.\n#   leaderElectionReleaseOnCancel:
+    true\n"
+kind: ConfigMap
+metadata:
+  name: ndb-operator-manager-config
+  namespace: ndb-operator-system
+---
+# Source: ndb-operator/templates/clusterrole-ndb-operator-manager-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: ndb-operator-manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ndb.nutanix.com
+  resources:
+  - databases
+  - ndbservers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ndb.nutanix.com
+  resources:
+  - databases/finalizers
+  - ndbservers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - ndb.nutanix.com
+  resources:
+  - databases/status
+  - ndbservers/status
+  verbs:
+  - get
+  - patch
+  - update
+---
+# Source: ndb-operator/templates/clusterrole-ndb-operator-metrics-reader.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ndb-operator-metrics-reader
+rules:
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+---
+# Source: ndb-operator/templates/clusterrole-ndb-operator-proxy-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ndb-operator-proxy-role
+rules:
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+---
+# Source: ndb-operator/templates/clusterrolebinding-ndb-operator-manager-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ndb-operator-manager-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ndb-operator-manager-role
+subjects:
+- kind: ServiceAccount
+  name: ndb-operator-service-account
+  namespace: ndb-operator-system
+---
+# Source: ndb-operator/templates/clusterrolebinding-ndb-operator-proxy-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ndb-operator-proxy-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ndb-operator-proxy-role
+subjects:
+- kind: ServiceAccount
+  name: ndb-operator-service-account
+  namespace: ndb-operator-system
+---
+# Source: ndb-operator/templates/role-ndb-operator-leader-election-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ndb-operator-leader-election-role
+  namespace: ndb-operator-system
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+# Source: ndb-operator/templates/rolebinding-ndb-operator-leader-election-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ndb-operator-leader-election-rolebinding
+  namespace: ndb-operator-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ndb-operator-leader-election-role
+subjects:
+- kind: ServiceAccount
+  name: ndb-operator-service-account
+  namespace: ndb-operator-system
+---
+# Source: ndb-operator/templates/service-ndb-operator-controller-manager-metrics-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: ndb-operator-controller-manager-metrics-service
+  namespace: ndb-operator-system
+spec:
+  ports:
+  - name: https
+    port: 8443
+    protocol: TCP
+    targetPort: https
+  selector:
+    control-plane: controller-manager
+---
+# Source: ndb-operator/templates/service-ndb-operator-webhook-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/created-by: ndb-operator
+    app.kubernetes.io/instance: webhook-service
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: service
+    app.kubernetes.io/part-of: ndb-operator
+  name: ndb-operator-webhook-service
+  namespace: ndb-operator-system
+spec:
+  ports:
+  - port: 443
+    protocol: TCP
+    targetPort: 9443
+  selector:
+    control-plane: controller-manager
+---
+# Source: ndb-operator/templates/deployment-ndb-operator-controller-manager.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: ndb-operator-controller-manager
+  namespace: ndb-operator-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: manager
+      labels:
+        control-plane: controller-manager
+    spec:
+      containers:
+      - args:
+          - --health-probe-bind-address=:8081
+          - --metrics-bind-address=127.0.0.1:8080
+          - --leader-elect
+        image: ghcr.io/nutanix-cloud-native/ndb-operator/controller:v0.5.2
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: manager
+        ports:
+        - containerPort: 9443
+          name: webhook-server
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+        volumeMounts:
+        - mountPath: /tmp/k8s-webhook-server/serving-certs
+          name: cert
+          readOnly: true
+      - args:
+        - --secure-listen-address=0.0.0.0:8443
+        - --upstream=http://127.0.0.1:8080/
+        - --logtostderr=true
+        - --v=0
+        image: quay.io/brancz/kube-rbac-proxy:v0.18.0
+        name: kube-rbac-proxy
+        ports:
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 5m
+              memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      securityContext:
+        runAsNonRoot: true
+      serviceAccountName: ndb-operator-service-account
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: cert
+        secret:
+          defaultMode: 420
+          secretName: webhook-server-cert
+---
+# Source: ndb-operator/templates/mutatingwebhookconfiguration-ndb-operator-mutating-webhook-configuration.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: ndb-operator-system/ndb-operator-serving-cert
+  labels:
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/created-by: ndb-operator
+    app.kubernetes.io/instance: mutating-webhook-configuration
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: mutatingwebhookconfiguration
+    app.kubernetes.io/part-of: ndb-operator
+  name: ndb-operator-mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: ndb-operator-webhook-service
+      namespace: ndb-operator-system
+      path: /mutate-ndb-nutanix-com-v1alpha1-database
+  failurePolicy: Fail
+  name: mdatabase.kb.io
+  rules:
+  - apiGroups:
+    - ndb.nutanix.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - databases
+  sideEffects: None
+---
+# Source: ndb-operator/templates/validatingwebhookconfiguration-ndb-operator-validating-webhook-configuration.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: ndb-operator-system/ndb-operator-serving-cert
+  labels:
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/created-by: ndb-operator
+    app.kubernetes.io/instance: validating-webhook-configuration
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: validatingwebhookconfiguration
+    app.kubernetes.io/part-of: ndb-operator
+  name: ndb-operator-validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: ndb-operator-webhook-service
+      namespace: ndb-operator-system
+      path: /validate-ndb-nutanix-com-v1alpha1-database
+  failurePolicy: Fail
+  name: vdatabase.kb.io
+  rules:
+  - apiGroups:
+    - ndb.nutanix.com
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - databases
+  sideEffects: None
+---
+# Source: ndb-operator/templates/certificate-ndb-operator-serving-cert.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  labels:
+    app.kubernetes.io/component: certificate
+    app.kubernetes.io/created-by: ndb-operator
+    app.kubernetes.io/instance: serving-cert
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: certificate
+    app.kubernetes.io/part-of: ndb-operator
+  name: ndb-operator-serving-cert
+  namespace: ndb-operator-system
+spec:
+  dnsNames:
+  - ndb-operator-webhook-service.ndb-operator-system.svc
+  - ndb-operator-webhook-service.ndb-operator-system.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: ndb-operator-selfsigned-issuer
+  secretName: webhook-server-cert
+---
+# Source: ndb-operator/templates/issuer-ndb-operator-selfsigned-issuer.yaml
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  labels:
+    app.kubernetes.io/component: certificate
+    app.kubernetes.io/created-by: ndb-operator
+    app.kubernetes.io/instance: selfsigned-issuer
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: issuer
+    app.kubernetes.io/part-of: ndb-operator
+  name: ndb-operator-selfsigned-issuer
+  namespace: ndb-operator-system
+spec:
+  selfSigned: {}
