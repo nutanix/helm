@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: cert-manager-test/selfsigned-cert
-    controller-gen.kubebuilder.io/version: v0.9.2
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: databases.ndb.nutanix.com
 spec:
   # conversion:
@@ -43,14 +43,19 @@ spec:
         description: Database is the Schema for the databases API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -151,9 +156,9 @@ spec:
                       database instance (password and ssh key)
                     type: string
                   databaseNames:
-                    description: Name(s) of the database(s) to be provisiond inside
-                      the database instance default [ "database_one", "database_two",
-                      "database_three" ]
+                    description: |-
+                      Name(s) of the database(s) to be provisioned inside the database instance
+                      default [ "database_one", "database_two", "database_three" ]
                     items:
                       type: string
                     type: array
@@ -222,9 +227,11 @@ spec:
                       name:
                         type: string
                       quarterlySnapshotMonth:
-                        description: Start month for the quarterly snapshot Jan =>
-                          Jan, Apr, Jul, Oct. Feb => Feb, May, Aug, Nov. Mar => Mar,
-                          Jun, Sep, Dec.
+                        description: |-
+                          Start month for the quarterly snapshot
+                          Jan => Jan, Apr, Jul, Oct.
+                          Feb => Feb, May, Aug, Nov.
+                          Mar => Mar, Jun, Sep, Dec.
                         type: string
                       sla:
                         description: Name of the SLA to be used, default NONE
