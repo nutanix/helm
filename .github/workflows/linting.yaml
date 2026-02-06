@@ -1,7 +1,6 @@
 name: Linting Charts
 
-on:
-  push
+on: push
 
 jobs:
   linting:
@@ -18,13 +17,13 @@ jobs:
       - name: Run chart-testing (lint-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed)
+          changed=$(ct list-changed --target-branch master)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint
+        run: ct lint --target-branch master
 
       - name: ArtifactHUB Lint
         env:
@@ -33,4 +32,3 @@ jobs:
           curl -LO https://github.com/artifacthub/hub/releases/download/v${AH_CLI_VERSION}/ah_${AH_CLI_VERSION}_linux_amd64.tar.gz
           tar xvzf ah_${AH_CLI_VERSION}_linux_amd64.tar.gz
           ./ah lint
-
