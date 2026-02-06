@@ -17,10 +17,6 @@ spec:
       labels:
         control-plane: controller-manager
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end}}
       containers:
       - args:
           - --health-probe-bind-address=:8081
@@ -44,8 +40,8 @@ spec:
             port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
-        {{- with .Values.resources.controller }}
         resources:
+        {{- with .Values.resources.controller }}
             {{- toYaml . | nindent 12 }}
         {{- end }}
         securityContext:
@@ -59,14 +55,14 @@ spec:
         - --upstream=http://127.0.0.1:8080/
         - --logtostderr=true
         - --v=0
-        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
+        image: quay.io/brancz/kube-rbac-proxy:v0.18.0
         name: kube-rbac-proxy
         ports:
         - containerPort: 8443
           name: https
           protocol: TCP
-        {{- with .Values.resources.kubeProxy }}
         resources:
+        {{- with .Values.resources.kubeProxy }}
           {{- toYaml . | nindent 12 }}
         {{- end }}
         securityContext:
@@ -83,15 +79,3 @@ spec:
         secret:
           defaultMode: 420
           secretName: webhook-server-cert
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
