@@ -2,8 +2,8 @@ apiVersion: v2
 name: ndb-operator
 description: A Helm chart for Nutanix Database Kubernetes Operator
 type: application
-version: 0.5.3
-appVersion: v0.5.1
+version: 0.5.4
+appVersion: v0.5.2
 maintainers:
   - name: mazin-s
     email: mazin.shaaeldin@nutanix.com
@@ -17,15 +17,21 @@ maintainers:
     email: manav.rajvanshi@nutanix.com
   - name: yash-ntnx
     email: yashesh.mankad@nutanix.com
+  - name: shivaprasadmb
+    email: shivaprasad.mb@nutanix.com
+  - name: sasikanthmasini
+    email: sasikanth.masini@nutanix.com
   - name: nutanix-cloud-native-bot
     email: cloudnative@nutanix.com
 icon: https://www.nutanix.com/content/dam/nutanix/global/icons/products/svg/Nutanix-Era-40.svg
 annotations:
   artifacthub.io/changes: |
+    - kind: changed
+      description: "Upgraded controller to v0.5.2 with vulnerability fixes and latest Operator SDK"
     - kind: fixed
-      description: "Upgraded internal dependencies."
+      description: "Upgraded internal dependencies and controller image to v0.5.2."
     - kind: security
-      description: "Upgraded kube-rbac-proxy from v0.15.0 to v0.16.0."
+      description: "Upgraded kube-rbac-proxy from v0.16.0 to v0.18.0."
   artifacthub.io/containsSecurityUpdates: "true"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/maintainers: |
@@ -41,6 +47,10 @@ annotations:
       email: manav.rajvanshi@nutanix.com
     - name: Yashesh Mankad
       email: yashesh.mankad@nutanix.com
+    - name: shivaprasadmb
+      email: shivaprasad.mb@nutanix.com
+    - name: sasikanthmasini
+      email: sasikanth.masini@nutanix.com
     - name: Nutanix Cloud Native Team
       email: cloudnative@nutanix.com
   artifacthub.io/operator: "true"
