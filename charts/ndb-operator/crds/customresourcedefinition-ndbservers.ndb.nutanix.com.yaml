@@ -14,7 +14,7 @@ spec:
     - ndb
     - ndbs
     singular: ndbserver
-  scope: Namespaced
+  scope: Cluster
   versions:
   - additionalPrinterColumns:
     - jsonPath: .status.status
@@ -26,7 +26,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: NDBServer is the Schema for the ndbservers API
+        description: NDBServer is the Schema for the ndbservers API (cluster-scoped).
         properties:
           apiVersion:
             description: |-
@@ -48,8 +48,19 @@ spec:
           spec:
             description: NDBServerSpec defines the desired state of NDBServer
             properties:
-              credentialSecret:
-                type: string
+              credentialSecretRef:
+                description: |-
+                  Reference to the secret holding NDB API credentials. The secret can live in a restricted namespace
+                  so that developers with access to NDBServer do not need access to the secret.
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
               server:
                 type: string
               skipCertificateVerification:
@@ -57,7 +68,7 @@ spec:
                 description: Skip server's certificate and hostname verification
                 type: boolean
             required:
-            - credentialSecret
+            - credentialSecretRef
             - server
             type: object
           status:
