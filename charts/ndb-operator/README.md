@@ -14,11 +14,97 @@ NDB operator supports these functionalities:
 4. [Install](https://cert-manager.io/docs/installation/#getting-started) cert-manager. Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
 
 ## Installation and Running on the cluster
-Deploy the operator on the cluster:
+
+### Method 1: Install from Helm Repository (Recommended)
+
+Add the Nutanix Helm repository:
 ```sh
 helm repo add nutanix https://nutanix.github.io/helm/
+helm repo update
+```
 
-helm install ndb-operator nutanix/ndb-operator -n ndb-operator --create-namespace
+Install the latest version:
+```sh
+helm install ndb-operator nutanix/ndb-operator \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+Install a specific version:
+```sh
+helm install ndb-operator nutanix/ndb-operator \
+  --version 0.5.4 \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+List available versions:
+```sh
+helm search repo nutanix/ndb-operator --versions
+```
+
+### Method 2: Install from OCI Registry (GHCR)
+
+Install the latest version:
+```sh
+helm install ndb-operator oci://ghcr.io/nutanix-cloud-native/chart/ndb-operator \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+Install a specific version:
+```sh
+helm install ndb-operator oci://ghcr.io/nutanix-cloud-native/chart/ndb-operator \
+  --version 0.5.4 \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+List available versions:
+```sh
+# Install oras to list OCI registry tags
+brew install oras
+
+# List all available versions
+oras repo tags ghcr.io/nutanix-cloud-native/chart/ndb-operator
+```
+
+### Verify Installation
+
+Check the installation status:
+```sh
+# Check Helm release
+helm list -n ndb-operator-system
+
+# Check pods
+kubectl get pods -n ndb-operator-system
+
+# Check CRDs
+kubectl get crds | grep ndb.nutanix.com
+```
+
+### Upgrading
+
+To upgrade to a newer version:
+
+```sh
+# Using Helm repository
+helm repo update
+helm upgrade ndb-operator nutanix/ndb-operator \
+  --namespace ndb-operator-system
+
+# Using OCI registry
+helm upgrade ndb-operator oci://ghcr.io/nutanix-cloud-native/chart/ndb-operator \
+  --version 0.5.4 \
+  --namespace ndb-operator-system
+```
+
+### Uninstalling
+
+To uninstall the operator:
+
+```sh
+helm uninstall ndb-operator --namespace ndb-operator-system
 ```
 ## Usage
 ###  Create secrets to be used by the NDBServer and Database resources using the manifest:
@@ -96,9 +182,10 @@ spec:
   isClone: false
   # Database instance specific details (that is to be provisioned)
   databaseInstance:
-    # Cluster id of the cluster where the Database has to be provisioned
+    # Cluster Name or cluster ID where the Database has to be provisioned
     # Can be fetched from the GET /clusters endpoint
-    clusterId: "Nutanix Cluster Id"
+    clusterName: "Nutanix Cluster Name"         # Recommended: Use cluster name
+    # clusterId: "Nutanix Cluster UUID"         # Alternative: Use cluster UUID
     # The database instance name on NDB
     name: "Database-Instance-Name"
     # The description of the database instance
@@ -169,9 +256,10 @@ spec:
     name: "Clone-Instance-Name"
     # The description of the clone instance
     description: Database Description
-    # Cluster id of the cluster where the Database has to be provisioned
+    # Cluster Name or Cluster id of the cluster where the Cloned Database has to be provisioned
     # Can be fetched from the GET /clusters endpoint
-    clusterId: "Nutanix Cluster Id"
+    clusterName: "Nutanix Cluster Name"         # Recommended: Use cluster name
+    # clusterId: "Nutanix Cluster UUID"         # Alternative: Use cluster UUID
     # You can specify any (or none) of these types of profiles: compute, software, network, dbParam
     # If not specified, the corresponding Out-of-Box (OOB) profile will be used wherever applicable
     # Name is case-sensitive. ID is the UUID of the profile. Profile should be in the "READY" state
@@ -198,11 +286,16 @@ spec:
     # data: password, ssh_public_key
     credentialSecret: clone-instance-secret-name
     timezone: "UTC"
-    # ID of the database to clone from, can be fetched from NDB REST API Explorer
-    sourceDatabaseId: source-database-id
-    # ID of the snapshot to clone from, can be fetched from NDB REST API Explorer
-    snapshotId: snapshot-id
-    additionalArguments:                # Optional block, can specify additional arguments that are unique to database engines.
+    
+    # Name or ID of the database to clone from, can be fetched from NDB REST API Explorer
+    sourceDatabaseName: "source-database-name"      # Recommended: Use database name
+    # sourceDatabaseId: "source-database-uuid"      # Alternative: Use database UUID
+    
+    # Name or ID of the snapshot to clone from, can be fetched from NDB REST API Explorer
+    snapshotName: "snapshot-name"                   # Recommended: Use snapshot name, or leave empty for latest
+    # snapshotId: "snapshot-uuid"                   # Alternative: Use snapshot UUID
+    
+    additionalArguments:                        # Optional block, can specify additional arguments that are unique to database engines.
       expireInDays: 3
 
 ```
