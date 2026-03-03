@@ -1,27 +1,127 @@
 # Nutanix Database Service Operator for Kubernetes
+
 The NDB operator automates and simplifies database administration, provisioning, and life-cycle management of NDB on Kubernetes.
 
 NDB operator supports these functionalities:
+
 1. Provisioning and deprovisioning a single instance postgres, mssql, sql server, and mongodb database with or without time machine.
 2. Cloning support for the above database engines
 3. Creation of a service for the applications to consume the database within Kubernetes.
+
 ---
 
 ## Pre-requisites
+
 1. [Install](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-NDB-User-Guide-v2_5:top-installation-c.html) NDB 2.5.
 2. [Install](https://helm.sh/docs/intro/install/) Helm v3.0.0.
 3. [Install](https://kubernetes.io/docs/setup/) a Kubernetes cluster.
 4. [Install](https://cert-manager.io/docs/installation/#getting-started) cert-manager. Ensure that the cert-manager resouces are up and running successfully before installing the NDB operator.
 
 ## Installation and Running on the cluster
-Deploy the operator on the cluster:
+
+### Method 1: Install from Helm Repository (Recommended)
+
+Add the Nutanix Helm repository:
+
 ```sh
 helm repo add nutanix https://nutanix.github.io/helm/
-
-helm install ndb-operator nutanix/ndb-operator -n ndb-operator --create-namespace
+helm repo update
 ```
+
+Install the latest version:
+
+```sh
+helm install ndb-operator nutanix/ndb-operator \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+Install a specific version:
+
+```sh
+helm install ndb-operator nutanix/ndb-operator \
+  --version 0.5.4 \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+List available versions:
+
+```sh
+helm search repo nutanix/ndb-operator --versions
+```
+
+### Method 2: Install from OCI Registry (GHCR)
+
+Install the latest version:
+
+```sh
+helm install ndb-operator oci://ghcr.io/nutanix-cloud-native/chart/ndb-operator \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+Install a specific version:
+
+```sh
+helm install ndb-operator oci://ghcr.io/nutanix-cloud-native/chart/ndb-operator \
+  --version 0.5.4 \
+  --namespace ndb-operator-system \
+  --create-namespace
+```
+
+List available versions:
+
+```sh
+# Install oras to list OCI registry tags
+brew install oras
+
+# List all available versions
+oras repo tags ghcr.io/nutanix-cloud-native/chart/ndb-operator
+```
+
+### Verify Installation
+
+Check the installation status:
+
+```sh
+# Check Helm release
+helm list -n ndb-operator-system
+
+# Check pods
+kubectl get pods -n ndb-operator-system
+
+# Check CRDs
+kubectl get crds | grep ndb.nutanix.com
+```
+
+### Upgrading
+
+To upgrade to a newer version:
+
+```sh
+# Using Helm repository
+helm repo update
+helm upgrade ndb-operator nutanix/ndb-operator \
+  --namespace ndb-operator-system
+
+# Using OCI registry
+helm upgrade ndb-operator oci://ghcr.io/nutanix-cloud-native/chart/ndb-operator \
+  --version 0.5.4 \
+  --namespace ndb-operator-system
+```
+
+### Uninstalling
+
+To uninstall the operator:
+
+```sh
+helm uninstall ndb-operator --namespace ndb-operator-system
+```
+
 ## Usage
-###  Create secrets to be used by the NDBServer and Database resources using the manifest:
+
+### Create secrets to be used by the NDBServer and Database resources using the manifest:
 
 ```yaml
 apiVersion: v1
@@ -54,7 +154,7 @@ Create the secrets:
 kubectl apply -f <path/to/secrets-manifest.yaml>
 ```
 
-###  Create the NDBServer resource. The manifest for NDBServer is described as follows:
+### Create the NDBServer resource. The manifest for NDBServer is described as follows:
 
 ```yaml
 apiVersion: ndb.nutanix.com/v1alpha1
@@ -69,14 +169,18 @@ metadata:
   name: ndb
 spec:
     # Name of the secret that holds the credentials for NDB: username, password and ca_certificate created earlier
-    credentialSecret: ndb-secret-name
+    credentialSecretRef:
+      name: ndb-secret-name
+      namespace: ndb-secret-namespace-name
     # NDB Server's API URL
     server: https://[NDB IP]:8443/era/v0.9
     # Set to true to skip SSL certificate validation, should be false if ca_certificate is provided in the credential secret.
     skipCertificateVerification: true
 
 ```
+
 Create the NDBServer resource using:
+
 ```sh
 kubectl apply -f <path/to/NDBServer-manifest.yaml>
 ```
@@ -84,6 +188,7 @@ kubectl apply -f <path/to/NDBServer-manifest.yaml>
 ### Create a Database Resource. A database can either be provisioned or cloned on NDB based on the inputs specified in the database manifest.
 
 #### Provisioning manifest
+
 ```yaml
 apiVersion: ndb.nutanix.com/v1alpha1
 kind: Database
@@ -96,9 +201,10 @@ spec:
   isClone: false
   # Database instance specific details (that is to be provisioned)
   databaseInstance:
-    # Cluster id of the cluster where the Database has to be provisioned
+    # Cluster Name or cluster ID where the Database has to be provisioned
     # Can be fetched from the GET /clusters endpoint
-    clusterId: "Nutanix Cluster Id"
+    clusterName: "Nutanix Cluster Name"         # Recommended: Use cluster name
+    # clusterId: "Nutanix Cluster UUID"         # Alternative: Use cluster UUID
     # The database instance name on NDB
     name: "Database-Instance-Name"
     # The description of the database instance
@@ -151,6 +257,7 @@ spec:
 ```
 
 #### Cloning manifest
+
 ```yaml
 apiVersion: ndb.nutanix.com/v1alpha1
 kind: Database
@@ -169,9 +276,10 @@ spec:
     name: "Clone-Instance-Name"
     # The description of the clone instance
     description: Database Description
-    # Cluster id of the cluster where the Database has to be provisioned
+    # Cluster Name or Cluster id of the cluster where the Cloned Database has to be provisioned
     # Can be fetched from the GET /clusters endpoint
-    clusterId: "Nutanix Cluster Id"
+    clusterName: "Nutanix Cluster Name"         # Recommended: Use cluster name
+    # clusterId: "Nutanix Cluster UUID"         # Alternative: Use cluster UUID
     # You can specify any (or none) of these types of profiles: compute, software, network, dbParam
     # If not specified, the corresponding Out-of-Box (OOB) profile will be used wherever applicable
     # Name is case-sensitive. ID is the UUID of the profile. Profile should be in the "READY" state
@@ -198,24 +306,32 @@ spec:
     # data: password, ssh_public_key
     credentialSecret: clone-instance-secret-name
     timezone: "UTC"
-    # ID of the database to clone from, can be fetched from NDB REST API Explorer
-    sourceDatabaseId: source-database-id
-    # ID of the snapshot to clone from, can be fetched from NDB REST API Explorer
-    snapshotId: snapshot-id
-    additionalArguments:                # Optional block, can specify additional arguments that are unique to database engines.
+    
+    # Name or ID of the database to clone from, can be fetched from NDB REST API Explorer
+    sourceDatabaseName: "source-database-name"      # Recommended: Use database name
+    # sourceDatabaseId: "source-database-uuid"      # Alternative: Use database UUID
+    
+    # Name or ID of the snapshot to clone from, can be fetched from NDB REST API Explorer
+    snapshotName: "snapshot-name"                   # Recommended: Use snapshot name, or leave empty for latest
+    # snapshotId: "snapshot-uuid"                   # Alternative: Use snapshot UUID
+    
+    additionalArguments:                        # Optional block, can specify additional arguments that are unique to database engines.
       expireInDays: 3
 
 ```
 
 Create the Database resource:
+
 ```sh
 kubectl apply -f <path/to/database-manifest.yaml>
 ```
 
 ### Additional Arguments for Databases
+
 Below are the various optional addtionalArguments you can specify along with examples of their corresponding values. Arguments that have defaults will be indicated.
 
 Provisioning Additional Arguments: 
+
 ```yaml
 # PostGres
 additionalArguments:
@@ -246,6 +362,7 @@ additionalArguments:
 ```
 
 Cloning Additional Arguments: 
+
 ```yaml
 MSSQL:
   windows_domain_profile_id   
@@ -285,15 +402,18 @@ MySQL:
   refreshDateTimezone  
 ```
 
-
 ### Deleting the Database resource
+
 To deregister the database and delete the VM run:
+
 ```sh
 kubectl delete -f <path/to/database-manifest.yaml>
 ```
 
 ### Deleting the NDBServer resource
+
 To deregister the database and delete the VM run:
+
 ```sh
 kubectl delete -f <path/to/NDBServer-manifest.yaml>
 ```
@@ -301,26 +421,32 @@ kubectl delete -f <path/to/NDBServer-manifest.yaml>
 ---
 
 ## Uninstalling the Chart
+
 To uninstall/delete the operator deployment/chart:
+
 ```console
 helm uninstall ndb-operator -n ndb-operator
 ```
+
 ---
+
 ## Configuration
 
 The following table lists the configurable parameters of the NDB operator chart and their default values.
-| Parameter             | Description                                                   | Default                                                |
-|-----------------------|---------------------------------------------------------------|--------------------------------------------------------|
-| `replicaCount`        | Number of replicas of the NDB Operator controller pods        | `1`                                                    |
-| `image.repository`    | Image for NDB Operator controller                             | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
-| `image.pullPolicy`    | Image pullPolicy                                              | `IfNotPresent`                                         |
-| `image.tag`           | Image tag                                                     | `""`                                                   |
-| `imagePullSecrets`    | ImagePullSecrets list                                         | `[]`                                                   |
-| `fullnameOverride`    | To override the full name of the operator chart               | `""`                                                   |
-| `resources`           | Configure resources for Cloud Provider Pod                    | `refer to values.yaml`                                 |
-| `nodeSelector`        | Configure nodeSelector for Cloud Provider Pod                 | `refer to values.yaml`                                 |
-| `tolerations`         | Configure tolerations for Cloud Provider Pod                  | `refer to values.yaml`                                 |
-| `affinity`            | Configure affinity for Cloud Provider Pod                     | `refer to values.yaml`                                 |
+
+
+| Parameter          | Description                                            | Default                                                |
+| ------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `replicaCount`     | Number of replicas of the NDB Operator controller pods | `1`                                                    |
+| `image.repository` | Image for NDB Operator controller                      | `ghcr.io/nutanix-cloud-native/ndb-operator/controller` |
+| `image.pullPolicy` | Image pullPolicy                                       | `IfNotPresent`                                         |
+| `image.tag`        | Image tag                                              | `""`                                                   |
+| `imagePullSecrets` | ImagePullSecrets list                                  | `[]`                                                   |
+| `fullnameOverride` | To override the full name of the operator chart        | `""`                                                   |
+| `resources`        | Configure resources for Cloud Provider Pod             | `refer to values.yaml`                                 |
+| `nodeSelector`     | Configure nodeSelector for Cloud Provider Pod          | `refer to values.yaml`                                 |
+| `tolerations`      | Configure tolerations for Cloud Provider Pod           | `refer to values.yaml`                                 |
+| `affinity`         | Configure affinity for Cloud Provider Pod              | `refer to values.yaml`                                 |
 
 
 ### Configuration examples:
@@ -332,9 +458,11 @@ helm install ndb-operator nutanix/ndb-operator -n ndb-operator
 ```
 
 Individual configurations can be set by using `--set key=value[,key=value]` like:
+
 ```console
 helm install ndb-operator nutanix/ndb-operator  --set replicaCount=2 
 ```
+
 In the above command `replicaCount` refers to one of the variables defined in the values.yaml file. 
 
 All the options can also be specified in a value.yaml file:
@@ -342,6 +470,7 @@ All the options can also be specified in a value.yaml file:
 ```console
 helm install ndb-operator nutanix/ndb-operator -f value.yaml
 ```
+
 ---
 
 ## How it works
@@ -354,6 +483,7 @@ which provides a reconcile function responsible for synchronizing resources unti
 A custom resource of the kind Database is created by the reconciler, followed by a Service and an Endpoint that maps to the IP address of the database instance provisioned. Application pods/deployments can use this service to interact with the databases provisioned on NDB through the native Kubernetes service. 
 
 Pods can specify an initContainer to wait for the service (and hence the database instance) to get created before they start up.
+
 ```yaml
   initContainers:
   - name: init-db
@@ -362,9 +492,11 @@ Pods can specify an initContainer to wait for the service (and hence the databas
 ```
 
 ## Contributing
+
 See the [contributing docs](https://github.com/nutanix-cloud-native/ndb-operator/blob/main/CONTRIBUTING.md).
 
 ## Support
+
 ### Community Plus
 
 This code is developed in the open with input from the community through issues and PRs. A Nutanix engineering team serves as the maintainer. Documentation is available in the project repository.
