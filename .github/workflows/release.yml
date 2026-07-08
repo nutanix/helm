@@ -4,9 +4,16 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      chart_path:
+        description: 'Path to chart directory (e.g., charts/nutanix-cloud-provider)'
+        required: true
+        type: string
 
 jobs:
-  release:
+  release-auto:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,6 +49,41 @@ jobs:
         run: |
           for pkg in .cr-release-packages/*.tgz; do
             if [ -f "$pkg" ]; then
+              helm push "$pkg" oci://ghcr.io/nutanix-cloud-native/chart
+            fi
+          done
+
+  release-manual:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install Helm
+        uses: jdx/mise-action@v3
+        with:
+          tool_versions: |
+            helm: latest
+
+      - name: Package chart
+        run: |
+          helm package ${{ inputs.chart_path }}
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push chart to GHCR
+        run: |
+          for pkg in *.tgz; do
+            if [ -f "$pkg" ]; then
+              echo "Pushing $pkg"
               helm push "$pkg" oci://ghcr.io/nutanix-cloud-native/chart
             fi
           done
