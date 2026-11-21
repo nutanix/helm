@@ -24,6 +24,7 @@ spec:
       hostNetwork: true
       containers:
         - name: driver-registrar
+          terminationMessagePolicy: {{ .Values.terminationMessagePolicy }}
           image: {{ .Values.sidecars.registrar.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
@@ -49,6 +50,7 @@ spec:
             - name: registration-dir
               mountPath: /registration
         - name: nutanix-csi-node
+          terminationMessagePolicy: {{ .Values.terminationMessagePolicy }}
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
@@ -102,6 +104,7 @@ spec:
             periodSeconds: 2
             failureThreshold: 3
         - name: liveness-probe
+          terminationMessagePolicy: {{ .Values.terminationMessagePolicy }}
           resources:
             requests:
               cpu: 5m
