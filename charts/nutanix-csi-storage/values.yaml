@@ -26,6 +26,7 @@ kubeletDir: "/var/lib/kubelet"
 nodeSelector: {}
 tolerations: []
 imagePullPolicy: IfNotPresent
+terminationMessagePolicy: FallbackToLogsOnError
 
 # Storage Class settings
 #
